@@ -1,0 +1,39 @@
+md-grid-list {
+  margin-bottom: 10%;
+}
+md-grid-tile:focus {
+  outline: none;
+}
+.thumbnail {
+  width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: 0 0;
+}
+.hover-actions {
+  z-index: 2;
+  position: absolute;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+  margin-right: -20px;
+  margin-top: -20px;
+}
+.hover-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.hover-button md-icon {
+  color: white;
+}
+
+.doc-tile:hover .hover-button {
+  visibility: visible;
+  background: rgba(0,0,0,0.54);
+}
+
+.selectionBorder {
+  outline: -webkit-focus-ring-color auto 5px;
+}
