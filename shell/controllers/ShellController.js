@@ -157,9 +157,15 @@
      * @return {type}  description
      */
     this.closeApp = function () {
+    //关闭app时候做一些清理工作，比如关闭数据库
+          console.log('closeApp');
+            app.close()
+
+      /*
       ActivityService.close().then(() => {
         app.close()
       })
+     */
     }
     /**
      * sendEvent function - description
