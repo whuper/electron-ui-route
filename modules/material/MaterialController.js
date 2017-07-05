@@ -1,7 +1,7 @@
 (function () {
   'use strict'
 
-  function WordsController ($scope, $state, $q, $mdSidenav,WordsService) {
+  function MaterialController ($scope, $state, $q, $mdSidenav) {
     /**
      *
      */
@@ -14,16 +14,16 @@
 
     this.initialize = function () {
       console.log('WordsController initialize');
-         $scope.wordResult = WordsService.getWordsList();
+         
     }
     
     this.toggleSidenav = (evt,menuId) => {
             console.log('mdSidenav',menuId);
-       $mdSidenav(menuId).toggle();
+        $mdSidenav(menuId).toggle();
     
 
         }; 
 
   }
-  module.exports = WordsController
+  module.exports = MaterialController
 })()

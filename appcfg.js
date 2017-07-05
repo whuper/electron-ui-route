@@ -2,7 +2,7 @@
   module.exports = {
     defaultModule: 'words',
     modules: {
-      todo: {
+/*      todo: {
         path: 'modules/todo',
         name: 'TodoModule',
         url: '/app/todo/view',
@@ -21,7 +21,7 @@
         sref: '.activities.view',
         tooltip: 'Access your activities',
         icon: 'import_export'
-      },
+      },*/
       words: {
         path: 'modules/words',
         name: 'WordsModule',
@@ -31,6 +31,16 @@
         sref: '.words',
         tooltip: '5500 words',
         icon: 'label_important'
+      },
+      material: {
+        path: 'modules/material',
+        name: 'MaterialModule',
+        url: '/app/material',
+        state: 'app.material',
+        label: 'Material',
+        sref: '.material',
+        tooltip: 'Material DEMO',
+        icon: 'toc'
       }
     }
   }

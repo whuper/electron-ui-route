@@ -6,6 +6,7 @@
     </div>
   </centered>
   <md-toolbar class="md-whiteframe-z3">
+
     <div ng-if="shell.platform() === 'darwin'" class="md-toolbar-tools windows-controls" flex layout-align="start start">
       <a class="md-icon-button osx-control close" md-no-ink ng-click="shell.closeApp()">
         <svg x="0px" y="0px" viewBox="0 0 6.4 6.4">
@@ -47,6 +48,9 @@
       </a>
     </div>
     <div class="md-toolbar-tools">
+      <md-button class="menu" hide-gt-sm ng-click="shell.toggleNav()" >
+        <md-icon >menu</md-icon>
+      </md-button>
       <span ui-view="header"></span>
       <span class="draggable" flex></span>
       <span ui-view="toolbar"></span>
@@ -67,7 +71,31 @@
       <span></span>
     </div>
   </md-toolbar>
+
+      <md-sidenav md-component-id="sidenav" class="md-sidenav-left">
+
+        <div class="md-toolbar-tools"><h3>menu</h3></div>
+      <md-list>
+        <!-- List item #1 -->
+        <md-list-item>
+          <md-button>
+            <md-icon >live_help</md-icon>
+            Lia Luogo
+          </md-button>
+        </md-list-item>
+        <!-- List item #2 -->
+        <md-list-item ng-repeat="i in [1,2,3,4]">
+          <md-button>
+         <md-icon >face</md-icon>
+            Lawrence Ray {{i}}
+          </md-button>
+        </md-list-item>
+      </md-list>
+    </md-sidenav>
+    
   <md-content flex layout-fill layout-margin ui-view="module"></md-content>
+
+
   <div layout="row" layout-align="end start" layout-margin>
     <div layout-fill layout-padding ui-view="status"></div>
     <span flex></span>

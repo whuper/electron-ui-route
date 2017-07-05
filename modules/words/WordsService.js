@@ -7,37 +7,33 @@
    * @return {type}                description
    */
   function WordsService() {
-      var sqlite3 = require('sqlite3').verbose();
-      var db = new sqlite3.Database('./assets/wenhaotest');
-
-    return {
-      /**
+    var fs = require('fs');
+    var SQL = require('sql.js');
+    var filebuffer = fs.readFileSync('./assets/wenhaotest.db');
+    // Load the db
+    var db = new SQL.Database(filebuffer);
+    return {      /**
        * initialize function - description
        *
        * @return {Promise}  description
        */
-      initialize: function () {      
-          console.log('db initialize');
-          return 'initialize';
-     
+      initialize: function () {
+        console.log('db initialize');
+        return 'initialize';
+
       },
-      
       /**
        * todos function - description
        *
        * @return {type}  description
        */
       getWordsList: function () {
-        var wordlist = [];
         //  db.serialize(function () {         
-          db.all("SELECT id as id, name as name ,desc as desc FROM english limit 10", function (err, row) {
-            console.log(row.id + ": " + row.name);
-            // wordlist.push(row);
-            wordlist = row;
-          });
+        var result = db.exec("SELECT id as id, wordname as name ,desc as desc FROM english limit 10");
         // });
-        db.close();
-        return wordlist
+        // db.close()        
+        console.log(result);
+        return result[0]
       },
 
       get: function (docID) {

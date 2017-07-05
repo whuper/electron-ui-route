@@ -110,9 +110,18 @@
      */
     this.initialize = function () {
       this.modules = modulesProvider.modules
-      return Promise.all([
+      console.log('this.modules',this.modules);
+      	//获取mac地址
+/*		require('getmac').getMac(function(err,macAddress){
+		    if (err) {
+				console.log(err);			
+			} else {
+         console.log('macAddress',macAddress);
+      }
+		});*/
+/*      return Promise.all([
         ActivityService.initialize()
-      ])
+      ])*/
     }
     /**
      * toggleFullscreen function - description
@@ -121,6 +130,10 @@
      */
     this.toggleFullscreen = function () {
       app.toggleFullscreen()
+    }
+    
+    this.toggleNav = function(){
+        $mdSidenav('sidenav').toggle(); 
     }
     /**
      * platform function - description

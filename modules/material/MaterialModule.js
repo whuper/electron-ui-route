@@ -6,17 +6,17 @@
    * @param  {type} config description
    * @return {type}        description
    */
-  function WordModule (config) {
+  function MaterialModule (config) {
     var moduleConfig = config
     angular.module('electron-app')
       .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
           .state(`${moduleConfig.state}`, {
-            url: '/words',
+            url: '/material',
             views: {
               'module': {
-                templateUrl: `${moduleConfig.path}/words.html`,
-                controller: 'WordsController as ctl'
+                templateUrl: `${moduleConfig.path}/material.html`,
+                controller: 'MaterialController as ctl'
               },
               'header@app': {
                 template: `${moduleConfig.label}`
@@ -24,12 +24,9 @@
             }
           })
       })
-    var WordsService = require('./WordsService')
-    var WordsController = require('./WordsController')
 
-    angular.module('electron-app').service('WordsService',WordsService)
-
-    angular.module('electron-app').controller('WordsController', ['$scope', '$state', '$q','$mdSidenav','WordsService',WordsController])
+    var MaterialController = require('./MaterialController') 
+    angular.module('electron-app').controller('MaterialController', ['$scope', '$state', '$q','$mdSidenav',MaterialController])
   }
-  module.exports = WordModule
+  module.exports = MaterialModule
 })(global.angular)
