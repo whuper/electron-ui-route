@@ -1,1 +1,3 @@
 http://google.github.io/material-design-icons/
+
+angular-material-dashboard
