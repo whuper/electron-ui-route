@@ -1,3 +1,5 @@
 http://google.github.io/material-design-icons/
 
 angular-material-dashboard
+
+https://material.angularjs.org/latest/api/service/$mdSidenav

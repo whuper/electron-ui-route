@@ -16,7 +16,7 @@
             views: {
               'module': {
                 templateUrl: `${moduleConfig.path}/material.html`,
-                controller: 'MaterialController as ctl'
+                controller: 'MaterialController as ctrl'
               },
               'header@app': {
                 template: `${moduleConfig.label}`
@@ -26,7 +26,7 @@
       })
 
     var MaterialController = require('./MaterialController') 
-    angular.module('electron-app').controller('MaterialController', ['$scope', '$state', '$q','$mdSidenav',MaterialController])
+    angular.module('electron-app').controller('MaterialController', ['$scope', '$state', '$q','$mdBottomSheet','$mdDialog', '$mdToast', MaterialController])
   }
   module.exports = MaterialModule
 })(global.angular)

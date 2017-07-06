@@ -19,8 +19,7 @@
     
     this.toggleSidenav = (evt,menuId) => {
             console.log('mdSidenav',menuId);
-       $mdSidenav(menuId).toggle();
-    
+       $mdSidenav(menuId).toggle();    
 
         }; 
 

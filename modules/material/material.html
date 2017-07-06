@@ -1,5 +1,441 @@
-<div layout="row" ng-init="ctl.initialize()">
+<div layout="column" back-layout="row" ng-init="ctrl.initialize()" ng-cloak>
 
-  
+<section layout="row" layout-align="center center">
+  <md-button class="groupX left">Apple</md-button>
+  <md-button class="groupX middle">Samsung</md-button>
+  <md-button class="groupX middle">Sony</md-button>
+  <md-button class="groupX right">B&amp;O</md-button>
+</section>
+
+
+  <h3>组件 md-button 的使用示例</h3>
+  <md-button>Click me!</md-button>
+  <md-button ng-href="javascript:void(0)">My blog</md-button>
+
+<!--button大集合-->
+
+    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+      <md-button>{{title1}}</md-button>
+      <md-button md-no-ink class="md-primary">Primary (md-noink)</md-button>
+      <md-button ng-disabled="true" class="md-primary">Disabled</md-button>
+      <md-button class="md-warn">{{title4}}</md-button>
+      <div class="label">Flat</div>
+    </section>
+
+    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+      <md-button class="md-raised">Button</md-button>
+      <md-button class="md-raised md-primary">Primary</md-button>
+      <md-button ng-disabled="true" class="md-raised md-primary">Disabled</md-button>
+      <md-button class="md-raised md-warn">Warn</md-button>
+      <div class="label">Raised</div>
+    </section>
+
+    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+        <md-button class="md-fab" aria-label="Eat cake">
+            <md-icon class="material-icons">cake</md-icon>
+               
+        </md-button>
+
+        <md-button class="md-fab md-primary" aria-label="Use Android">
+          <md-icon  class="material-icons" >android</md-icon>
+        </md-button>
+
+        <md-button class="md-fab" ng-disabled="true" aria-label="Comment">
+            <md-icon class="material-icons" >comment</md-icon>
+        </md-button>
+
+        <md-button class="md-fab md-primary md-hue-2" aria-label="Profile">
+            <md-icon class="material-icons" >people_</md-icon>
+        </md-button>
+
+        <md-button class="md-fab md-mini" aria-label="Eat cake">
+            <md-icon class="material-icons" >cake</md-icon>
+        </md-button>
+
+        <md-button class="md-fab md-mini md-primary" aria-label="Use Android">
+          <md-icon class="material-icons" style="color: greenyellow;">android</md-icon>
+        </md-button>
+      <div class="label">FAB</div>
+    </section>
+
+    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+        <md-button ng-href="{{googleUrl}}" target="_blank">Default Link</md-button>
+        <md-button class="md-primary" ng-href="{{googleUrl}}" target="_blank">Primary Link</md-button>
+
+        <md-button>Default Button</md-button>
+      <div class="label">Link vs. Button</div>
+    </section>
+
+    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+      <md-button class="md-primary md-hue-1">Primary Hue 1</md-button>
+      <md-button class="md-warn md-raised md-hue-2">Warn Hue 2</md-button>
+      <md-button class="md-accent">Accent</md-button>
+      <md-button class="md-accent md-raised md-hue-1">Accent Hue 1</md-button>
+      <div class="label">Themed</div>
+    </section>
+
+    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+      <md-button class="md-icon-button md-primary" aria-label="Settings">
+        <md-icon class="material-icons">menu</md-icon>
+      </md-button>
+      <md-button class="md-icon-button md-accent" aria-label="Favorite">
+        <md-icon class="material-icons">favorite</md-icon>
+      </md-button>
+      <md-button class="md-icon-button" aria-label="More">
+        <md-icon class="material-icons">more_vert</md-icon>
+      </md-button>
+      <md-button href="javascript:void(0)"
+                 title="Launch Google.com in new window"
+                 target="_blank"
+                 ng-disabled="true"
+                 aria-label="Google.com"
+                 class="md-icon-button launch" >
+        <md-icon class="material-icons">launch</md-icon>
+      </md-button>
+      <div class="label">Icon Button</div>
+    </section>
+    <!--button大集合结束-->
+    
+  <h3>md-input-container </h3>
+  <md-input-container>
+    <label>Username</label>
+    <input type="text" ng-model="user.name">
+  </md-input-container>
+  <md-input-container>
+    <label>Description</label>
+    <textarea ng-model="user.description"></textarea>
+  </md-input-container>
+
+
+  <h3>md-checkbox</h3>
+<div>
+ <md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'">
+  Default Border
+ </md-checkbox>
 </div>
- 
+<div>
+ <md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" class="dotted" ng-false-value="'nope'">
+    Custom Border
+ </md-checkbox>
+</div>
+
+  <h3>md-radio-group 和 md-radio-button 用来创建一组单选框</h3>
+
+  <md-radio-group ng-model="color">
+    <md-radio-button value="red">Red</md-radio-button>
+    <md-radio-button value="green">Green</md-radio-button>
+    <md-radio-button value="blue">Blue</md-radio-button>
+  </md-radio-group>
+
+
+  <h3>组件 md-switch 的使用示例</h3>
+  <md-switch ng-model="isEnabled" >Enable ?</md-switch>
+
+  <h3>组件 md-tabs 和 md-tab 的使用示例</h3>
+  <p>md-tabs 和 md-tab 用来创建标签式布局。md-tabs 作为多个 md-tab 子元素的容器。</p>
+
+<!--  <h3>md-slider 用来创建允许用户选择值的滑动条</h3>
+  <md-slider ng-model="value" min="5" max="100">
+  </md-slider>
+-->
+  <md-tabs>
+    <md-tab label="Tab 1">
+      <h1>Tab 1 content</h1>
+    </md-tab>
+
+    <md-tab label="Tab 2">
+
+      <p>Tab 2 content</p>
+    </md-tab>
+
+  </md-tabs>
+  <h3>md-list 和 md-item </h3>
+  <p>md-list 和 md-item 分别创建列表和列表中的条目，适合于展示一个列表</p>
+  <md-list>
+    <md-item>
+      <md-item-content>
+        Item 1
+      </md-item-content>
+    </md-item>
+    <md-item>
+      <md-item-content>
+        Item 2
+      </md-item-content>
+    </md-item>
+  </md-list>
+  <h3>md-grid-list 和 md-grid-tile </h3>
+  <p>md-grid-list 和 md-grid-tile 用来创建网格型的布局方式，适合于展现相同类型的对象，如图片缩略图。md-grid-list 创建的是包含多个单元格的网格，而 md-grid-tile 则表示具体的占据单元格的实际内容。每个
+    md-grid-tile 可以占据任意多个单元格s</p>
+  <md-grid-list md-cols="2" md-row-height="1:1" md-gutter="8px">
+    <md-grid-tile md-colspan="2">
+      <md-grid-tile-footer>
+        footer
+      </md-grid-tile-footer>
+      <h1>1</h1>
+    </md-grid-tile>
+    <md-grid-tile>
+      <md-grid-tile-header>
+        header
+      </md-grid-tile-header>
+      <h1>2</h1>
+    </md-grid-tile>
+    <md-grid-tile>
+      <h1>3</h1>
+    </md-grid-tile>
+  </md-grid-list>
+<!--  <h3>md-progress-circular</h3>
+  <p>组件 md-progress-circular 和 md-progress-linear 的使用示例</p>
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+  -->
+  <h3>md-tooltip 用</h3>
+  <p>md-tooltip 用来创建小提示，只需要把 md-tooltip 作为子元素添加到其所描述的元素即可。md-icon 用来创建基于字体或是 SVG 的图标</p>
+  <md-button class="fab">
+    <md-icon class="material-icon">save</md-icon>
+    <md-tooltip>Save</md-tooltip>
+  </md-button>
+
+
+  <h3>md-autocomplete 和 md-highlight-text</h3>
+  <p>md-autocomplete 和 md-highlight-text 用来创建自动完成输入框和高亮相关文本。代码清单 17 给出了两者结合起来使用的示例。md-autocomplete 的属性 md-search-text 保存用户输入的文本，md-items
+    是可供用户选择的选项，一般需要由后台服务根据 md-search-text 保存的用户输入来进行查询。属性 md-item-text 是选项条目对象中对应显示文本的属性名称。md-hightlight-text 指定需要高亮显示的文本</p>
+
+  <md-autocomplete md-selected-item="selectedColor" md-search-text="searchText" md-items="color in ctrl.filterColor(searchText)"
+    md-item-text="text" placeholder="What's your favorite color?">
+    <span md-highlight-text="searchText">{{color.text}}</span>
+  </md-autocomplete>
+
+  <br /><br /><br /><br /><br /><br />
+
+  <md-button class="md-fab md-fab-bottom-right share" ng-click="ctrl.showBottomSheet()">
+    <md-icon>share</md-icon>
+  </md-button>
+
+<h3> Bottom Sheet </h3>
+
+  <h2 class="md-title">Usage</h2>
+  <p>Bottom sheets can be displayed by clicking one of the buttons below.  Once shown, it can be
+  dismissed by either swiping down or clicking in the shaded area.</p>
+  <h2 class="md-title">Actions</h2>
+  <p>Use one of the following buttons to display a bottom sheet.</p>
+  <div class="bottom-sheet-demo inset" layout="row" layout-sm="column" layout-align="center" >
+    <md-button  class="md-primary md-raised" ng-click="ctrl.showListBottomSheet()">Show as List</md-button>
+    <md-button class="md-primary md-raised" ng-click="ctrl.showGridBottomSheet()">Show as Grid</md-button>
+  </div>
+
+  <div ng-if="alert">
+    <br/>
+    <b layout="row" layout-align="center center" class="md-padding">
+      {{alert}}
+    </b>
+  </div>
+ <!--Bottom Sheet end//-->
+
+
+<!--dialog-->
+<h3>dialog</h3>
+  <div>
+    <md-button ng-click="ctrl.showAlert()" class="md-raised md-warn">
+      Employee Alert!
+      </md-button>
+  </div>
+  <div>
+    <md-button ng-click="ctrl.showDialog($event)" class="md-raised">
+      Custom Dialog
+      </md-button>
+  </div>
+  <div>
+    <md-button ng-click="ctrl.closeAlert()" ng-disabled="!hasAlert()" class="md-raised">
+      Close Alert
+    </md-button>
+  </div>
+  <div>
+       <md-button ng-click="ctrl.showCustomGreeting()" class="md-raised md-primary">
+      Greet Employee
+      </md-button>
+
+ <!--   <md-button ng-click="ctrl.showGreeting($event)" class="md-raised md-primary">
+      Greet Employee
+      </md-button>-->
+  </div>
+
+
+<h3>Basic Usage</h3>
+<!--card start-->
+<div class="md-padding" layout-xs="column" layout="row">
+    <div flex-xs flex-gt-xs="50" layout="column">
+      <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Card with image</span>
+            <span class="md-subhead">Large</span>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div class="md-media-lg card-media"></div>
+          </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button>Action 1</md-button>
+          <md-button>Action 2</md-button>
+        </md-card-actions>
+      </md-card>
+      <md-card md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Card with image</span>
+            <span class="md-subhead">Extra Large</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="row" layout-align="space-between">
+          <div class="md-media-xl card-media"></div>
+
+          <md-card-actions layout="column">
+            <md-button class="md-icon-button" aria-label="Favorite">
+              <md-icon class="material-icon">favorite</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Settings">
+              <md-icon class="material-icon">menu</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Share">
+              <md-icon class="material-icon">share-arrow</md-icon>
+            </md-button>
+          </md-card-actions>
+        </md-card-content>
+      </md-card>
+    </div>
+    <div flex-xs flex-gt-xs="50" layout="column">
+      <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Card with image</span>
+            <span class="md-subhead">Small</span>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div class="md-media-sm card-media"></div>
+          </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button>Action 1</md-button>
+          <md-button>Action 2</md-button>
+        </md-card-actions>
+      </md-card>
+      <md-card md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Card with image</span>
+            <span class="md-subhead">Medium</span>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div class="md-media-md card-media"></div>
+          </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button>Action 1</md-button>
+          <md-button>Action 2</md-button>
+        </md-card-actions>
+      </md-card>
+      <div layout layout-padding layout-align="center end" style="height:200px">
+        <md-checkbox ng-model="showDarkTheme">Use 'Dark' Themed Cards</md-checkbox>
+      </div>
+    </div>
+    </div>
+<!--card end-->
+<h3>In Card Actions </h3>
+<!--In Card Actions start-->
+  <md-content class="md-padding" layout-xs="column" layout="row">
+    <div flex-xs flex-gt-xs="50" layout="column">
+      <md-card>
+        <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">In-card mixed actions</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="start center">
+          <md-card-icon-actions>
+            <md-button class="md-icon-button" aria-label="Favorite">
+              <md-icon class="material-icon">favorite</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Share">
+              <md-icon class="material-icon">share-arrow</md-icon>
+            </md-button>
+          </md-card-icon-actions>
+          <md-button>Action 1</md-button>
+          <md-button>Action 2</md-button>
+        </md-card-actions>
+        <md-card-content>
+          <p>
+            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+          </p>
+        </md-card-content>
+      </md-card>
+      <md-card>
+        <md-card-header>
+          <md-card-avatar>
+            <img class="md-user-avatar" src="assets/100-2.jpeg"/>
+          </md-card-avatar>
+          <md-card-header-text>
+            <span class="md-title">User</span>
+            <span class="md-subhead">subhead</span>
+          </md-card-header-text>
+        </md-card-header>
+        <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">In-card mixed actions</span>
+            <span class="md-subhead">Reversed</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="start center">
+          <md-button>Action 1</md-button>
+          <md-button>Action 2</md-button>
+          <md-card-icon-actions>
+            <md-button class="md-icon-button" aria-label="toggle">
+              <md-icon class="md-icon-button">toggle-arrow</md-icon>
+            </md-button>
+          </md-card-icon-actions>
+        </md-card-actions>
+        <md-card-content>
+          <p>
+            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+          </p>
+        </md-card-content>
+      </md-card>
+    </div>
+    <div flex-xs flex-gt-xs="50" layout="column">
+      <md-card>
+        <md-card-header>
+          <md-card-avatar>
+            <md-icon class="material-icon">menu</md-icon>
+          </md-card-avatar>
+          <md-card-header-text>
+            <span class="md-title">Title</span>
+            <span class="md-subhead">subhead</span>
+          </md-card-header-text>
+        </md-card-header>
+        <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">In-card actions</span>
+            <span class="md-subhead">Description</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="start center">
+          <md-button>Action 1</md-button>
+          <md-button>Action 2</md-button>
+        </md-card-actions>
+        <md-card-content>
+          <p>
+            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+          </p>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+<!--In Card Actions end-->
+
+
+</div>

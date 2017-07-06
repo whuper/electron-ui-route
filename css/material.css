@@ -1,0 +1,4 @@
+md-checkbox.dotted .md-icon {
+ border-width: 1px;
+ border-style: dashed;
+}

@@ -1,10 +1,21 @@
 (function (angular) {
   'use strict'
   angular.module('electron-app', ['ngMaterial', 'ngSanitize', 'ui.router', 'ngAnimate', 'angular-timeline', 'angular-centered'])
-    .config(function ($mdThemingProvider) {
+    .config(function ($mdThemingProvider,$mdIconProvider) {
+/*       $mdIconProvider
+      .icon('share-arrow', 'img/icons/share-arrow.svg', 24)
+      .icon('upload', 'img/icons/upload.svg', 24)
+      .icon('copy', 'img/icons/copy.svg', 24)
+      .icon('print', 'img/icons/print.svg', 24)
+      .icon('hangout', 'img/icons/hangout.svg', 24)
+      .icon('mail', 'img/icons/mail.svg', 24)
+      .icon('message', 'img/icons/message.svg', 24)
+      .icon('copy2', 'img/icons/copy2.svg', 24)
+      .icon('facebook', 'img/icons/facebook.svg', 24)
+      .icon('twitter', 'img/icons/twitter.svg', 24);*/
       $mdThemingProvider.theme('default')
         .primaryPalette('blue')
-        .accentPalette('grey')
+        .accentPalette('red')
     })
     .config(function ($stateProvider, $urlRouterProvider) {
       var appcfg = require('./appcfg')
@@ -20,16 +31,32 @@
           controller: 'ShellController as shell'
         })
     })
-    .run(['$rootScope', '$state', '$stateParams',
-      function ($rootScope, $state, $stateParams) {
+    .run(function ($rootScope, $state, $stateParams) {
         // It's very handy to add references to $state and $stateParams to the $rootScope
         // so that you can access them from any scope within your applications.For example,
         // <li ng-class="{ active: $state.includes('contacts.list') }"> will set the <li>
         // to active whenever 'contacts.list' or one of its decendents is active.
         $rootScope.$state = $state
         $rootScope.$stateParams = $stateParams
+
+/*         var urls = [
+            'img/icons/share-arrow.svg',
+            'img/icons/upload.svg',
+            'img/icons/copy.svg',
+            'img/icons/print.svg',
+            'img/icons/hangout.svg',
+            'img/icons/mail.svg',
+            'img/icons/message.svg',
+            'img/icons/copy2.svg',
+            'img/icons/facebook.svg',
+            'img/icons/twitter.svg'
+          ];
+
+        angular.forEach(urls, function(url) {
+            $templateRequest(url);
+          });*/
       }
-    ])
+    )
   // var PouchDBService = require('./shell/services/PouchDBService')
   // var LovefieldService = require('./shell/services/LovefieldService')
   // var RDFStoreService = require('./shell/services/RDFStoreService')
