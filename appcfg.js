@@ -41,7 +41,18 @@
         sref: '.material',
         tooltip: 'Material DEMO',
         icon: 'toc'
+      },      
+      materialDireDemo: {
+        path: 'modules/materialDireDemo',
+        name: 'MaterialDireDemoModule',
+        url: '/app/materialDireDemo',
+        state: 'app.materialDireDemo',
+        label: 'MaterialDireDemo',
+        sref: '.materialDireDemo',
+        tooltip: 'MaterialDireDemo DEMO',
+        icon: 'face'
       }
+
     }
   }
 })()

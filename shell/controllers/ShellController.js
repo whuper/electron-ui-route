@@ -109,8 +109,7 @@
      * @return {type}  description
      */
     this.initialize = function () {
-      this.modules = modulesProvider.modules
-      console.log('this.modules',this.modules);
+      this.modules = modulesProvider.modules 
       	//获取mac地址
 /*		require('getmac').getMac(function(err,macAddress){
 		    if (err) {
@@ -186,6 +185,14 @@
         $mdSidenav('sidebar').toggle()
       })
     }
+
+	this.openDevTools = function () {	
+	
+		var BrowserWindow = app.getMainWindow();
+		BrowserWindow.webContents.openDevTools()
+    }
+
+	
   }
   module.exports = ShellController
 })(global.angular)

@@ -1,0 +1,461 @@
+<div layout="column"  ng-init="ctrl.initialize()" ng-cloak>
+
+<div class="md-toolbar-tools">
+  <h3 > Autocomplete </h3>     
+   </div>
+<form ng-submit="$event.preventDefault()">
+      <p>Use <code>md-autocomplete</code> to search for matches from local or remote data sources.</p>
+      <md-autocomplete
+		md-no-cache="ctrl.noCache"
+          md-selected-item="ctrl.selectedItem"
+          md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+          md-search-text="ctrl.searchText"
+          md-selected-item-change="ctrl.selectedItemChange(item)"
+          md-items="item in ctrl.querySearch(ctrl.searchText)"
+          md-item-text="item.display"
+          md-min-length="1"
+          placeholder="What is your favorite US state?">
+        <md-item-template>
+          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+        </md-item-template>
+        <md-not-found>
+          No states matching "{{ctrl.searchText}}" were found.
+          <a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>
+        </md-not-found>
+      </md-autocomplete>
+      <br/>
+      <md-checkbox ng-model="ctrl.simulateQuery">Simulate query for results?</md-checkbox>
+
+      <p>By default, <code>md-autocomplete</code> will cache results when performing a query.  After the initial call is performed, it will use the cached results to eliminate unnecessary server requests or lookup logic. This can be disabled above.</p>
+    </form>
+
+<div class="md-toolbar-tools">
+  <h3 > Checkbox </h3>     
+   </div>
+	<div>
+    <fieldset class="standard">
+      <legend>Using &lt;ng-model&gt;</legend>
+      <div layout-wrap layout-gt-sm="row" >
+        <div flex-gt-sm="50">
+          <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
+            Checkbox 1: {{ data.cb1 }}
+          </md-checkbox>
+        </div>
+        <div flex-gt-sm="50">
+          <div>
+            <md-checkbox
+              ng-model="data.cb2"
+              aria-label="Checkbox 2"
+              ng-true-value="'yup'"
+              ng-false-value="'nope'"
+              class="md-warn md-align-top-left" flex>
+            Checkbox 2 (md-warn)  <br/>
+            <span class="ipsum">
+              Duis placerat lectus et justo mollis, nec sodales orci congue. Vestibulum semper non urna ac suscipit.
+              Vestibulum tempor, ligula id laoreet hendrerit, massa augue iaculis magna,
+              sit amet dapibus tortor ligula non nibh.
+            </span>
+            <br/>
+            {{ data.cb2 }}
+          </md-checkbox>
+          </div>
+        </div>
+        <div flex-gt-sm="50">
+          <md-checkbox ng-disabled="true" aria-label="Disabled checkbox" ng-model="data.cb3">
+            Checkbox: Disabled
+          </md-checkbox>
+        </div>
+        <div flex-gt-sm="50">
+          <md-checkbox ng-disabled="true" aria-label="Disabled checked checkbox" ng-model="data.cb4" ng-init="data.cb4=true">
+            Checkbox: Disabled, Checked
+          </md-checkbox>
+        </div>
+        <div flex-gt-sm="50">
+          <md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="data.cb5" class="md-primary">
+            Checkbox (md-primary): No Ink
+          </md-checkbox>
+        </div>
+        <div flex-gt-sm="50">
+          <md-checkbox md-indeterminate
+              aria-label="Checkbox Indeterminate" class="md-primary">
+            Checkbox: Indeterminate
+          </md-checkbox>
+        </div>
+        <div flex-gt-sm="50">
+          <md-checkbox md-indeterminate aria-label="Checkbox Disabled Indeterminate"
+              ng-disabled="true" class="md-primary">
+            Checkbox: Disabled, Indeterminate
+          </md-checkbox>
+        </div>
+      </div>
+    </fieldset>
+
+  </div>
+<!--Checkbox end-->
+
+<!--Checkbox Select all-->
+<h3>Checkbox Select all </h3>
+<div layout="row" layout-wrap>
+    <div flex="100" layout="column">
+        <fieldset class="demo-fieldset" >
+          <legend class="demo-legend">Using &lt;md-checkbox&gt; with the 'indeterminate' attribute </legend>
+          <div layout="row" layout-wrap flex>
+          <div flex-xs flex="50">
+            <md-checkbox aria-label="Select All"
+                         ng-checked="isChecked()"
+                         md-indeterminate="isIndeterminate()"
+                         ng-click="toggleAll()">
+              <span ng-if="isChecked()">Un-</span>Select All
+            </md-checkbox>
+          </div>
+            <div class="demo-select-all-checkboxes" flex="100" ng-repeat="item in items">
+              <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
+               {{ item }}
+              </md-checkbox>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+</div>
+<!--Checkbox Select all end-->
+
+<!--md-chips-->
+<h3>md-chips </h3>
+  <div class="md-padding" layout="column">
+    <h2 class="md-title">Use a custom chip template.</h2>
+
+    <form name="fruitForm">
+      <md-chips ng-model="ctrl.roFruitNames" name="fruitName" readonly="ctrl.readonly"
+                md-removable="ctrl.removable" md-max-chips="5" placeholder="Enter a fruit...">
+        <md-chip-template>
+          <strong>{{$chip}}</strong>
+          <em>(fruit)</em>
+        </md-chip-template>
+      </md-chips>
+
+      <div class="errors" ng-messages="fruitForm.fruitName.$error">
+        <div ng-message="md-max-chips">Maximum number of chips reached.</div>
+      </div>
+    </form>
+
+    <br/>
+    <h2 class="md-title">Use the default chip template.</h2>
+
+    <md-chips ng-model="ctrl.fruitNames" readonly="ctrl.readonly" md-removable="ctrl.removable"></md-chips>
+
+    <br/>
+    <h2 class="md-title">Make chips editable.</h2>
+
+    <md-chips ng-model="ctrl.editableFruitNames" readonly="ctrl.readonly" md-removable="ctrl.removable"
+              md-enable-chip-edit="true"></md-chips>
+
+    <br/>
+
+
+  </div>
+  <!--chips-->
+<h3>Datepicker </h3>
+  <div layout-padding >
+  <div layout-gt-xs="row">
+    <div flex-gt-xs>
+      <h4>Standard date-picker</h4>
+      <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date"></md-datepicker>
+    </div>
+
+    <div flex-gt-xs>
+      <h4>Disabled date-picker</h4>
+      <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date" disabled></md-datepicker>
+    </div>
+  </div>
+
+  <div layout-gt-xs="row">
+    <div flex-gt-xs>
+      <h4>Opening the calendar when the input is focused</h4>
+      <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+    </div>
+
+    <div flex-gt-xs>
+      <h4>Date-picker that goes straight to the year view</h4>
+      <md-datepicker ng-model="ctrl.myDate" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
+    </div>
+  </div>
+
+  <div layout-gt-xs="row">
+    <div flex-gt-xs>
+      <h4>Custom calendar trigger</h4>
+      <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date" md-is-open="ctrl.isOpen"></md-datepicker>
+      <md-button class="md-primary md-raised" ng-click="ctrl.isOpen = true">Open</md-button>
+    </div>
+  </div>
+</div>
+<!--Datepicker end-->
+<h3> dialog </h3>
+  <p class="inset">
+    Open a dialog over the app's content. Press escape or click outside to close the dialog and
+    send focus back to the triggering button.
+  </p>
+
+  <div class="dialog-demo-content" layout="row" layout-wrap layout-margin layout-align="center">
+    <md-button class="md-primary md-raised" ng-click="showAlert($event)"   >
+      Alert Dialog
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="showConfirm($event)" >
+      Confirm Dialog
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="showPrompt($event)"  >
+      Prompt Dialog
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="showAdvanced($event)">
+      Custom Dialog
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="showTabDialog($event)" >
+      Tab Dialog
+    </md-button>
+    <md-button class="md-primary md-raised" ng-if="listPrerenderedButton" ng-click="showPrerenderedDialog($event)">
+      Pre-Rendered Dialog
+    </md-button>
+  </div>
+  <p class="footer">Note: The <b>Confirm</b> dialog does not use <code>$mdDialog.clickOutsideToClose(true)</code>.</p>
+
+  <div ng-if="status" id="status">
+    <b layout="row" layout-align="center center" class="md-padding">
+      {{status}}
+    </b>
+  </div>
+
+  <div class="dialog-demo-prerendered">
+    <md-checkbox ng-model="listPrerenderedButton">Show Pre-Rendered Dialog</md-checkbox>
+    <p class="md-caption">Sometimes you may not want to compile the dialogs template on each opening.</p>
+    <md-checkbox ng-model="customFullscreen" aria-label="Fullscreen custom dialog">Use full screen mode for custom dialog</md-checkbox>
+    <p class="md-caption">Allows the dialog to consume all available space on small devices</p>
+  </div>
+
+  <div style="visibility: hidden">
+    <div class="md-dialog-container" id="myDialog">
+      <md-dialog layout-padding>
+        <h2>Pre-Rendered Dialog</h2>
+        <p>
+          This is a pre-rendered dialog, which means that <code>$mdDialog</code> doesn't compile its
+          template on each opening.
+          <br/><br/>
+          The Dialog Element is a static element in the DOM, which is just visually hidden.<br/>
+          Once the dialog opens, we just fetch the element from the DOM into our dialog and upon close
+          we restore the element back into its old DOM position.
+        </p>
+      </md-dialog>
+    </div>
+  </div>
+<!--dialog end-->
+<h3>divider </h3>
+<md-toolbar class="md-theme-light">
+    <h2 class="md-toolbar-tools">
+      <span>Full Bleed</span>
+    </h2>
+  </md-toolbar>
+
+  <md-content>
+    <md-list>
+      <md-list-item class="md-3-line" ng-repeat="item in messages">
+        <div class="md-list-item-text">
+          <h3>{{item.what}}</h3>
+          <h4>{{item.who}}</h4>
+          <p>{{item.notes}}</p>
+        </div>
+        <md-button class="md-secondary">Respond</md-button>
+        <md-divider ng-if="!$last"></md-divider>
+      </md-list-item>
+    </md-list>
+  </md-content>
+
+  <md-toolbar class="md-theme-light">
+    <h2 class="md-toolbar-tools">
+      <span>Inset</span>
+    </h2>
+  </md-toolbar>
+
+  <md-content>
+    <md-list>
+      <md-list-item class="md-3-line" ng-repeat="item in messages">
+        <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}">
+        <div class="md-list-item-text">
+          <h3>{{item.what}}</h3>
+          <h4>{{item.who}}</h4>
+          <p>{{item.notes}}</p>
+        </div>
+        <md-divider md-inset ng-if="!$last"></md-divider>
+      </md-list-item>
+    </md-list>
+  </md-content>
+<!--divider end-->
+<!--FAB Speed Dial-->
+<h3>FAB Speed Dial </h3>
+ <p>
+      You may supply a direction of <code>left</code>, <code>up</code>, <code>down</code>, or
+      <code>right</code> through the <code>md-direction</code> attribute.
+    </p>
+
+    <div class="lock-size" layout="row" layout-align="center center">
+      <md-fab-speed-dial md-open="ctrl.isDialOpen" md-direction="{{ctrl.selectedDirection}}"
+                         ng-class="ctrl.selectedMode">
+        <md-fab-trigger>
+          <md-button aria-label="menu" class="md-fab md-warn">
+            <md-icon class="material-icon">menu</md-icon>
+          </md-button>
+        </md-fab-trigger>
+
+        <md-fab-actions>
+          <md-button  class="md-fab md-raised md-mini">
+            <md-icon class="material-icon" >twitter</md-icon>
+          </md-button>
+          <md-button class="md-fab md-raised md-mini">
+            <md-icon class="material-icon">facebook</md-icon>
+          </md-button>
+          <md-button  class="md-fab md-raised md-mini">
+            <md-icon class="material-icon">hangout</md-icon>
+          </md-button>
+        </md-fab-actions>
+      </md-fab-speed-dial>
+    </div>
+
+    <div layout="row" layout-align="space-around">
+      <div layout="column" layout-align="start center">
+        <b>Direction</b>
+
+        <md-radio-group ng-model="ctrl.selectedDirection">
+          <md-radio-button ng-repeat="direction in ctrl.availableDirections"
+                           ng-value="direction" class="text-capitalize">
+            {{direction}}
+          </md-radio-button>
+        </md-radio-group>
+      </div>
+
+      <div layout="column" layout-align="start center">
+        <b>Open/Closed</b>
+
+        <md-checkbox ng-model="ctrl.isDialOpen">
+          Open
+        </md-checkbox>
+      </div>
+
+      <div layout="column" layout-align="start center">
+        <b>Animation Modes</b>
+
+        <md-radio-group ng-model="ctrl.selectedMode">
+          <md-radio-button ng-repeat="mode in ctrl.availableModes" ng-value="mode">
+            {{mode}}
+          </md-radio-button>
+        </md-radio-group>
+      </div>
+    </div>
+	<!--FAB Speed Dial-->
+
+<!--fabToolbar-->
+<h3>fabToolbar </h3>
+ <div class="md-padding">
+    <p>
+      You can use the fabToolbar with a trigger and regular toolbar.
+    </p>
+
+    <p>
+      You may use the <code>md-open</code> attribute to programmatically control whether or not the
+      control is open, and you may set the direction that the toolbar appears using the
+      <code>md-direction</code> attribute. This component currently supports the <code>left</code>
+      and <code>right</code> options.
+    </p>
+  </div>
+
+  <md-fab-toolbar md-open="demo.isOpen" count="demo.count"
+                  md-direction="{{demo.selectedDirection}}">
+    <md-fab-trigger class="align-with-text">
+      <md-button aria-label="menu" class="md-fab md-primary">
+        <md-icon class="material-icon">menu</md-icon>
+      </md-button>
+    </md-fab-trigger>
+
+    <md-toolbar>
+      <md-fab-actions class="md-toolbar-tools">
+        <md-button  class="md-icon-button">
+          <md-icon class="material-icon">comment</md-icon>
+        </md-button>
+        <md-button  class="md-icon-button">
+          <md-icon class="material-icon">label</md-icon>
+        </md-button>
+        <md-button class="material-icon" class="md-icon-button">
+          <md-icon class="material-icon">photo</md-icon>
+        </md-button>
+      </md-fab-actions>
+    </md-toolbar>
+  </md-fab-toolbar>
+
+  <div class="md-padding" layout="column">
+    <div layout="row" layout-align="space-around">
+      <div layout="column">
+        <b>Open/Closed</b>
+
+        <md-radio-group ng-model="demo.isOpen">
+          <md-radio-button ng-value="true">Open</md-radio-button>
+          <md-radio-button ng-value="false">Closed</md-radio-button>
+        </md-radio-group>
+      </div>
+
+      <div layout="column">
+        <b>Direction</b>
+
+        <md-radio-group ng-model="demo.selectedDirection">
+          <md-radio-button ng-value="'left'">Left</md-radio-button>
+          <md-radio-button ng-value="'right'">Right</md-radio-button>
+        </md-radio-group>
+      </div>
+    </div>
+  </div>
+ <!--fabToolbar end-->
+<!--md-grid-list-->
+<h3>md-grid-list </h3>
+  <md-grid-list
+        md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
+        md-row-height-gt-md="1:1" md-row-height="2:2"
+        md-gutter="12px" md-gutter-gt-sm="8px" >
+
+    <md-grid-tile class="gray"
+        md-rowspan="3" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
+      <md-grid-tile-footer>
+        <h3>#1: (3r x 2c)</h3>
+      </md-grid-tile-footer>
+    </md-grid-tile>
+
+    <md-grid-tile class="green">
+      <md-grid-tile-footer>
+        <h3>#2: (1r x 1c)</h3>
+      </md-grid-tile-footer>
+    </md-grid-tile>
+
+    <md-grid-tile class="yellow">
+      <md-grid-tile-footer>
+        <h3>#3: (1r x 1c)</h3>
+      </md-grid-tile-footer>
+    </md-grid-tile>
+
+    <md-grid-tile class="blue"
+        md-rowspan="2">
+      <md-grid-tile-footer>
+        <h3>#4: (2r x 1c)</h3>
+      </md-grid-tile-footer>
+    </md-grid-tile>
+
+    <md-grid-tile class="red"
+        md-rowspan="2" md-colspan="2" md-colspan-sm="1" md-colspan-xs="1">
+      <md-grid-tile-footer>
+        <h3>#5: (2r x 2c)</h3>
+      </md-grid-tile-footer>
+    </md-grid-tile>
+
+    <md-grid-tile class="green"
+        md-rowspan="2" >
+      <md-grid-tile-footer>
+        <h3>#6: (2r x 1c)</h3>
+      </md-grid-tile-footer>
+    </md-grid-tile>
+
+  </md-grid-list>
+<!--md-grid-list end-->
+</div>
