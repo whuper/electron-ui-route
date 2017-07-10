@@ -1,7 +1,7 @@
 (function () {
   'use strict'
   const electron = require('electron')
-  //const electronDevTools = require('electron-devtools-installer')
+  const electronDevTools = require('electron-devtools-installer')
   const app = electron.app
   const path = require('path')
   const os = require('os')
@@ -38,7 +38,7 @@
     win.loadURL('file://' + __dirname + '/index.html')
     win.on('closed', onClosed)
     win.webContents.on('crashed', onCrash)
-    win.webContents.openDevTools()
+    //win.webContents.openDevTools()
     win.on('unresponsive', onCrash)
     return win
   }

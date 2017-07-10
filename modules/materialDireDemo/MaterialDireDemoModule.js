@@ -21,7 +21,7 @@
       })
 
     var MaterialDireDemoController = require('./MaterialDireDemoController') 
-    angular.module('electron-app').controller('MaterialDireDemoController', ['$scope', '$state', '$q','$mdBottomSheet','$mdDialog', '$mdToast', '$timeout','$log',MaterialDireDemoController])
+    angular.module('electron-app').controller('MaterialDireDemoController', ['$scope', '$state', '$q','$mdBottomSheet','$mdDialog', '$mdToast', '$timeout','$log','$interval',MaterialDireDemoController])
   }
   module.exports = MaterialDireDemoModule
 })(global.angular)

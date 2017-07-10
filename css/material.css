@@ -1,4 +1,21 @@
+/*
 md-checkbox.dotted .md-icon {
  border-width: 1px;
  border-style: dashed;
 }
+md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+    background-color: rgb(16,108,200);
+    color: rgba(255,255,255,0.87);
+}
+.inputdemoErrors .inputErrorsApp {
+  min-height: 48px; }
+
+.inputdemoErrors md-input-container > p {
+  font-size: 0.8em;
+  text-align: left;
+  width: 100%; }
+*/
+md-content .ext-content {
+  padding: 50px;
+  margin: 20px;
+  background-color: #FFF2E0; }

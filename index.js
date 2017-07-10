@@ -1,6 +1,6 @@
 (function (angular) {
   'use strict'
-  angular.module('electron-app', ['ngMaterial', 'ngSanitize', 'ui.router', 'ngAnimate', 'angular-timeline', 'angular-centered'])
+  angular.module('electron-app', ['ngMaterial', 'ngSanitize','ngMessages', 'ui.router', 'ngAnimate', 'angular-timeline', 'angular-centered'])
     .config(function ($mdThemingProvider,$mdIconProvider) {
 /*       $mdIconProvider
       .icon('share-arrow', 'img/icons/share-arrow.svg', 24)
@@ -16,6 +16,9 @@
       $mdThemingProvider.theme('default')
         .primaryPalette('blue')
         .accentPalette('red')
+	$mdThemingProvider.theme('docs-dark', 'default')
+      .primaryPalette('yellow')
+      .dark();
     })
     .config(function ($stateProvider, $urlRouterProvider) {
       var appcfg = require('./appcfg')

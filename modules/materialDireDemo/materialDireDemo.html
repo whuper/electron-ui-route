@@ -458,4 +458,801 @@
 
   </md-grid-list>
 <!--md-grid-list end-->
+<!--icon-->
+<h3>icon </h3>
+  <p>
+    Display 4 Material Design font-icons using ligatures [instead of CSS names]; each with different sizes and colors<br/>
+  </p>
+
+  <!-- Display font icons from Icomoon.io: -->
+  <div class="glyph" ng-repeat="font in fonts" layout="row">
+    <div ng-repeat="it in sizes" flex layout-align="center center" style="text-align: center;" layout="column">
+      <div flex></div>
+      <div class="preview-glyphs">
+        <md-icon ng-style="{color: font.color}"
+            aria-label="{{ font.name }}"
+            class="material-icons step"
+            ng-class="it.size"
+            ng-bind="font.name">
+        </md-icon>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:0.7em;padding-left: 25%">
+    <span style="color:darkblue; font-weight: bold">Cool Tip</span>:
+    Copy an icon and then paste in a text editor to see its textual name!
+  </p>
+  <!--icon end-->
+<!--input-->
+<br/>
+<br/>
+<h3>input </h3>
+  <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+    <div>
+      <md-input-container>
+        <label>Title</label>
+        <input ng-model="user.title">
+      </md-input-container>
+
+      <md-input-container>
+        <label>Email</label>
+        <input ng-model="user.email" type="email">
+      </md-input-container>
+    </div>
+  </md-content>
+
+  <md-content layout-padding>
+    <div>
+      <form name="userForm">
+
+        <div layout-gt-xs="row">
+          <md-input-container class="md-block" flex-gt-xs>
+            <label>Company (Disabled)</label>
+            <input ng-model="user.company" disabled>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Enter date</label>
+            <md-datepicker ng-model="user.submissionDate"></md-datepicker>
+          </md-input-container>
+        </div>
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>First name</label>
+            <input ng-model="user.firstName">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Long Last Name That Will Be Truncated And 3 Dots (Ellipsis) Will Appear At The End</label>
+            <input ng-model="theMax">
+          </md-input-container>
+        </div>
+
+        <md-input-container class="md-block">
+          <label>Address</label>
+          <input ng-model="user.address">
+        </md-input-container>
+
+        <md-input-container md-no-float class="md-block">
+          <input ng-model="user.address2" placeholder="Address 2">
+        </md-input-container>
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>City</label>
+            <input ng-model="user.city">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>State</label>
+            <md-select ng-model="user.state">
+              <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                {{state.abbrev}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Postal Code</label>
+            <input name="postalCode" ng-model="user.postalCode" placeholder="12345"
+                   required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+
+            <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+              <div ng-message="required" class="my-message">You must supply a postal code.</div>
+              <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
+                code.
+              </div>
+              <div ng-message="md-maxlength" class="my-message">
+                Don't use the long version silly...we don't need to be that specific...
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+
+        <md-input-container class="md-block">
+          <label>Biography</label>
+          <textarea ng-model="user.biography" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+
+      </form>
+    </div>
+  </md-content>
+<br/>
+<br/>
+<!--input end-->
+
+<!--input-icon-->
+<h3>input-icon </h3>
+  <md-content class="md-no-momentum">
+    <md-input-container class="md-icon-float md-block">
+      <!-- Use floating label instead of placeholder -->
+      <label>Name</label>
+      <md-icon  class="material-icon name">person</md-icon>
+      <input ng-model="user2.name" type="text">
+    </md-input-container>
+
+    <md-input-container md-no-float class="md-block">
+      <md-icon class="material-icon">phone</md-icon>
+      <input ng-model="user2.phone" type="text" placeholder="Phone Number">
+    </md-input-container>
+
+    <md-input-container class="md-block">
+      <!-- Use floating placeholder instead of label -->
+      <md-icon class="email material-icon" >email</md-icon>
+      <input ng-model="user2.email" type="email" placeholder="Email (required)" ng-required="true">
+    </md-input-container>
+
+    <md-input-container md-no-float class="md-block">
+      <input ng-model="user2.address" type="text" placeholder="Address" >
+      <md-icon class="material-icon" style="display:inline-block;">place</md-icon>
+    </md-input-container>
+
+    <md-input-container class="md-icon-float md-icon-right md-block">
+      <label>Donation Amount</label>
+      <md-icon class="material-icon">card_giftcard</md-icon>
+      <input ng-model="user2.donation" type="number" step="0.01">
+      <md-icon class="material-icon">euro</md-icon>
+    </md-input-container>
+
+  </md-content>
+<!--input-icon end-->
+
+<!--input-error-->
+<br/>
+<br/>
+<h3> input-error</h3>
+  <div layout-padding>
+    <form name="projectForm">
+
+      <md-input-container class="md-block">
+        <label>Description</label>
+        <input md-maxlength="30" required md-no-asterisk name="description" ng-model="project.description">
+        <div ng-messages="projectForm.description.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
+        </div>
+      </md-input-container>
+
+      <div layout="row">
+        <md-input-container flex="50">
+          <label>Client Name</label>
+          <input required name="clientName" ng-model="project.clientName">
+          <div ng-messages="projectForm.clientName.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="50">
+          <label>Project Type</label>
+          <md-select name="type" ng-model="project.type" required>
+            <md-option value="app">Application</md-option>
+            <md-option value="web">Website</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+
+      <md-input-container class="md-block">
+        <label>Client Email</label>
+        <input required type="email" name="clientEmail" ng-model="project.clientEmail"
+               minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+
+        <div ng-messages="projectForm.clientEmail.$error" role="alert">
+          <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+            Your email must be between 10 and 100 characters long and look like an e-mail address.
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Hourly Rate (USD)</label>
+        <input required type="number" step="any" name="rate" ng-model="project.rate" min="800"
+               max="4999" ng-pattern="/^1234$/" />
+
+        <div ng-messages="projectForm.rate.$error" multiple md-auto-hide="false">
+          <div ng-message="required">
+            You've got to charge something! You can't just <b>give away</b> a Missile Defense
+            System.
+          </div>
+
+          <div ng-message="min">
+            You should charge at least $800 an hour. This job is a big deal... if you mess up,
+            everyone dies!
+          </div>
+
+          <div ng-message="pattern">
+            You should charge exactly $1,234.
+          </div>
+
+          <div ng-message="max">
+            {{projectForm.rate.$viewValue | currency:"$":0}} an hour? That's a little ridiculous. I
+            doubt even Bill Clinton could afford that.
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <md-checkbox name="tos" ng-model="project.tos" required>
+          I accept the terms of service.
+        </md-checkbox>
+        <div ng-messages="projectForm.tos.$error" multiple md-auto-hide="false">
+          <div ng-message="required">
+            You must accept the terms of service before you can proceed.
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <md-switch class="md-primary" name="special" ng-model="project.special" required>
+          Enable special options.
+        </md-switch>
+        <div ng-messages="projectForm.special.$error" multiple>
+          <div ng-message="required">
+            You must enable all special options before you can proceed.
+          </div>
+        </div>
+      </md-input-container>
+      <div>
+        <md-button type="submit">Submit</md-button>
+      </div>
+
+      <p style="font-size:.8em; width: 100%; text-align: center;">
+        Make sure to include <a href="https://docs.angularjs.org/api/ngMessages" target="_blank">ngMessages</a> module when using ng-message markup.
+      </p>
+    </form>
+  </div>
+  <!--input-error end-->
+  <!--list-->
+  <h3>list </h3>
+  <div  layout-gt-sm="row" layout="column">
+  	
+   <div flex-gt-sm="50" flex>
+
+    <md-toolbar layout="row" class="md-hue-3">
+      <div class="md-toolbar-tools">
+        <span>Normal</span>
+      </div>
+    </md-toolbar>
+
+    <md-content>
+      <md-list flex>
+        <md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader>
+        <md-list-item class="md-3-line" ng-repeat="item in todos" ng-click="null">
+          <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+          <div class="md-list-item-text" layout="column">
+            <h3>{{ item.who }}</h3>
+            <h4>{{ item.what }}</h4>
+            <p>{{ item.notes }}</p>
+          </div>
+        </md-list-item>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">2 line item</md-subheader>
+        <md-list-item class="md-2-line">
+          <img ng-src="{{todos[0].face}}?20" class="md-avatar" alt="{{todos[0].who}}" />
+          <div class="md-list-item-text">
+            <h3>{{ todos[0].who }}</h3>
+            <p>Secondary text</p>
+          </div>
+        </md-list-item>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">3 line item, long paragraph (see on mobile)</md-subheader>
+        <md-list-item class="md-3-line md-long-text">
+          <img ng-src="{{todos[0].face}}?25" class="md-avatar" alt="{{todos[0].who}}" />
+          <div class="md-list-item-text">
+            <h3>{{ todos[0].who }}</h3>
+            <p>
+              Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
+              Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
+              velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+            </p>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-3-line md-long-text">
+          <img ng-src="{{todos[1].face}}?25" class="md-avatar" alt="{{todos[1].who}}" />
+          <div class="md-list-item-text">
+            <h3>{{ todos[1].who }}</h3>
+            <p>
+              Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
+              Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
+              velit. Class aptent taciti sociosqu ad litra torquent per conubia nostra, per inceptos himenaeos.
+            </p>
+          </div>
+        </md-list-item>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">Classes</md-subheader>
+        <md-list-item class="md-2-line" ng-repeat="phone in phones">
+		<md-icon  ng-if="phone.options.icon" class="material-icon">{{phone.options.icon}}</md-icon>
+          <img ng-src="{{phone.options.face}}?25" class="md-avatar" alt="{{phone.options.face}}"
+               ng-if="phone.options.face"/>
+          <div class="md-list-item-text" ng-class="{'md-offset': phone.options.offset }">
+            <h3> {{ phone.number }} </h3>
+            <p> {{ phone.type }} </p>
+          </div>
+          <md-button class="md-secondary md-icon-button" ng-click="doSecondaryAction($event)" ng-if="phone.options.actionIcon" aria-label="call">
+            <md-icon class="material-icon" >{{phone.options.actionIcon}}</md-icon>
+          </md-button>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div>
+
+  <md-divider></md-divider>
+
+  <div flex-gt-sm="50" flex>
+
+    <md-toolbar layout="row" class="md-hue-3">
+      <div class="md-toolbar-tools">
+        <span>Dense</span>
+      </div>
+    </md-toolbar>
+
+    <md-content>
+
+      <md-list class="md-dense" flex>
+        <md-subheader class="md-no-sticky">3 line item (dense)</md-subheader>
+        <md-list-item class="md-3-line" ng-repeat="item in todos">
+          <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+          <div class="md-list-item-text" layout="column">
+            <h3>{{ item.who }}</h3>
+            <h4>{{ item.what }}</h4>
+            <p>{{ item.notes }}</p>
+          </div>
+        </md-list-item>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">2 line item</md-subheader>
+        <md-list-item class="md-2-line">
+          <img ng-src="{{todos[0].face}}?20" class="md-avatar" alt="{{todos[0].who}}" />
+          <div class="md-list-item-text">
+            <h3>{{ todos[0].who }}</h3>
+            <p>Secondary text</p>
+          </div>
+        </md-list-item>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">3 line item, long paragraph (see on mobile)</md-subheader>
+        <md-list-item class="md-3-line md-long-text">
+          <img ng-src="{{todos[0].face}}?25" class="md-avatar" alt="{{todos[0].who}}" />
+          <div class="md-list-item-text">
+            <h3>{{ todos[0].who }}</h3>
+            <p>
+              Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
+              Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
+              velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+            </p>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-3-line md-long-text">
+          <img ng-src="{{todos[1].face}}?25" class="md-avatar" alt="{{todos[1].who}}" />
+          <div class="md-list-item-text">
+            <h3>{{ todos[1].who }}</h3>
+            <p>
+              Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
+              Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
+              velit. Class aptent taciti sociosqu ad litra torquent per conubia nostra, per inceptos himenaeos.
+            </p>
+          </div>
+        </md-list-item>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">Classes</md-subheader>
+        <md-list-item class="md-2-line" ng-repeat="phone in phones">
+          <md-icon  ng-if="phone.options.icon" class="material-icon">{{phone.options.icon}}</md-icon>
+          <img ng-src="{{phone.options.face}}?25" class="md-avatar" alt="{{phone.options.face}}"
+               ng-if="phone.options.face"/>
+          <div class="md-list-item-text" ng-class="{'md-offset': phone.options.offset }">
+            <h3> {{ phone.number }} </h3>
+            <p> {{ phone.type }} </p>
+          </div>
+          <md-button class="md-secondary md-icon-button" ng-click="doSecondaryAction($event)" ng-if="phone.options.actionIcon" aria-label="call">
+            <md-icon class="material-icon">{{phone.options.actionIcon}}</md-icon>
+          </md-button>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div>
+
+</div>
+
+</div>
+<!--list end-->
+
+<!--List Controls-->
+<h3>List Controls </h3>
+<md-list ng-cloak>
+
+  <md-subheader class="md-no-sticky">Single Action Checkboxes</md-subheader>
+  <md-list-item ng-repeat="topping in toppings">
+    <p> {{ topping.name }} </p>
+    <md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox>
+  </md-list-item>
+
+  <md-divider></md-divider>
+
+  <md-subheader class="md-no-sticky">Secondary Buttons</md-subheader>
+  <md-list-item class="secondary-button-padding">
+    <p>Clicking the button to the right will fire the secondary action</p>
+    <md-button class="md-secondary" ng-click="doSecondaryAction($event)">More Info</md-button>
+  </md-list-item>
+  <md-list-item class="secondary-button-padding" ng-click="doPrimaryAction($event)">
+    <p>Click anywhere to fire the primary action, or the button to fire the secondary</p>
+    <md-button class="md-secondary" ng-click="doSecondaryAction($event)">More Info</md-button>
+  </md-list-item>
+
+  <md-divider></md-divider>
+
+  <md-subheader class="md-no-sticky">Secondary Menus</md-subheader>
+  <md-list-item>
+    <p>Click anywhere to fire the secondary action</p>
+
+    <md-menu class="md-secondary">
+      <md-button class="md-icon-button">
+        <md-icon class="material-icon">message</md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button>
+            Redial
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button>
+            Check voicemail
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button>
+            Notifications
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+
+  </md-list-item>
+
+  <md-divider></md-divider>
+
+  <md-subheader class="md-no-sticky">Clickable Items with Secondary Controls</md-subheader>
+  <md-list-item ng-click="navigateTo(setting.extraScreen, $event)" ng-repeat="setting in settings">
+    <md-icon class="material-icon">{{setting.icon}}</md-icon>
+    <p> {{ setting.name }} </p>
+    <md-switch class="md-secondary" ng-model="setting.enabled"></md-switch>
+  </md-list-item>
+  <md-list-item ng-click="navigateTo('data usage', $event)">
+    <md-icon class="material-icon">cached</md-icon>
+    <p>Data Usage</p>
+  </md-list-item>
+
+  <md-divider></md-divider>
+
+  <md-subheader class="md-no-sticky">Checkbox with Secondary Action</md-subheader>
+  <md-list-item ng-repeat="message in messages">
+    <md-checkbox ng-model="message.selected"></md-checkbox>
+    <p>{{message.title}}</p>
+    <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Chat" class="material-icon">message</md-icon>
+  </md-list-item>
+
+  <md-divider></md-divider>
+
+  <md-subheader class="md-no-sticky">Avatar with Secondary Action Icon</md-subheader>
+  <md-list-item ng-repeat="person in people" ng-click="goToPerson(person.name, $event)" class="noright">
+    <img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" />
+    <p>{{ person.name }}</p>
+    <md-checkbox class="md-secondary" ng-model="person.selected"></md-checkbox>
+    <md-icon class="material-icon"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" >email</md-icon>
+    <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Chat" class="material-icon">message</md-icon>
+  </md-list-item>
+</md-list>
+<!--List Controls end-->
+
+<!--menu-->
+<h3>menu </h3>
+<div class="md-menu-demo" ng-cloak>
+  <div class="menu-demo-container" layout-align="center center" layout="column">
+    <h2 class="md-title">Custom triggers</h2>
+    <p>
+      You can customize the events that open and close a menu by using the <code>$mdMenu.open</code> and
+      <code>$mdMenu.close</code> methods. This is an example of triggering a menu on hover, instead of click.
+    </p>
+
+    <md-menu>
+      <md-button aria-label="Open menu with custom trigger" class="md-icon-button" ng-click="$mdMenu.open()">
+        <md-icon md-menu-origin class="md-icon-button">textsms</md-icon>
+      </md-button>
+      <md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+        <md-menu-item ng-repeat="item in [1, 2, 3]">
+          <md-button>
+            Option {{item}}
+          </md-button>
+        </md-menu-item>
+    </md-menu>
+  </div>
+</div>
+<!--menu end-->
+
+<!--navbar-->
+<h3>navbar </h3>
+ <md-content class="md-padding">
+    <md-nav-bar
+      md-selected-nav-item="currentNavItem"
+      nav-bar-aria-label="navigation links">
+      <md-nav-item md-nav-click="goto('page1')" name="page1">
+        Page One
+      </md-nav-item>
+      <md-nav-item md-nav-click="goto('page2')" name="page2">
+        Page Two
+      </md-nav-item>
+      <md-nav-item md-nav-click="goto('page3')" name="page3">
+        Page Three
+      </md-nav-item>
+      <!-- these require actual routing with ui-router or ng-route, so they
+      won't work in the demo
+      <md-nav-item md-nav-href="#page4" name="page5">Page Four</md-nav-item>
+      <md-nav-item md-nav-sref="app.page5" name="page4">Page Five</md-nav-item>
+      You can also add options for the <code>ui-sref-opts</code> attribute.
+      <md-nav-item md-nav-sref="page6" sref-opts="{reload:true, notify:true}">
+        Page Six
+      </md-nav-item>
+      -->
+    </md-nav-bar>
+    <div class="ext-content">
+      External content for `<span>{{currentNavItem}}</span>`.
+    </div>
+
+    <md-checkbox ng-model="disableInkBar">Disable Ink Bar</md-checkbox>
+
+  </md-content>
+<!--navbar end-->
+
+<!--progress circular-->
+<h3>progress circular </h3>
+
+  <div layout-padding>
+    <h4>Determinate</h4>
+
+    <p>For operations where the percentage of the operation completed can be determined, use a determinate indicator. They
+      give users a quick sense of how long an operation will take.</p>
+
+    <div layout="row" layout-sm="column" layout-align="space-around">
+      <md-progress-circular md-mode="determinate" value="{{determinateValue}}"></md-progress-circular>
+    </div>
+
+  </div>
+
+  <h2 class="md-title">Determinate</h2>
+
+  <p>
+    For operations where the percentage of the operation completed can be determined, use a <b>determinate</b>
+    indicator.
+    They give users a quick sense of how long an operation will take.
+  </p>
+  <md-progress-linear md-mode="determinate" value="{{determinateValue}}"></md-progress-linear>
+<!--progress circular end-->
+
+<!--radio-->
+<h3>radio </h3>
+<div>
+  <form ng-submit="submit()" >
+    <p>Selected Value: <span class="radioValue">{{ data.group1 }}</span> </p>
+
+    <md-radio-group ng-model="data.group1">
+
+      <md-radio-button value="Apple" class="md-primary">Apple</md-radio-button>
+      <md-radio-button value="Banana"> Banana </md-radio-button>
+      <md-radio-button value="Mango">Mango</md-radio-button>
+
+    </md-radio-group>
+
+    <hr />
+
+    <p>Selected Value: <span class="radioValue">{{ data.group2 }}</span></p>
+
+    <md-radio-group ng-model="data.group2" class="md-primary">
+
+        <md-radio-button ng-repeat="d in radioData"
+                         ng-value="d.value"
+                         ng-disabled=" d.isDisabled "
+                         ng-class="{'md-align-top-left': $index==1}" >
+            {{ d.label }}<br/>
+          <span class="ipsum"
+                ng-if="$index == 1">
+            Duis placerat lectus et justo mollis, nec sodales orci congue. Vestibulum semper non urna ac suscipit.
+            Vestibulum tempor, ligula id laoreet hendrerit, massa augue iaculis magna,
+            sit amet dapibus tortor ligula non nibh.
+          </span>
+
+        </md-radio-button>
+
+    </md-radio-group>
+
+    <p>
+      <md-button class="md-raised" ng-click="addItem()" type="button">Add</md-button>
+      <md-button class="md-raised" ng-click="removeItem()" type="button">Remove</md-button>
+    </p>
+
+    <hr />
+
+  </form>
+</div>
+<!--radio-->
+<!--select-->
+<h3>select </h3>
+<div  class="md-padding" ng-cloak layout="column">
+
+  <p>
+    The <code>&lt;md-select&gt;</code> component can be used within a
+    <code>&lt;md-input-container&gt;</code> or as a stand alone component by using the
+    <code>md-no-underline</code> class.
+  </p>
+
+  <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">Account Preferences</span>
+        <span class="md-subhead">Tell us a little about you.</span>
+      </md-card-title-text>
+    </md-card-title>
+
+    <md-card-content>
+      <div layout="row">
+        <md-input-container>
+          <label>Street Name</label>
+          <input>
+        </md-input-container>
+
+        <md-input-container>
+          <label>City</label>
+          <input>
+        </md-input-container>
+
+        <md-input-container>
+          <label>State</label>
+          <md-select ng-model="ctrl.userState">
+            <md-option><em>None</em></md-option>
+            <md-option ng-repeat="state in ctrl.states" ng-value="state.abbrev" ng-disabled="$index === 1">
+              {{state.abbrev}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </md-card-content>
+  </md-card>
+
+  <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">Battle Preferences</span>
+        <span class="md-subhead">Choose wisely if you want to win.</span>
+      </md-card-title-text>
+    </md-card-title>
+
+    <md-card-content>
+      <div layout="row" layout-align="space-between center">
+        <span>What is your favorite weapon?</span>
+        <md-select ng-model="weapon" placeholder="Weapon" class="md-no-underline">
+          <md-option value="axe">Axe</md-option>
+          <md-option value="sword">Sword</md-option>
+          <md-option value="wand">Wand</md-option>
+          <md-option value="pen">Pen?</md-option>
+        </md-select>
+      </div>
+
+      <div layout="row" layout-align="space-between center">
+        <span>What armor do you wear?</span>
+        <md-select ng-model="armor" placeholder="Armor" class="md-no-underline" required md-no-asterisk="false">
+          <md-option value="cloth">Cloth</md-option>
+          <md-option value="leather">Leather</md-option>
+          <md-option value="chain">Chainmail</md-option>
+          <md-option value="plate">Plate</md-option>
+        </md-select>
+      </div>
+
+      <div layout="row" layout-align="space-between center">
+        <span>How do you refresh your magic?</span>
+        <md-select ng-model="drink" placeholder="Drink" class="md-no-underline">
+          <md-option value="water">Water</md-option>
+          <md-option value="juice">Juice</md-option>
+          <md-option value="milk">Milk</md-option>
+          <md-option value="wine">Wine</md-option>
+          <md-option value="mead">Mead</md-option>
+        </md-select>
+      </div>
+    </md-card-content>
+  </md-card>
+
+</div>
+<!--select end-->
+
+<!--slide-->
+<h3>slide </h3>
+
+  <div layout="row" layout-padding>
+
+   <h3>
+      RGB <span ng-attr-style="border: 1px solid #333; background: rgb({{color.red}},{{color.green}},{{color.blue}})">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </h3>
+
+    <md-slider-container>
+      <span>R</span>
+      <md-slider flex min="0" max="255" ng-model="color.red" aria-label="red" id="red-slider">
+      </md-slider>
+      <md-input-container>
+        <input flex type="number" ng-model="color.red" aria-label="red" aria-controls="red-slider">
+      </md-input-container>
+    </md-slider-container>
+
+    <md-slider-container>
+      <span>G</span>
+      <md-slider flex ng-model="color.green" min="0" max="255" aria-label="green" id="green-slider" class="md-accent">
+      </md-slider>
+      <md-input-container>
+        <input flex type="number" ng-model="color.green" aria-label="green" aria-controls="green-slider">
+      </md-input-container>
+    </md-slider-container>
+
+    <md-slider-container>
+      <span class="md-body-1">B</span>
+      <md-slider flex ng-model="color.blue" min="0" max="255" aria-label="blue" id="blue-slider" class="md-primary">
+      </md-slider>
+      <md-input-container>
+        <input flex type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider">
+      </md-input-container>
+    </md-slider-container>
+	</div>
+	<!--vertical slide-->
+<div layout="row" layout-padding>
+    <md-slider-container flex>
+      <md-input-container>
+        <input flex type="number" ng-model="vol" aria-label="volume" aria-controls="volume-slider">
+      </md-input-container>
+      <md-slider ng-model="vol" min="0" max="100" aria-label="volume" id="volume-slider" class="md-accent" md-vertical
+                 md-range></md-slider>
+      </md-slider>
+
+      <h5>Volume</h5>
+    </md-slider-container>
+    <md-slider-container flex>
+      <md-input-container>
+        <input flex type="number" ng-model="bass" aria-label="bass" aria-controls="bass-slider">
+      </md-input-container>
+      <md-slider md-discrete ng-model="bass" min="0" max="100" step="10" aria-label="bass" class="md-primary"
+                 md-vertical></md-slider>
+      </md-slider>
+      <h5>Bass</h5>
+    </md-slider-container>
+    <div flex layout="column" layout-align="center center">
+      <md-slider-container ng-disabled="readonly">
+        <md-input-container>
+          <input flex type="number" ng-model="master" aria-label="master" aria-controls="master-slider">
+        </md-input-container>
+        <md-slider flex ng-model="master" md-discrete aria-label="Master" md-vertical step="10"
+                   ng-readonly="readonly"></md-slider>
+        <h5>Master</h5>
+      </md-slider-container>
+      <md-checkbox ng-model="readonly">Read only</md-checkbox>
+    </div>
+  </div>
+
+  </div>
+<!--slide end-->
+
 </div>

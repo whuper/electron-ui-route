@@ -48,7 +48,7 @@
       </a>
     </div>
     <div class="md-toolbar-tools">
-      <md-button class="menu" hide-gt-sm ng-click="shell.toggleNav()" >
+      <md-button class="menu"  ng-click="shell.toggleSidebar()" >
         <md-icon >menu</md-icon>
       </md-button>
       <span ui-view="header"></span>
@@ -74,24 +74,22 @@
     </div>
   </md-toolbar>
 
-    <md-sidenav md-component-id="sidenav" class="md-whiteframe-z2">
-        <div class="md-toolbar-tools"><h3>menu</h3></div>
-      <md-list>
-        <!-- List item #1 -->
-        <md-list-item>
-          <md-button>
-            <md-icon >live_help</md-icon>
-            Lia Luogo
-          </md-button>
-        </md-list-item>
-        <!-- List item #2 -->
-        <md-list-item ng-repeat="i in [1,2,3,4]">
-          <md-button>
-         <md-icon >face</md-icon>
-            Lawrence Ray {{i}}
-          </md-button>
-        </md-list-item>
-      </md-list>
+   <md-sidenav class="md-sidenav-left" md-component-id="sidebar"
+                md-disable-backdrop md-whiteframe="4">
+
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Disabled Backdrop</h1>
+      </md-toolbar>
+
+      <md-content layout-margin>
+        <p>
+          This sidenav is not showing any backdrop, where users can click on it, to close the sidenav.
+        </p>
+        <md-button ng-click="shell.toggleSidebar()" class="md-accent">
+          Close this Sidenav
+        </md-button>
+      </md-content>
+
     </md-sidenav>
     
   <md-content flex layout-fill layout-margin ui-view="module"></md-content>
