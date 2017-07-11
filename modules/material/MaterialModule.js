@@ -8,6 +8,13 @@
    */
   function MaterialModule (config) {
     var moduleConfig = config
+	var baseName = moduleConfig.name.replace(/Module/,'');
+	var controlerName = baseName + 'Controller';
+	var urlName = baseName.replace(/(\w)/,function(v){return v.toLowerCase()});
+
+	if(!moduleConfig.sref){
+	moduleConfig.sref = '.' + urlName;
+	}
     angular.module('electron-app')
       .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider

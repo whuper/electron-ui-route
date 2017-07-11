@@ -28,9 +28,8 @@
         url: '/app/words',
         state: 'app.words',
         label: 'Words',
-        sref: '.words',
         tooltip: '5500 words',
-        icon: 'label_important'
+        icon: 'star'
       },
       material: {
         path: 'modules/material',
@@ -38,9 +37,8 @@
         url: '/app/material',
         state: 'app.material',
         label: 'Material',
-        sref: '.material',
         tooltip: 'Material DEMO',
-        icon: 'toc'
+        icon: 'face'
       },      
       materialDireDemo: {
         path: 'modules/materialDireDemo',
@@ -48,8 +46,16 @@
         url: '/app/materialDireDemo',
         state: 'app.materialDireDemo',
         label: 'MaterialDireDemo',
-        sref: '.materialDireDemo',
         tooltip: 'MaterialDireDemo DEMO',
+        icon: 'face'
+      },
+	   materialDireDemo2: {
+        path: 'modules/materialDireDemo2',
+        name: 'MaterialDireDemo2Module',
+        url: '/app/materialDireDemo2',
+        state: 'app.materialDireDemo2',
+        label: 'MaterialDireDemo2',
+        tooltip: 'MaterialDireDemo DEMO2',
         icon: 'face'
       }
 

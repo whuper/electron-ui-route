@@ -95,11 +95,20 @@
       controllerAs: "$sheetCtrl",
       bindToController : true
       }).then(function(value) {
-alert(value);
-        // $scope.notify('successfully',value)
+  $mdToast.show(
+			  $mdToast.simple()
+				.textContent(value)
+				.position('top right')
+				.hideDelay(3000)
+			);
      }, function() {   
-        // $scope.notify('Nothing','Nothing')
-        alert('Nothing');
+        //alert('Nothing');
+		   $mdToast.show(
+			  $mdToast.simple()
+				.textContent('Nothing!')
+				.position('top right')
+				.hideDelay(3000)
+			);
      });
       function UserSheetController() {           
             this.items = [

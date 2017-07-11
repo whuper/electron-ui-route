@@ -27,11 +27,13 @@
        *
        * @return {type}  description
        */
-      getWordsList: function () {
+      getWordsList: function (query) {
         //  db.serialize(function () {         
-        var result = db.exec("SELECT id as id, wordname as name ,desc as desc FROM english limit 10");
+		var start = (parseInt(query.page) - 1)  * query.limit;
+		var sqlStr = `SELECT id , wordname ,desc FROM english limit ${start},${query.limit}`;
+        var result = db.exec(sqlStr);
         // });
-        // db.close()        
+		//db.close()        
         console.log(result);
         return result[0]
       },
@@ -46,10 +48,12 @@
         }
         return saveDoc(doc)
       },
-
       delete: function (doc) {
         return db.remove(doc)
-      }
+      },
+	  closeDb:function(){
+		  db.close();
+	  }
     }
   }
   module.exports = WordsService

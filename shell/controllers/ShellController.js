@@ -110,6 +110,7 @@
      */
     this.initialize = function () {
       this.modules = modulesProvider.modules 
+		  console.log(this.modules);
       	//获取mac地址
 /*		require('getmac').getMac(function(err,macAddress){
 		    if (err) {

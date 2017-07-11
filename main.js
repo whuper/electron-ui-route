@@ -1,7 +1,7 @@
 (function () {
   'use strict'
   const electron = require('electron')
-  const electronDevTools = require('electron-devtools-installer')
+  //const electronDevTools = require('electron-devtools-installer')
   const app = electron.app
   const path = require('path')
   const os = require('os')
@@ -132,10 +132,12 @@
    */
   app.on('ready', function () {
     mainWindow = createMainWindow()
+	  /*
     const isDev = require('electron-is-dev')
     if (isDev) {
       electronDevTools.default(electronDevTools.ANGULARJS_BATARANG);
     }
+	*/
   })
   /**
    * serviceFinder function - description

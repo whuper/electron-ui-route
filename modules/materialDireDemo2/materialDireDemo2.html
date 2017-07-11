@@ -1,0 +1,140 @@
+<div layout="column"  ng-init="ctrl.initialize()" ng-cloak>
+
+
+<!--switch-->
+<h3>switch </h3>
+<div layout="column" >
+  <md-switch ng-model="data.cb1" aria-label="Switch 1">
+    Switch 1: {{ data.cb1 }}
+  </md-switch>
+
+  <md-switch ng-model="data.cb2" aria-label="Switch 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-warn">
+    Switch 2 (md-warn): {{ data.cb2 }}
+  </md-switch>
+
+  <md-switch ng-disabled="true" aria-label="Disabled switch" ng-model="disabledModel">
+    Switch (Disabled)
+  </md-switch>
+
+  <md-switch ng-disabled="true" aria-label="Disabled active switch" ng-model="data.cb4">
+    Switch (Disabled, Active)
+  </md-switch>
+
+  <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="data.cb5">
+    Switch (md-primary): No Ink
+  </md-switch>
+
+  <md-switch ng-model="data.cb6" aria-label="Switch 6" ng-change="onChange(data.cb6)">
+    Switch 6 message: {{ message }}
+  </md-switch>
+
+  <md-switch md-invert aria-label="Switch 7">
+    Switch (Inverted)
+  </md-switch>
+</div>
+
+<!--switch end-->
+
+<!--tab-->
+  <md-content>
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="one">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Tab One</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+        </md-content>
+      </md-tab>
+      <md-tab label="two">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Tab Two</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
+          <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
+          <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+        </md-content>
+      </md-tab>
+      <md-tab label="three">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Tab Three</h1>
+          <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+<!--tab-->
+
+<!--toast-->
+<h3>toast </h3>
+<div layout="row" layout-align="space-around">
+      <div style="width:50px"></div>
+      <md-button ng-click="showSimpleToast()">
+        Show Simple
+      </md-button>
+    
+	  
+    </div>
+ 
+<!--toast-->
+
+<!--toolbar-->
+<h3>toolbar </h3>
+  <md-content>
+
+    <br>
+
+    <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings" ng-disabled="false">
+          <md-icon class="material-icon">menu</md-icon>
+        </md-button>
+
+        <h2 flex md-truncate>Toolbar with Disabled/Enabled Icon Buttons</h2>
+
+        <md-button class="md-icon-button" aria-label="Favorite">
+          <md-icon class="material-icon" style="color: greenyellow;">favorite</md-icon>
+        </md-button>
+
+        <md-button class="md-icon-button" aria-label="More">
+          <md-icon class="material-icon">more_vert</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <br>
+
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <md-button aria-label="Go Back">
+          Go Back
+        </md-button>
+
+        <md-truncate style="position: absolute; left: 90px; right: 170px; top: 13px; bottom: 13px;">Toolbar with Standard Buttons</md-truncate>
+
+        <span flex></span>
+        <md-button class="md-raised" aria-label="Learn More">
+          Learn More
+        </md-button>
+        <md-button class="md-fab md-mini" aria-label="Favorite">
+          <md-icon class="material-icon">favorite</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <br>
+
+    <md-toolbar class="md-tall md-accent">
+      <h2 class="md-toolbar-tools">
+        <span>Toolbar: tall (md-accent)</span>
+      </h2>
+    </md-toolbar>
+
+    <br>
+
+    <md-toolbar class="md-tall md-warn md-hue-3">
+      <span flex></span>
+      <h2 class="md-toolbar-tools">
+        <span class="md-flex">Toolbar: tall with actions pin to the bottom (md-warn md-hue-3)</span>
+      </h2>
+    </md-toolbar>
+  </md-content>
+<!--toolbar-->
+</div>
