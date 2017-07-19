@@ -28,7 +28,7 @@
         url: '/app/words',
         state: 'app.words',
         label: 'Words',
-        tooltip: '5500 words',
+        tooltip: '考研词汇',
         icon: 'star'
       },
       material: {
