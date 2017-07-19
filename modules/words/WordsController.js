@@ -82,7 +82,8 @@
 
     }
 	 this.selectWord = function(item){
-		 $scope.selectedWord = item;	 
+		 $scope.selectedWord = item;
+     this.play(item[0],item[1]);
 	 },
     
     this.showAlert = function () {
@@ -109,8 +110,14 @@
        $mdSidenav(menuId).toggle();    
 
         }; 
-	this.play = function(){
-	 var audio = new Audio(__dirname + '/wav/' + soundName + '.wav');
+	this.play = function(wordId,wordReal){
+       var folder_size = 500
+        var folder_name = 'within_' + String( ( parseInt( (wordId - 1) / folder_size) + 1) * folder_size )
+        var save_path = 'assets/audios/' + folder_name
+        var mp3_path = save_path + '/' + wordReal  + '.mp3'
+
+        console.log('mp3_path',mp3_path);
+	 var audio = new Audio(mp3_path);
    
         audio.currentTime = 0;
         audio.play();
