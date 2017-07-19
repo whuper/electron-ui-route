@@ -37,7 +37,13 @@
         console.log(result);
         return result[0]
       },
+	  searchWords:function(txt){
 
+		var sqlStr = `SELECT id , wordname ,desc FROM english where wordname like '%${txt}%' limit 15`;
+		console.log('sqlStr',sqlStr);
+        var result = db.exec(sqlStr);
+		return result[0]['values'];  
+	  },
       get: function (docID) {
         return db.get(docID)
       },
@@ -51,7 +57,7 @@
       delete: function (doc) {
         return db.remove(doc)
       },
-	  closeDb:function(){
+	  closeDB:function(){
 		  db.close();
 	  }
     }

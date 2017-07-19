@@ -31,12 +31,12 @@
             }
           })
       })
-    var WordsService = require('./WordsService')
+    //var WordsService = require('./WordsService')
     var WordsController = require('./WordsController')
 
-    angular.module('electron-app').service('WordsService',WordsService)
+    //angular.module('electron-app').service('WordsService',WordsService)
 
-    angular.module('electron-app').controller('WordsController', ['$scope', '$state', '$q','$mdSidenav','WordsService',WordsController])
+    angular.module('electron-app').controller('WordsController', ['$scope', '$state', '$q','$mdSidenav','$mdDialog', '$mdToast','$timeout','$log','$interval','WordsService',WordsController])
   }
   module.exports = WordModule
 })(global.angular)

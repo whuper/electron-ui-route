@@ -11,7 +11,7 @@
    * @param  {type} ActivityService description
    * @return {type}                 description
    */
-  function ShellController ($scope, $log, $q, $mdSidenav, modulesProvider, ActivityService) {
+  function ShellController ($scope, $log, $q, $mdSidenav, modulesProvider,Wordservice) {
     var app = require('electron').remote.app
     var notifier = require('electron-notifications')
     var appCfg = app.sysConfig()
@@ -158,8 +158,8 @@
      */
     this.closeApp = function () {
     //关闭app时候做一些清理工作，比如关闭数据库
-          console.log('closeApp');
-            app.close()
+		  Wordservice.closeDB();
+			app.close()
 
       /*
       ActivityService.close().then(() => {

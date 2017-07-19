@@ -18,4 +18,14 @@ md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolb
 md-content .ext-content {
   padding: 50px;
   margin: 20px;
-  background-color: #FFF2E0; }
+  background-color: #FFF2E0; 
+  }
+table.md-table tbody.md-body>tr.md-row, table.md-table tfoot.md-foot>tr.md-row {
+height:35px;
+  }
+table.md-table tbody.md-body>tr td {
+font-size:14px;
+}
+table.md-table td.md-cell.md-numeric, table.md-table th.md-column.md-numeric {
+text-align:left;
+}
