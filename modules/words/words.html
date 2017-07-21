@@ -1,4 +1,8 @@
 <div layout="column" ng-init="ctrl.initialize()">
+<div flex layout="row" layout-padding>
+		
+	<div flex-sm="50" flex-gt-sm="50">
+		
 	<form ng-submit="$event.preventDefault()">
       <md-autocomplete
 		md-no-cache="ctrl.noCache"
@@ -26,25 +30,66 @@
      <table md-table >
     <thead md-head >
       <tr md-row>
-            <th md-column md-numeric wordResult ng-repeat="col in wordResult.columns">{{col}}</th>      
+            <!--<th md-column md-numeric wordResult ng-repeat="col in wordResult.columns">{{col}}</th>      -->
+			<th md-column md-numeric wordResult >{{wordResult.columns[1]}}</th>     
+			<th md-column md-numeric wordResult >{{wordResult.columns[2]}}</th>     
         </tr>
         </thead>
         <tbody md-body>
         <tr ng-click="ctrl.selectWord(items)" md-row md-select="item" md-select-id="name" md-auto-select ng-repeat="items in wordResult.values">
-            <td  md-cell ng-repeat="item in items">{{item}}</td>                     
+            <!--<td md-cell ng-repeat="item in items">{{item}}</td>                     -->
+			<td md-cell >{{items[1]}}</td>                    
+			<td md-cell >{{items[2]}}</td>                    
         </tr>
         </tbody>
     </table>
     </md-table-container>
 
-  <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{'5500'}}" md-on-paginate="getItems" ></md-table-pagination>
+  <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{'5500'}}" md-on-paginate="getItems" ></md-table-pagination>	
+	</div>
 
-  <div class="name">
+	<!--col-md-5 end//-->
+
+	<div flex-sm="50" flex-gt-sm="50" class="right-info">
+	  <h3>{{selectedWord.wordname}} </h3>
+	  <p>
+	  英{{selectedWord.phonetic[0]}} 美{{selectedWord.phonetic[1]}}
+	  </p>
+	  <p>
+	  {{selectedWord.desc}}
+	  </p>
+	<h3 ng-show="selectedWord">词组短语 </h3>
+		<md-list>
+	  <md-list-item class="md-3-line" ng-repeat="wordgroup in selectedWord.wordGroup" ng-click="null">
+	  <!--<md-button> {{wordgroup}}	 </md-button>-->
+	  <div class="md-list-item-text">{{wordgroup}} </div>
+	  </md-list-item>
+	</md-list>
+	<h3 ng-show="selectedWord">双语列句 </h3>
+	<md-list>
+	  <md-list-item class="md-2-line" ng-repeat="exp in selectedWord.example">
+	<div class="md-list-item-text">
+	<p>
+	{{exp}}
+	</p>
+	 </div>
+	  </md-list-item>
+	</md-list>
+
+
+	</div>
+	
+
+
+	</div>
+<!--row end-->
+
+  <!--<div flex layout-gt-sm="row" layout-sm="column" layout-align="center">
 	  <h3>{{selectedWord[1]}} </h3>
 	  <p>
 	  {{selectedWord[2]}}
 	  </p>
-  </div>
+  </div>-->
   
  
   

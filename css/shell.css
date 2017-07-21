@@ -62,4 +62,7 @@ md-fab-speed-dial.md-scale.md-is-open .md-fab-action-item {
 .share {
 
 }
-
+.right-info {
+overflow:scroll;
+height:600px;
+}

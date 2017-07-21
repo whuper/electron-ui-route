@@ -7,11 +7,15 @@
    * @return {type}                description
    */
   function WordsService() {
-    var fs = require('fs');
-    var SQL = require('sql.js');
-    var filebuffer = fs.readFileSync('./assets/wenhaotest.db');
-    // Load the db
-    var db = new SQL.Database(filebuffer);
+	  if(!db){
+		var fs = require('fs');
+		var SQL = require('sql.js');
+		var filebuffer = fs.readFileSync('./assets/wenhaotest.db');
+		// Load the db
+		var db = new SQL.Database(filebuffer);
+		console.log('new db obj');
+	  }
+
     return {      /**
        * initialize function - description
        *
@@ -22,15 +26,10 @@
         return 'initialize';
 
       },
-      /**
-       * todos function - description
-       *
-       * @return {type}  description
-       */
       getWordsList: function (query) {
         //  db.serialize(function () {         
 		var start = (parseInt(query.page) - 1)  * query.limit;
-		var sqlStr = `SELECT id , wordname ,desc FROM english limit ${start},${query.limit}`;
+		var sqlStr = `SELECT * FROM english limit ${start},${query.limit}`;
         var result = db.exec(sqlStr);
         // });
 		//db.close()        
@@ -39,7 +38,7 @@
       },
 	  searchWords:function(txt){
 
-		var sqlStr = `SELECT id , wordname ,desc FROM english where wordname like '%${txt}%' limit 15`;
+		var sqlStr = `SELECT * FROM english where wordname like '%${txt}%' limit 15`;
 		console.log('sqlStr',sqlStr);
         var result = db.exec(sqlStr);
 		return result[0]['values'];  

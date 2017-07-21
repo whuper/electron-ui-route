@@ -1,0 +1,1 @@
+update english set phonetic = ?,wordGroup = ?,example = ? where id = ?

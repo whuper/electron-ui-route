@@ -3,3 +3,21 @@ http://google.github.io/material-design-icons/
 angular-material-dashboard
 
 https://material.angularjs.org/latest/api/service/$mdSidenav
+
+<div layout="column" layout-padding>
+   <div layout="row">
+       <div>Logo</div>
+       <h1 flex>Sample site</h1>
+   </div>
+   <div flex layout-gt-sm="row" layout-sm="column">
+       <div flex-gt-sm="20">
+          Sidebar
+       </div>
+       <div flex-gt-sm="80">
+          Content
+       </div>
+   </div>
+   <div layout="row" layout-align="center">
+       footer
+   </div>
+</div>

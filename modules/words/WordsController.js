@@ -82,7 +82,18 @@
 
     }
 	 this.selectWord = function(item){
-		 $scope.selectedWord = item;
+	
+		var phonetic = item[3] ? item[3].split("#"):[];
+		var wordGroup = item[4] ? item[4].split("#"):[];
+		var example = item[5] ? item[5].split("#"):[];
+
+		 $scope.selectedWord = {
+			 wordname:item[1],
+			 desc:item[2],
+			 phonetic:phonetic,
+			 wordGroup:wordGroup,
+			 example:example
+		 };
      this.play(item[0],item[1]);
 	 },
     

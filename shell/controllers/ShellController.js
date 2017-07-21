@@ -122,6 +122,9 @@
 /*      return Promise.all([
         ActivityService.initialize()
       ])*/
+	  	var BrowserWindow = app.getMainWindow();
+		BrowserWindow.webContents.openDevTools()
+			console.log('BrowserWindow.webContents',BrowserWindow.webContents);
     }
     /**
      * toggleFullscreen function - description
@@ -158,8 +161,8 @@
      */
     this.closeApp = function () {
     //关闭app时候做一些清理工作，比如关闭数据库
-		  Wordservice.closeDB();
-			app.close()
+		Wordservice.closeDB();
+		app.close()
 
       /*
       ActivityService.close().then(() => {
@@ -190,7 +193,11 @@
 	this.openDevTools = function () {	
 	
 		var BrowserWindow = app.getMainWindow();
-		BrowserWindow.webContents.openDevTools()
+		if(BrowserWindow.isDevToolsOpened()){
+			BrowserWindow.webContents.closeDevTools()
+		} else {
+			BrowserWindow.webContents.openDevTools()
+		}
     }
 
 	

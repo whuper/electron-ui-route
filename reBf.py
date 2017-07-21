@@ -13,11 +13,11 @@ class BeautifulPicture():
         self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1'}  #给请求指定一个请求头来模拟chrome浏览器
         self.base_url = 'http://www.youdao.com/w/'
 
-        self.conn = sqlite3.connect("D:/nodejs/electron/electron-ui-route/assets/wenhaotest.db")
+        self.conn = sqlite3.connect("./assets/wenhaotest.db")
         self.cursor = self.conn.cursor()
 
     def launch(self):
-        result = self.cursor.execute("SELECT id,wordname from english LIMIT 1 OFFSET 0")
+        result = self.cursor.execute("SELECT id,wordname from english LIMIT 2000 OFFSET 4000")
         wordlist = result.fetchall()
         #cursor.close()
         #conn.close()
@@ -37,23 +37,28 @@ class BeautifulPicture():
             wordGroup = soup.select('#wordGroup p.wordGroup')
             wordGroup_str = self.format_list(wordGroup)
 
-            example = soup.select('#bilingual ul.ol')
+            example = soup.select('#bilingual ul.ol > li')
             example_str = self.format_list(example)
             #
             self.save_to_db(phonetic_str,wordGroup_str,example_str,word_id)
   
     def save_to_db(self, phonetic, wordGroup,example,word_id): ##保存到数据库
-        # 连接数据库并插入相应数据
-       
+        if(not word_id):
+            os._exit(0)
         #sql = "insert into lesson_info values ('%s', '%s','%s','%s','%s','%s')" % (name, link, des, number, time, degree)
-        sql = 'update english set phonetic = "' + phonetic + '", set wordGroup = "' + wordGroup + '", set example = "' + example + '" where id = "' + word_id + '"'
-        #print sql
-        file_object = open('log.txt', 'w')
-        file_object.write(sql.encode('GBK','ignore'))
-        file_object.close()
-
-        self.cursor.execute(sql)
-        self.conn.commit()
+        sql = 'update english set phonetic = ?,wordGroup = ?,example = ? where id = ?'
+        data = (phonetic,wordGroup,example,word_id)
+      
+        try:
+            self.cursor.execute(sql,data)
+            self.conn.commit()
+        except:
+            print 'failed !'
+            file_object = open('log.txt', 'w')
+            file_object.write(sql.encode('GBK','ignore'))
+            file_object.close()
+        else:
+            print word_id + 'succesful !'
 
     def mkdir(self, path):  ##这个函数创建文件夹
         path = path.strip()
@@ -68,10 +73,11 @@ class BeautifulPicture():
         tmp_list = []
         for phonetic in list_:
             text = phonetic.get_text()
+            text = ' '.join(text.split())
             tmp_list.append(text)
-        tmp_list_str = ' # '.join(tmp_list)
+        tmp_list_str = '#'.join(tmp_list)
 
-        print tmp_list_str.encode('GBK','ignore')
+        #print tmp_list_str.encode('GBK','ignore')
         return tmp_list_str
 
     def test(self):
