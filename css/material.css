@@ -21,11 +21,23 @@ md-content .ext-content {
   background-color: #FFF2E0; 
   }
 table.md-table tbody.md-body>tr.md-row, table.md-table tfoot.md-foot>tr.md-row {
-height:35px;
+/*height:35px;*/
   }
 table.md-table tbody.md-body>tr td {
 font-size:14px;
 }
 table.md-table td.md-cell.md-numeric, table.md-table th.md-column.md-numeric {
 text-align:left;
+}
+h3 {
+margin:5px 0;
+}
+.spell-word {
+
+position:absolute;
+top:40%;
+width:100%;
+text-align:center;
+font-size:80px;
+color:#000;
 }

@@ -122,9 +122,7 @@
 /*      return Promise.all([
         ActivityService.initialize()
       ])*/
-	  	var BrowserWindow = app.getMainWindow();
-		BrowserWindow.webContents.openDevTools()
-			console.log('BrowserWindow.webContents',BrowserWindow.webContents);
+	  
     }
     /**
      * toggleFullscreen function - description

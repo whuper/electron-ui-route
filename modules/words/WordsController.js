@@ -88,6 +88,7 @@
 		var example = item[5] ? item[5].split("#"):[];
 
 		 $scope.selectedWord = {
+			 id:item[0],
 			 wordname:item[1],
 			 desc:item[2],
 			 phonetic:phonetic,
@@ -122,18 +123,48 @@
 
         }; 
 	this.play = function(wordId,wordReal){
+		if(this.audio && !this.audio.ended){
+			return false;
+		}
        var folder_size = 500
         var folder_name = 'within_' + String( ( parseInt( (wordId - 1) / folder_size) + 1) * folder_size )
         var save_path = 'assets/audios/' + folder_name
         var mp3_path = save_path + '/' + wordReal  + '.mp3'
 
-        console.log('mp3_path',mp3_path);
-	 var audio = new Audio(mp3_path);
-   
-        audio.currentTime = 0;
-        audio.play();
+		this.audio = new Audio(mp3_path);   
+        this.audio.currentTime = 0;
+        this.audio.play();
+
+		
+		this.spell(wordReal);
+		
+
+		//调用父state中controller中的方法
+		//$scope.$parent.shell.toggleSidebar();
   
-	}
+	};
+	this.spell = function(wordReal){
+		if($scope.spellWordName){
+		return
+		}
+		$scope.LetterNo = 0;
+		$scope.spellWordName = '';
+
+		$scope.interval = $interval(function(){
+
+			if($scope.LetterNo >= wordReal.length){
+				$interval.cancel($scope.interval)
+				$timeout(function(){
+					$scope.spellWordName = '';
+				},1500);
+            return false;
+			}
+			$scope.spellWordName += wordReal[$scope.LetterNo];
+			$scope.LetterNo += 1;
+
+		},200);
+  
+	};
 	//function end
 
   }
