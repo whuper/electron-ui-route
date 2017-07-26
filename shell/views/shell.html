@@ -7,6 +7,18 @@
   </centered>
   <md-toolbar class="md-whiteframe-z3">
 
+  <div class="md-toolbar-tools">
+    <md-button class="menu"  ng-click="shell.toggleSidebar()" >
+        <md-icon >menu</md-icon>
+      </md-button>
+	   <span class="app-title">{{ shell.appName }}</span>
+	  <span class="draggable" flex></span>
+      <span ui-view="header"></span>
+      <!--<span class="draggable" flex></span>-->
+      <span ui-view="toolbar"></span>
+      <!--<span class="draggable" flex></span>-->
+
+	  <!--windows-controls-->
     <div ng-if="shell.platform() === 'darwin'" class="md-toolbar-tools windows-controls" flex layout-align="start start">
       <a class="md-icon-button osx-control close" md-no-ink ng-click="shell.closeApp()">
         <svg x="0px" y="0px" viewBox="0 0 6.4 6.4">
@@ -24,13 +36,11 @@
           <path fill="#006400" d="M0.6,5.9h4L0,1.4l0,3.9C0.3,5.3,0.6,5.6,0.6,5.9z"></path>
         </svg>
       </a>
-      <span class="draggable" flex></span>
-      <span class="app-title">{{ shell.appName }}</span>
-      <span class="draggable" flex></span>
+    
     </div>
     <div ng-if="shell.platform() !== 'darwin'" class="md-toolbar-tools windows-controls" flex layout-align="end end">
-      <span class="app-title">{{ shell.appName }}</span>
-      <span class="draggable" flex></span>
+      <!--<span class="app-title">{{ shell.appName }}</span>
+      <span class="draggable" flex></span>-->
       <a class="md-icon-button window-control md-button" md-no-ink ng-click="shell.minimizeApp()">
         <svg x="0px" y="0px" viewBox="0 0 10.2 1">
           <rect fill="#ffffff" width="10.2" height="1"></rect>
@@ -47,7 +57,13 @@
         </svg>
       </a>
     </div>
-    <div class="md-toolbar-tools">
+	<!--windows-controls end-->
+
+
+</div>
+
+
+    <!--<div class="md-toolbar-tools">
       <md-button class="menu"  ng-click="shell.toggleSidebar()" >
         <md-icon >menu</md-icon>
       </md-button>
@@ -55,39 +71,57 @@
       <span class="draggable" flex></span>
       <span ui-view="toolbar"></span>
       <span class="draggable" flex></span>
-	  <md-button class="md-icon-button" md-no-ink ng-repeat="module in shell.modules"
-				 ui-sref="{{ module.info.sref }}" ng-class="{ selected: $state.includes('{{ module.info.state }}') }">
-		<md-icon>{{ module.info.icon }}</md-icon>
-		<md-tooltip>{{ module.info.tooltip }}</md-tooltip>
-	  </md-button>
 
-	  <md-button class="md-icon-button" md-no-ink ng-click="shell.openDevTools()" >
-		<md-icon>view_quilt</md-icon>
 
-      <span></span>
-    </div>
+    </div>-->
   </md-toolbar>
 
+   <section layout="row" flex>
+
    <md-sidenav class="md-sidenav-left" md-component-id="sidebar"
-                md-disable-backdrop md-whiteframe="4">
+                back-md-disable-backdrop md-whiteframe="4">
 
       <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools">Disabled Backdrop</h1>
       </md-toolbar>
 
       <md-content layout-margin>
-        <p>
-          This sidenav is not showing any backdrop, where users can click on it, to close the sidenav.
-        </p>
-        <md-button ng-click="shell.toggleSidebar()" class="md-accent">
+      
+		 <md-list flex>
+		    <md-list-item class="md-2-line" ng-repeat="module in shell.modules">		
+ 		<a class="md-button md-ink-ripple" ui-sref="{{ module.info.sref }}" ng-class="{ selected: $state.includes('{{ module.info.state }}') }">
+			<md-icon class="material-icon">{{ module.info.icon }}</md-icon>
+			{{ module.info.tooltip }}
+	<md-tooltip>{{ module.info.tooltip }}</md-tooltip>
+	  </a>
+        </md-list-item>
+
+	<md-list-item class="md-2-line">
+	  <md-button  md-no-ink ng-click="shell.openDevTools()" >
+		<md-icon class="material-icon">view_quilt</md-icon>
+		openDevTools
+		</md-button>
+	</md-list-item>
+
+	<md-list-item class="md-2-line">
+	<md-button ng-click="shell.toggleSidebar()" md-no-ink class="md-accent">
           Close this Sidenav
         </md-button>
+	</md-list-item>
+
+	</md-list>
+
+	  <p>
+          This sidenav is not showing any backdrop, where users can click on it, to close the sidenav.
+        </p>
+
       </md-content>
 
     </md-sidenav>
     
   <md-content flex layout-fill layout-margin ui-view="module"></md-content>
 
+  </section>  
 
   <div layout="row" layout-align="end start" layout-margin>
     <div layout-fill layout-padding ui-view="status"></div>

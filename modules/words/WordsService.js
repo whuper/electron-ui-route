@@ -33,15 +33,17 @@
         var result = db.exec(sqlStr);
         // });
 		//db.close()        
-        console.log(result);
         return result[0]
       },
 	  searchWords:function(txt){
 
 		var sqlStr = `SELECT * FROM english where wordname like '%${txt}%' limit 15`;
-		console.log('sqlStr',sqlStr);
         var result = db.exec(sqlStr);
-		return result[0]['values'];  
+		if(result && result[0]){		
+			return result[0]['values'];  
+		} else {
+			return [];
+		}
 	  },
       get: function (docID) {
         return db.get(docID)

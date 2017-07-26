@@ -59,14 +59,18 @@
     }
 
     this.searchTextChange = function(text) {
+		//输入框文本变化
 		var results = WordsService.searchWords(text);
 		$scope.searchResults = results;
-		console.log('$scope.searchResults',$scope.searchResults);
-      $log.info('Text changed to ' + text);
+	
     }
 
     this.selectedItemChange = function(item) {
-      $log.info('Item changed to ' + JSON.stringify(item));
+		//选择一个选项
+		if(!item){
+			return false;
+		}
+		this.selectWord(item);
     }
 
 
@@ -135,7 +139,6 @@
         this.audio.currentTime = 0;
         this.audio.play();
 
-		
 		this.spell(wordReal);
 		
 
@@ -156,7 +159,7 @@
 				$interval.cancel($scope.interval)
 				$timeout(function(){
 					$scope.spellWordName = '';
-				},1500);
+				},1000);
             return false;
 			}
 			$scope.spellWordName += wordReal[$scope.LetterNo];
