@@ -35,6 +35,15 @@
 		//db.close()        
         return result[0]
       },
+	  getWordsArray: function (wordsArray) {
+		var sqlStr = `SELECT id,words FROM dict where words in (${wordsArray})`;
+        var result = db.exec(sqlStr);
+        if(result && result[0]){		
+			return result[0]['values'];  
+		} else {
+			return [];
+		}
+      },
 	  searchWords:function(txt){
 
 		var sqlStr = `SELECT * FROM english where wordname like '%${txt}%' limit 15`;

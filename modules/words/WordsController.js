@@ -8,6 +8,11 @@
     this.events = []
 	this.noCache = true;
 
+	var wordsArray = [];
+	var wordsNo = 0;
+	var wordAudio = new Audio();
+	wordAudio.addEventListener('ended',playEndedHandler,false);
+
     /**
      * initialize function - description
      *
@@ -99,7 +104,7 @@
 			 wordGroup:wordGroup,
 			 example:example
 		 };
-     this.play(item[0],item[1]);
+     this.play(item[0],item[1],false);
 	 },
     
     this.showAlert = function () {
@@ -126,24 +131,41 @@
        $mdSidenav(menuId).toggle();    
 
         }; 
-	this.play = function(wordId,wordReal){
+	this.speak = function(sentence){
+		var wordsArr = sentence.match(/[a-z]+[\-\']?[a-z]*/ig);
+		var tmstr = "'" + wordsArr.join("','") + "'";
+		wordsArray = WordsService.getWordsArray(tmstr);
+		this.play(wordsArray[wordsNo][0],wordsArray[wordsNo][1],true,true);
+	};
+	this.play = function(wordId,wordReal,isDict,noSpell){
 		if(this.audio && !this.audio.ended){
 			return false;
 		}
        var folder_size = 500
         var folder_name = 'within_' + String( ( parseInt( (wordId - 1) / folder_size) + 1) * folder_size )
+		if(isDict){
+        var save_path = 'D:/python/ens/iciba/audios_15328/' + folder_name
+		} else {
         var save_path = 'assets/audios/' + folder_name
+		}
         var mp3_path = save_path + '/' + wordReal  + '.mp3'
 
-		this.audio = new Audio(mp3_path);   
-        this.audio.currentTime = 0;
-        this.audio.play();
+		
+		wordAudio.src = mp3_path;
+		/*if(wordsArray && wordsArray.length > 0){
+		wordAudio.addEventListener('ended',playEndedHandler,false);
+		}*/
+        wordAudio.currentTime = 0;
+        wordAudio.play();
 
-		this.spell(wordReal);
+		if(!noSpell){
+			this.spell(wordReal);
+		}
 		
 
 		//调用父state中controller中的方法
 		//$scope.$parent.shell.toggleSidebar();
+	
   
 	};
 	this.spell = function(wordReal){
@@ -169,6 +191,25 @@
   
 	};
 	//function end
+	
+		//音频播放结束执行的函数
+		function playEndedHandler(){
+			console.log('ended');
+			wordsNo += 1;
+			if(!wordsArray.length || wordsArray.length == wordsNo){
+				
+				//wordAudio.removeEventListener('ended',playEndedHandler,false);				
+			
+				wordsNo = 0;
+				wordsArray = [];
+				console.log('停止');
+				return false;
+			}
+			console.log('播放下一个单词',wordsArray[wordsNo]);
+			
+			this.play(wordsArray[wordsNo][0],wordsArray[wordsNo][1],true,true);
+			
+		}
 
   }
   module.exports = WordsController
