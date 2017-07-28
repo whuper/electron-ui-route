@@ -63,14 +63,15 @@
 	  </p>
 	<h3 ng-show="selectedWord">词组短语 </h3>
 		<md-list>
-	  <md-list-item class="md-1-line" ng-repeat="wordgroup in selectedWord.wordGroup" ng-click="ctrl.speak(wordgroup)" >
+	  <md-list-item class="md-2-line" ng-repeat="wordgroup in selectedWord.wordGroup" ng-click="ctrl.speak(wordgroup)" >
 	  <!--<md-button> {{wordgroup}}	 </md-button>-->
 	  <div class="md-list-item-text" >{{wordgroup}}</div>
 	  </md-list-item>
 	</md-list>
 	<h3 ng-show="selectedWord">双语列句 </h3>
+
 	<md-list>
-	  <md-list-item class="md-3-line" ng-repeat="exp in selectedWord.example">
+	  <md-list-item class="md-3-line" ng-repeat="exp in selectedWord.example" ng-click="ctrl.speak(exp)">
 	<div class="md-list-item-text">
 	<p>
 	{{exp}}

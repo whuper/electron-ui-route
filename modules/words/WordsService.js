@@ -36,7 +36,10 @@
         return result[0]
       },
 	  getWordsArray: function (wordsArray) {
-		var sqlStr = `SELECT id,words FROM dict where words in (${wordsArray})`;
+		var tmstr = "'" + wordsArray.join("','") + "'";
+		var tmstr2 = wordsArray.join();
+		var sqlStr = `SELECT id,words FROM dict where words in (${tmstr}) order by instr('${tmstr2}',words)`;
+		console.log('sqlStr',sqlStr);
         var result = db.exec(sqlStr);
         if(result && result[0]){		
 			return result[0]['values'];  

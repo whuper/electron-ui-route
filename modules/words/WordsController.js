@@ -13,6 +13,9 @@
 	var wordAudio = new Audio();
 	wordAudio.addEventListener('ended',playEndedHandler,false);
 
+	var interval_;
+	var timeout_;
+
     /**
      * initialize function - description
      *
@@ -132,15 +135,25 @@
 
         }; 
 	this.speak = function(sentence){
-		var wordsArr = sentence.match(/[a-z]+[\-\']?[a-z]*/ig);
-		var tmstr = "'" + wordsArr.join("','") + "'";
-		wordsArray = WordsService.getWordsArray(tmstr);
-		this.play(wordsArray[wordsNo][0],wordsArray[wordsNo][1],true,true);
+		
+		var stop = sentence.search(/[\u4e00-\u9fa5]/);
+		if(stop){
+			var enSentence = sentence.substring(0,stop);
+		} else {
+			var enSentence = sentence;
+		}
+		
+		console.log('enSentence',enSentence);
+		//匹配出英文单词
+		var wordsArr = enSentence.match(/[a-z]+[\-\']?[a-z]*/ig);
+		wordsArray = WordsService.getWordsArray(wordsArr);
+		$scope.ctrl.play(wordsArray[wordsNo][0],wordsArray[wordsNo][1],true,true);
 	};
 	this.play = function(wordId,wordReal,isDict,noSpell){
-		if(this.audio && !this.audio.ended){
-			return false;
-		}
+		//if(wordAudio && !wordAudio.ended){
+			//return false;
+		//}
+		console.log('wordReal',wordReal);
        var folder_size = 500
         var folder_name = 'within_' + String( ( parseInt( (wordId - 1) / folder_size) + 1) * folder_size )
 		if(isDict){
@@ -149,7 +162,6 @@
         var save_path = 'assets/audios/' + folder_name
 		}
         var mp3_path = save_path + '/' + wordReal  + '.mp3'
-
 		
 		wordAudio.src = mp3_path;
 		/*if(wordsArray && wordsArray.length > 0){
@@ -159,27 +171,28 @@
         wordAudio.play();
 
 		if(!noSpell){
-			this.spell(wordReal);
+			$scope.ctrl.spell(wordReal);
 		}
 		
-
 		//调用父state中controller中的方法
 		//$scope.$parent.shell.toggleSidebar();
-	
-  
 	};
 	this.spell = function(wordReal){
-		if($scope.spellWordName){
-		return
-		}
 		$scope.LetterNo = 0;
 		$scope.spellWordName = '';
 
-		$scope.interval = $interval(function(){
+		if(interval_ || timeout_){
+			$interval.cancel(interval_);
+			$timeout.cancel(timeout_);
+			//return
+		}
+	
+		interval_ = $interval(function(){
 
 			if($scope.LetterNo >= wordReal.length){
-				$interval.cancel($scope.interval)
-				$timeout(function(){
+				$interval.cancel(interval_)
+				timeout_ = $timeout(function(){
+					console.log('clear');
 					$scope.spellWordName = '';
 				},1000);
             return false;
@@ -207,7 +220,7 @@
 			}
 			console.log('播放下一个单词',wordsArray[wordsNo]);
 			
-			this.play(wordsArray[wordsNo][0],wordsArray[wordsNo][1],true,true);
+			$scope.ctrl.play(wordsArray[wordsNo][0],wordsArray[wordsNo][1],true,true);
 			
 		}
 
