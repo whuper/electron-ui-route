@@ -49,7 +49,7 @@
       },
 	  searchWords:function(txt){
 
-		var sqlStr = `SELECT * FROM english where wordname like '%${txt}%' limit 15`;
+		var sqlStr = `SELECT * FROM english where words like '%${txt}%' limit 15`;
         var result = db.exec(sqlStr);
 		if(result && result[0]){		
 			return result[0]['values'];  
