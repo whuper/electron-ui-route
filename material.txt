@@ -4,6 +4,9 @@ angular-material-dashboard
 
 https://material.angularjs.org/latest/api/service/$mdSidenav
 
+How to use AngularJS with NgAnimate http://www.cnblogs.com/liangliangjiang/p/6650949.html
+ 
+
 <div layout="column" layout-padding>
    <div layout="row">
        <div>Logo</div>

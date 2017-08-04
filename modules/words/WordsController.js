@@ -172,11 +172,15 @@
 
 		if(!noSpell){
 			$scope.ctrl.spell(wordReal);
+			//$scope.spellWordName = wordReal;
 		}
 		
 		//调用父state中controller中的方法
 		//$scope.$parent.shell.toggleSidebar();
 	};
+	this.spellNew = function(){
+	
+	},
 	this.spell = function(wordReal){
 		$scope.LetterNo = 0;
 		$scope.spellWordName = '';
