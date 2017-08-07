@@ -10,16 +10,16 @@
           md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
           md-search-text="ctrl.searchText"
           md-selected-item-change="ctrl.selectedItemChange(item)"
-		  md-items="item in searchResults"
-          md-item-text="item[1]"
+		  md-items="item in ctrl.searchResults(ctrl.searchText)"
+          md-item-text="item['words']"
           md-min-length="1"
           placeholder="Search a word?">
         <md-item-template>
-          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item[1]}}</span>
+          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item['words']}}</span>
         </md-item-template>
         <md-not-found>
-          No states matching "{{ctrl.searchText}}" were found.
-          <a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>
+          No words matching "{{ctrl.searchText}}" were found.
+          <a >Create a new one!</a>
         </md-not-found>
       </md-autocomplete>
 	 
@@ -30,16 +30,19 @@
      <table md-table class="md-row-select">
     <thead md-head >
       <tr md-row>
-            <!--<th md-column md-numeric wordResult ng-repeat="col in wordResult.columns">{{col}}</th>      -->
+            <!--<th md-column md-numeric wordResult ng-repeat="col in wordResult.columns">{{col}}</th>    
 			<th md-column md-numeric wordResult >{{wordResult.columns[1]}}</th>     
-			<th md-column md-numeric wordResult >{{wordResult.columns[2]}}</th>     
+			<th md-column md-numeric wordResult >{{wordResult.columns[2]}}</th> 
+			  -->
+			<th md-column md-numeric wordResult >words</th> 
+			<th md-column md-numeric wordResult >meaning</th> 
         </tr>
         </thead>
         <tbody md-body>
-        <tr ng-click="ctrl.selectWord(items)" md-row ng-repeat="items in wordResult.values">
+        <tr ng-click="ctrl.selectWord(items)" md-row ng-repeat="items in wordResult">
             <!--<td md-cell ng-repeat="item in items">{{item}}</td>                     -->
-			<td md-cell >{{items[1]}}</td>                    
-			<td md-cell >{{items[2]}}</td>                    
+			<td md-cell >{{items['words']}}</td>                    
+			<td md-cell >{{items['meaning']}}</td>                    
         </tr>
         </tbody>
     </table>

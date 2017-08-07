@@ -31,16 +31,20 @@
     limit: 10,
     page: 1
   };
-  $scope.wordResult = WordsService.getWordsList($scope.query)
-
+  WordsService.getWordsList($scope.query).then(function(json){
+  
+  $scope.wordResult = json;
+  
+  });
   function success(desserts) {
     $scope.desserts = desserts;
   }
   
-  $scope.getItems = function () {
+  $scope.getItems = function(){
 	 console.log($scope.query);
-	 $scope.wordResult = WordsService.getWordsList($scope.query);
-    //$scope.promise = $nutrition.desserts.get($scope.query, success).$promise;
+	 WordsService.getWordsList($scope.query).then(function(json){
+		  $scope.wordResult = json;
+	 });
   };
 		 
     };
@@ -49,36 +53,50 @@
 	 this.newState = function(state) {
       alert("Sorry! You'll need to create a Constitution for " + state + " first!");
     }
+    this.searchTextChange = function(text) {
+	
+		console.log('text',text);
+	
+		/*WordsService.searchWords(text).then(function(json){
+			if(json && json.length > 0){
+				$scope.searchResults = json;
+			} else {
+				$scope.searchResults = [];			
+			}
+		});
 
-     this.searchTextChange2 = function(query) {
-		 console.log('querySearch');
-      var results,deferred;
-        deferred = $q.defer();
-		var results = WordsService.searchWords(query);
-		console.log('results',results);
-		deferred.resolve( results )
-
-        /*$timeout(function () { 
+		  deferred = $q.defer();
+        $timeout(function () { 
 			deferred.resolve( results );
 			console.log('results',results);
-		}, Math.random() * 1000, false);*/
+		}, Math.random() * 1000, false);
         return deferred.promise;
-     
-    }
+		*/
 
-    this.searchTextChange = function(text) {
-		//输入框文本变化
-		var results = WordsService.searchWords(text);
-		$scope.searchResults = results;
+		//$scope.searchResults = WordsService.searchWords(text);
 	
+		
     }
+	this.searchResults = function(text) {
+		console.log('text',text);
+		if(!text){
+		return false;
+		}
+		var deferred = $q.defer();
+		WordsService.searchWords(text).then(function(json){
+			deferred.resolve(json);		
+		});
+
+		return deferred.promise;
+
+	}
 
     this.selectedItemChange = function(item) {
 		//选择一个选项
 		if(!item){
 			return false;
 		}
-		this.selectWord(item);
+		$scope.ctrl.selectWord(item);
     }
 
 
@@ -95,19 +113,19 @@
     }
 	 this.selectWord = function(item){
 	
-		var phonetic = item[3] ? item[3].split("#"):[];
-		var wordGroup = item[4] ? item[4].split("#"):[];
-		var example = item[5] ? item[5].split("#"):[];
+		var phonetic = item['phonetic'] ? item['phonetic'].split("#"):[];
+		var wordGroup = item['wordsGroup'] ? item['wordsGroup'].split("#"):[];
+		var example = item['example'] ? item['example'].split("#"):[];
 
 		 $scope.selectedWord = {
-			 id:item[0],
-			 wordname:item[1],
-			 desc:item[2],
+			 id:item['id'],
+			 wordname:item['words'],
+			 desc:item['meaning'],
 			 phonetic:phonetic,
 			 wordGroup:wordGroup,
 			 example:example
 		 };
-     this.play(item[0],item[1],false);
+     this.play(item['id'],item['words'],false);
 	 },
     
     this.showAlert = function () {
@@ -146,8 +164,14 @@
 		console.log('enSentence',enSentence);
 		//匹配出英文单词
 		var wordsArr = enSentence.match(/[a-z]+[\-\']?[a-z]*/ig);
-		wordsArray = WordsService.getWordsArray(wordsArr);
-		$scope.ctrl.play(wordsArray[wordsNo][0],wordsArray[wordsNo][1],true,true);
+
+		WordsService.getWordsArray(wordsArr).then(function(json){
+
+			 wordsArray = json;
+			 $scope.ctrl.play(wordsArray[wordsNo]['id'],wordsArray[wordsNo]['words'],true,true);		
+		});
+
+		
 	};
 	this.play = function(wordId,wordReal,isDict,noSpell){
 		//if(wordAudio && !wordAudio.ended){
@@ -197,6 +221,7 @@
 				$interval.cancel(interval_)
 				timeout_ = $timeout(function(){
 					console.log('clear');
+					wordsArray = [];
 					$scope.spellWordName = '';
 				},1000);
             return false;
@@ -224,7 +249,7 @@
 			}
 			console.log('播放下一个单词',wordsArray[wordsNo]);
 			
-			$scope.ctrl.play(wordsArray[wordsNo][0],wordsArray[wordsNo][1],true,true);
+			$scope.ctrl.play(wordsArray[wordsNo]['id'],wordsArray[wordsNo]['words'],true,true);
 			
 		}
 

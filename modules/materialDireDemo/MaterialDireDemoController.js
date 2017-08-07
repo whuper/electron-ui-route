@@ -5,9 +5,22 @@
     
     
     
-	this.noCache = true;
-	this.simulateQuery = true;
-	this.states = loadAll();
+
+    this.simulateQuery = false;
+    this.isDisabled    = false;
+
+    // list of `state` value/display objects
+    this.states_auto       = loadAll();
+	/*
+    this.querySearch   = $scope.ctrl.querySearch;
+    this.selectedItemChange = $scope.ctrl.selectedItemChange;
+    this.searchTextChange   = $scope.ctrl.searchTextChange;
+
+    this.newState = $scope.ctrl.newState;
+	*/
+
+	//
+	
 	//Chips	
 	this.readonly = false;
 
@@ -524,9 +537,9 @@ $scope.project = {
      * remote dataservice call.
      */
      this.querySearch = function(query) {
-      var results = query ? this.states.filter( this.createFilterFor(query) ) : this.states,
+      var results = query ? $scope.ctrl.states_auto.filter( $scope.ctrl.createFilterFor(query) ) : $scope.ctrl.states_auto,
           deferred;
-      if (this.simulateQuery) {
+      if ($scope.ctrl.simulateQuery) {
         deferred = $q.defer();
         $timeout(function () { 
 			deferred.resolve( results );
@@ -534,6 +547,7 @@ $scope.project = {
 		}, Math.random() * 1000, false);
         return deferred.promise;
       } else {
+		  console.log('results',results);
         return results;
       }
     }

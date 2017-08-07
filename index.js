@@ -61,7 +61,7 @@
   // hint: has to initialize modules here, otherwise controller objects are not found :(
   ModuleProvider.loadModules()
   angular.module('electron-app').provider('modules', [ModuleProvider])
-  angular.module('electron-app').service('WordsService',[WordsService])
+  angular.module('electron-app').service('WordsService',['$q',WordsService])
   // angular.module('electron-app').service('PouchDBService', [PouchDBService])
   // angular.module('electron-app').service('LovefieldService', [LovefieldService])
   // angular.module('electron-app').service('RDFStoreService', [RDFStoreService])
