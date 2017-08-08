@@ -57,6 +57,15 @@
         label: 'MaterialDireDemo2',
         tooltip: 'MaterialDireDemo DEMO2',
         icon: 'face'
+      },
+		fileExplorer: {
+        path: 'modules/fileExplorer',
+        name: 'FileExplorerModule',
+        url: '/app/fileExplorer',
+        state: 'app.fileExplorer',
+        label: 'FileExplorer',
+        tooltip: 'fileExplorer',
+        icon: 'assignment'
       }
 
     }

@@ -84,7 +84,8 @@
 		}
 		var deferred = $q.defer();
 		WordsService.searchWords(text).then(function(json){
-			deferred.resolve(json);		
+			deferred.resolve(json.list);		
+			$scope.tableName = json.flag;
 		});
 
 		return deferred.promise;
@@ -155,7 +156,7 @@
 	this.speak = function(sentence){
 		
 		var stop = sentence.search(/[\u4e00-\u9fa5]/);
-		if(stop){
+		if(index != -1 && index > 0){
 			var enSentence = sentence.substring(0,stop);
 		} else {
 			var enSentence = sentence;

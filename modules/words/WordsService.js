@@ -37,8 +37,7 @@
 		db.all(sqlStr,function(err, rows){
 			 if (err) defered.reject(err);
 
-			console.log('rows',rows);
-			defered.resolve(rows);		
+				defered.resolve(rows);		
 		});
 		return defered.promise;
 		//db.close()        
@@ -56,23 +55,46 @@
         //var result = db.exec(sqlStr);
         db.all(sqlStr,function(err, rows){
 			 if (err) defered.reject(err);
-
-			console.log('rows',rows);
-			defered.resolve(rows);		
+				defered.resolve(rows);		
 		});
 		return defered.promise;
 
       },
 	  searchWords:function(txt){
-		var defered = $q.defer();
+		var defered = $q.defer(),colum = 'words',table = 'english',limit = 15;
+		//如果有中文字符
+		var index = txt.search(/[\u4e00-\u9fa5]/);
+		if(index != -1){
+			colum = 'meaning';
+			txt = '%' + txt + '%';
+		} else {
+			txt = txt + '%';		
+		}
 		var txt = txt.toLowerCase();
-		var sqlStr = `SELECT * FROM english where words like '%${txt}%' limit 15`;
-		console.log('sqlStr',sqlStr);
+		var sqlStr = `SELECT * FROM ${table} where ${colum} like '${txt}' limit ${limit}`;
+			console.info('sqlStr',sqlStr);
 			db.all(sqlStr,function(err, rows){
-			 //if (err) defered.reject(err);
-			 console.log('rows',rows);
-			defered.resolve(rows);		
-		});
+				if(rows && rows.length > 0){
+					var res = {
+					flag:table,
+					list:rows
+					}
+					defered.resolve(res);		
+				} else {
+					console.log('没有搜索到结果,到dict中查找');
+					table = 'dict';
+					var sqlStr = `SELECT * FROM ${table} where ${colum} like '${txt}' limit ${limit}`;
+					console.info('sqlStr',sqlStr);
+						db.all(sqlStr,function(err, rows2){							
+								var res = {
+									flag:table,
+									list:rows2
+									}
+							defered.resolve(res);
+						});
+				
+				}
+			});
 		return defered.promise;
 	  },
       get: function (docID) {

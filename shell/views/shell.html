@@ -7,13 +7,23 @@
   </centered>
   <md-toolbar class="md-whiteframe-z3">
 
+	
+
+
   <div class="md-toolbar-tools">
     <md-button class="menu"  ng-click="shell.toggleSidebar()" >
         <md-icon >menu</md-icon>
       </md-button>
+	
+
 	   <span class="app-title">{{ shell.appName }}</span>
 	  <span class="draggable" flex></span>
       <span ui-view="header"></span>
+
+	   <md-button  md-no-ink ng-click="shell.openDevTools()" >
+	  <md-icon class="material-icon">view_quilt</md-icon>
+		</md-button>
+
       <!--<span class="draggable" flex></span>-->
       <span ui-view="toolbar"></span>
       <!--<span class="draggable" flex></span>-->
@@ -96,15 +106,10 @@
 	  </a>
         </md-list-item>
 
-	<md-list-item class="md-2-line">
-	  <md-button  md-no-ink ng-click="shell.openDevTools()" >
-		<md-icon class="material-icon">view_quilt</md-icon>
-		openDevTools
-		</md-button>
-	</md-list-item>
 
 	<md-list-item class="md-2-line">
 	<md-button ng-click="shell.toggleSidebar()" md-no-ink class="md-accent">
+		<md-icon class="material-icon">backspace</md-icon>
           Close this Sidenav
         </md-button>
 	</md-list-item>
@@ -119,8 +124,10 @@
 
     </md-sidenav>
     
-  <md-content flex layout-fill layout-margin ui-view="module"></md-content>
 
+  <md-content flex layout-fill layout-margin  ui-view="module" class="ui-view-container">
+  </md-content>
+ 
   </section>  
 
   <div layout="row" layout-align="end start" layout-margin>
