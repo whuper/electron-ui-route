@@ -1,3 +1,31 @@
 <div layout="column"  ng-init="ctrl.initialize()" ng-cloak>
-	fileassignment
+
+   <section layout="row" class="path-nav" >
+	   <md-button ng-click="ctrl.dirClick(path)" ng-repeat="path in pathList">{{path + '/'}}</md-button>
+    </section>
+
+
+	<!--<div class="fileList" ng-repeat="file in fileList" layout="row">
+		{{file[0]}}
+		{{file[1]}}
+   
+  </div>-->
+<md-content layout-padding class="gridList">
+
+    <md-grid-list
+        md-cols-gt-md="12" md-cols="8" md-cols-md="10"
+        md-row-height-gt-md="1:1" md-row-height="4:3"
+        md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="8px" >
+
+    <!--<md-grid-tile  ng-repeat="file in fileList" md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" md-colspan-gt-sm="1" md-rowspan-gt-sm="1">-->
+	<md-grid-tile  ng-repeat="file in fileList" md-rowspan="2" md-colspan="2">
+		<img class="icon" ng-src="./assets/icons/{{file[1] || 'text'}}.png" />
+      <md-grid-tile-footer>
+        <h3	>{{file[0]}}</h3>
+      </md-grid-tile-footer>
+    </md-grid-tile>
+
+  </md-grid-list>
+    </md-content>
+
 </div>
