@@ -5,20 +5,35 @@
     </section>
 
 
-	<!--<div class="fileList" ng-repeat="file in fileList" layout="row">
-		{{file[0]}}
-		{{file[1]}}
-   
-  </div>-->
-<md-content layout-padding class="gridList">
+<md-content layout="row" class="fileContent" >
 
+<div flex="20">
+	<md-button class="md-raised " ng-click="ctrl.initDB()">创建数据库</md-button>
+	<md-button class="md-raised " ng-click="ctrl.scan()">扫描磁盘</md-button>
+        <md-divider ></md-divider>
+        <md-list-item class="md-2-line" ng-click="null">
+          <img ng-src="./assets/icons/folder.png" class="md-avatar" alt="{{todos[0].who}}" />
+          <div class="md-list-item-text">
+            <h3>文件</h3>
+            <p>Secondary text</p>
+          </div>
+        </md-list-item>
+</div>
+
+<div class="gridList" flex="80">
     <md-grid-list
         md-cols-gt-md="12" md-cols="8" md-cols-md="10"
         md-row-height-gt-md="1:1" md-row-height="4:3"
         md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="8px" >
 
     <!--<md-grid-tile  ng-repeat="file in fileList" md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" md-colspan-gt-sm="1" md-rowspan-gt-sm="1">-->
-	<md-grid-tile  ng-repeat="file in fileList" md-rowspan="2" md-colspan="2">
+	<md-grid-tile  ng-repeat="file in fileList" md-rowspan="2" md-colspan="2" ng-class="{true: 'active',false:''}[ctrl.curItemIndex == $index]" ng-click="ctrl.curItemIndex = $index" ng-dblclick="ctrl.itemClick(file)">
+	 <md-tooltip md-direction="top">
+	
+	 {{file[2].mtime}} <br />
+	 {{file[2].size}}<br />
+	
+	 </md-tooltip>
 		<img class="icon" ng-src="./assets/icons/{{file[1] || 'text'}}.png" />
       <md-grid-tile-footer>
         <h3	>{{file[0]}}</h3>
@@ -26,6 +41,8 @@
     </md-grid-tile>
 
   </md-grid-list>
+  </div>
+
     </md-content>
 
 </div>
