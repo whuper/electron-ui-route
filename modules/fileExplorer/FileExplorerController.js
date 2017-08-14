@@ -5,9 +5,21 @@
     
 
 	var fs = require('fs');
-	var curDirPath = 'D:/nodejs/electron/electron-ui-route/';
+	
+	var app = require('electron').remote.app;
+	var appCfg = app.sysConfig();
+	var os = appCfg.platform;
+	console.log('os',os);
+	if(os == 'darwin'){
+		var curDirPath = 'D:/nodejs/electron/electron-ui-route/';
+	}
+	if(os == 'win32'){
+		var curDirPath = 'D:/nodejs/electron/electron-ui-route/';
+	}
 
     this.initialize = function () {
+
+
 		$scope.curItemIndex = undefined;
       $scope.employee = 'obama';  
       $scope.imagePath = './assets/washedout.png';
@@ -77,6 +89,15 @@
 		}
 
 	}
+	this.sysOpen = function(path){
+		var {remote} = require('electron');
+		var {shell} = remote;
+		var os = require('os')
+		//shell.showItemInFolder(path);
+		shell.openItem(path);
+	
+	
+	};
 	this.getCurDirFile = function(fullPath){
 		if(fullPath){
 			curDirPath = fullPath;
@@ -200,6 +221,54 @@
 	
 	
 	};
+	this.browse = function(){
+		var sql3 = require("sqlite3").verbose();
+		var db = new sql3.Database('./movies.db');
+		db.all("SELECT * from porns", function(err, rows) {
+
+			$scope.movieList = rows;
+			console.log('rows',rows);
+		
+		});
+		db.close();
+
+	
+	
+	};
+	this.thumTojpg = function(filepath,filename){
+		var ffmpeg = require('fluent-ffmpeg');
+		var fullpath = filepath + filename;
+		console.log(fullpath);
+		/*
+		videoToJpeg(input)
+		.then(output=>{}
+		)
+		.catch(err=>console.error(err));
+		*/
+		ffmpeg(fullpath)
+		  .screenshots({
+			timestamps: ['20%','40%'],
+			filename: '%b-at-%s-seconds.png',
+			folder: './output'
+			//size: '320x240'
+		  });
+	};
+
+	function videoToJpeg(input){
+		var ffmpeg = require('fluent-ffmpeg');
+		var exec = require('child_process').exec;
+		var output = input+'.jpeg';
+		var command = `ffmpeg -i ${input} -r 1 -s WxH -f image2 ${output} -vframes 1`;
+		return new Promise((resolve,reject)=>{
+			exec(command, (error, stdout, stderr) => {
+			if(error) return reject(error);
+			if(stderr) return reject(stderr);
+			resolve(output);
+			});
+		})
+	}
+
+
 
     // function end
 	

@@ -10,6 +10,8 @@
 <div flex="20">
 	<md-button class="md-raised " ng-click="ctrl.initDB()">创建数据库</md-button>
 	<md-button class="md-raised " ng-click="ctrl.scan()">扫描磁盘</md-button>
+
+	<md-button class="md-raised " ng-click="ctrl.browse()">浏览影片库</md-button>
         <md-divider ></md-divider>
         <md-list-item class="md-2-line" ng-click="null">
           <img ng-src="./assets/icons/folder.png" class="md-avatar" alt="{{todos[0].who}}" />
@@ -21,7 +23,7 @@
 </div>
 
 <div class="gridList" flex="80">
-    <md-grid-list
+    <md-grid-list ng-hide="movieList && movieList.length > 0"
         md-cols-gt-md="12" md-cols="8" md-cols-md="10"
         md-row-height-gt-md="1:1" md-row-height="4:3"
         md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="8px" >
@@ -41,6 +43,48 @@
     </md-grid-tile>
 
   </md-grid-list>
+
+   <md-grid-list ng-show="movieList && movieList.length > 0"
+        md-cols-gt-md="12" md-cols="8" md-cols-md="10"
+        md-row-height-gt-md="1:1" md-row-height="4:3"
+        md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="8px" >
+
+		<md-grid-tile  ng-repeat="movie in movieList" md-rowspan="2" md-colspan="2" ng-class="{true: 'active',false:''}[ctrl.curItemIndex == $index]" ng-click="ctrl.curItemIndex = $index" ng-dblclick="ctrl.sysOpen(movie['path'])">
+	 <md-tooltip md-direction="top">
+	 {{movie['name']}} {{movie.filetype}}
+	 </md-tooltip>
+		<img class="icon" ng-src="./assets/icons/{{'movie'}}.png" />
+      <md-grid-tile-footer>
+	  <h3>{{movie['name']|limitTo:5}}...</h3>
+	      <md-menu>
+      <md-button aria-label="Open menu with custom trigger" class="md-icon-button" ng-click="$mdMenu.open()">
+        <md-icon class="material-icon">menu</md-icon>
+      </md-button>
+      <md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+        <md-menu-item >
+          <md-button ng-click="ctrl.sysOpen(movie['path'])">
+           在文件夹中打开
+          </md-button>
+        </md-menu-item>
+		<md-menu-item >
+		
+          <md-button ng-click="ctrl.thumTojpg(movie['path'],movie['name'])">
+           生成缩略图
+          </md-button>
+        </md-menu-item>
+
+			<md-menu-item >		
+     
+          <md-button ng-click="null">
+           tags
+          </md-button>
+        </md-menu-item>
+    </md-menu>
+      </md-grid-tile-footer>
+    </md-grid-tile>
+
+  </md-grid-list>
+
   </div>
 
     </md-content>
