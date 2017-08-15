@@ -4,13 +4,19 @@
 	   <md-button ng-click="ctrl.dirClick(path)" ng-repeat="path in pathList">{{path + '/'}}</md-button>
     </section>
 
+	<section layout="column" class="tag-nav" >
+	   <div layout-align=center">
+        <p>磁盘或者目录</p>
+        <md-select ng-model="curDisk" placeholder="curDisk" class="md-underline">
+			<md-option><em>请选择硬盘</em></md-option>
+		  <md-option ng-value="disk" ng-repeat="disk in disklist">{{disk}}</md-option>
+        </md-select>
+      </div>
 
-<md-content layout="row" class="fileContent" >
-
-<div flex="20">
-	<md-button class="md-raised " ng-click="ctrl.initDB()">创建数据库</md-button>
+	   	<md-button class="md-raised " ng-click="ctrl.initDB()">创建数据库</md-button>
 	<md-button class="md-raised " ng-click="ctrl.scan()">扫描磁盘</md-button>
 
+	<md-button class="md-raised " ng-click="ctrl.userDir()">打开用户目录</md-button>
 	<md-button class="md-raised " ng-click="ctrl.browse()">浏览影片库</md-button>
         <md-divider ></md-divider>
         <md-list-item class="md-2-line" ng-click="null">
@@ -20,6 +26,13 @@
             <p>Secondary text</p>
           </div>
         </md-list-item>
+    </section>
+
+
+<md-content layout="row" class="fileContent" >
+
+<div flex="20">
+
 </div>
 
 <div class="gridList" flex="80">
@@ -49,7 +62,7 @@
         md-row-height-gt-md="1:1" md-row-height="4:3"
         md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="8px" >
 
-		<md-grid-tile  ng-repeat="movie in movieList" md-rowspan="2" md-colspan="2" ng-class="{true: 'active',false:''}[ctrl.curItemIndex == $index]" ng-click="ctrl.curItemIndex = $index" ng-dblclick="ctrl.sysOpen(movie['path'])">
+		<md-grid-tile  ng-repeat="movie in movieList" md-rowspan="2" md-colspan="2" ng-class="{true: 'active',false:''}[ctrl.curItemIndex == $index]" ng-click="ctrl.curItemIndex = $index" ng-dblclick="ctrl.sysOpen(movie['path'] + movie['name'])">
 	 <md-tooltip md-direction="top">
 	 {{movie['name']}} {{movie.filetype}}
 	 </md-tooltip>
@@ -62,7 +75,7 @@
       </md-button>
       <md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
         <md-menu-item >
-          <md-button ng-click="ctrl.sysOpen(movie['path'])">
+          <md-button ng-click="ctrl.sysOpen(movie['path'] + movie['name'])">
            在文件夹中打开
           </md-button>
         </md-menu-item>

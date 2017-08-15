@@ -112,4 +112,11 @@ background: #ff8a80; }
 	min-width:0;
 	text-transform:none;
 }
+.tag-nav {
+	position:fixed;
+	width:20%;
+	z-index:50;
+	top:100px;
+	left:0;
 
+}
