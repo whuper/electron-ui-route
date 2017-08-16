@@ -5,19 +5,48 @@
     </section>
 
 	<section layout="column" class="tag-nav" >
-	   <div layout-align=center">
-        <p>磁盘或者目录</p>
-        <md-select ng-model="curDisk" placeholder="curDisk" class="md-underline">
-			<md-option><em>请选择硬盘</em></md-option>
-		  <md-option ng-value="disk" ng-repeat="disk in disklist">{{disk}}</md-option>
+		<md-button class="md-raised " ng-click="ctrl.browse()">浏览影片库</md-button>
+
+		<md-select ng-model="curlibrary" placeholder="请选择影片库" class="md-underline">
+			<md-option ng-value=""><em>请选择影片库</em></md-option>
+		  <md-option ng-value="2" >全部库</md-option>
+		  <md-option ng-value="3" >本地库</md-option>
         </md-select>
-      </div>
 
-	   	<md-button class="md-raised " ng-click="ctrl.initDB()">创建数据库</md-button>
+
+	<md-button class="md-raised " ng-click="showInit = !showInit">初始化选项</md-button>
+	
+	   <div layout-align=center" ng-show="showInit">
+		   <md-radio-group ng-model="curSel">
+      <md-radio-button value="localDir" class="md-primary">local</md-radio-button>
+      <md-radio-button value="extenalDisk"> extenal </md-radio-button>
+    </md-radio-group>
+		   <div class="sel-box" ng-show="curSel == 'localdir'">
+			   		 <p>本地硬盘或者目录</p>
+			<md-select ng-model="curDisk" placeholder="请选择" class="md-underline">
+				<md-option ng-value=""><em>请选择</em></md-option>
+			  <md-option ng-value="localdir" ng-repeat="localdir in localDirlist">{{localdir}}</md-option>
+			</md-select>
+		   </div>
+		   
+
+
+		   <div class="sel-box" ng-show="curSel == 'extenalDisk'">
+				  <p>外接硬盘</p>
+			<md-select ng-model="curDisk" placeholder="请选择硬盘" class="md-underline">
+				<md-option ng-value=""><em>请选择硬盘</em></md-option>
+			  <md-option ng-value="disk" ng-repeat="disk in disklist">{{disk}}</md-option>
+			</md-select>
+		   </div>
+		   
+      
+	<md-button class="md-raised " ng-click="ctrl.initDB()">创建数据库</md-button>
 	<md-button class="md-raised " ng-click="ctrl.scan()">扫描磁盘</md-button>
+	</div>
 
+	  
 	<md-button class="md-raised " ng-click="ctrl.userDir()">打开用户目录</md-button>
-	<md-button class="md-raised " ng-click="ctrl.browse()">浏览影片库</md-button>
+
         <md-divider ></md-divider>
         <md-list-item class="md-2-line" ng-click="null">
           <img ng-src="./assets/icons/folder.png" class="md-avatar" alt="{{todos[0].who}}" />

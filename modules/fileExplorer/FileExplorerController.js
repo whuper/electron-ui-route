@@ -8,7 +8,12 @@
 	
 	var app = require('electron').remote.app;
 	var appCfg = app.sysConfig();
+	var configDir = app.getPath('userData');
+	
+
 	var system = appCfg.platform;
+	var dbFile = '';
+	var dataPath = '';
 	console.log('system',system);
 	/*if(system == 'darwin'){
 		var curDirPath = 'D:/nodejs/electron/electron-ui-route/';
@@ -16,11 +21,14 @@
 	if(system == 'win32'){
 		var curDirPath = 'D:/nodejs/electron/electron-ui-route/';
 	}*/
+	//Windows:C:\Users\username
+	//Linux:/home/username
+	//Mac OS X:/Users/username
 
 	try {
 			//获取自定义皮肤的配置
 	var fs = require('fs');
-	var jsonObj = JSON.parse(fs.readFileSync('./data/config.json',"utf8"));
+	var jsonObj = JSON.parse(fs.readFileSync('./movies_data/config.json',"utf8"));
 
 	}catch(error){
             console.log(error);
@@ -34,16 +42,19 @@
 		$scope.curItemIndex = undefined;
 		$scope.employee = 'obama';  
 		$scope.imagePath = './assets/washedout.png';
-		$scope.disklist = jsonObj.disklist;
-		var imagePath = 'assets/60.jpeg';
+		$scope.curDisk = '';
+		$scope.showInit = false;
+		$scope.curSel = 'localDir';
 
-		/*var rd = require('rd');
-		// 异步列出目录下的所有文件 __dirname
-		rd.read('D:/nodejs/electron/electron-ui-route/modules', function (err, files) {
-		if (err) throw err;
-		// files是一个数组，里面是目录/tmp目录下的所有文件（包括子目录）
-		console.log(files);
-		});*/
+		if(system == 'win32'){
+			$scope.disklist = jsonObj.disklistWin;
+			$scope.localDirlist = jsonObj.localDirWin;
+		
+		} else {
+			$scope.disklist = jsonObj.disklistMac;
+			$scope.localDirlist = [];
+		}
+	
 		$scope.ctrl.changeDir();
 
 
@@ -150,8 +161,29 @@
 	};
 	this.initDB = function(){
 
-		var fs= require("fs")  
-		var dbFile = "./movies.db";
+		if(!$scope.curDisk){
+				 $mdDialog.show(
+					  $mdDialog.alert()
+						.textContent('没有选择磁盘')
+						.ok('OK')
+					);
+			return;
+		}
+		var fs= require("fs");
+		//判断是否是本地的目录数组
+		//curSel Array.isArray($scope.curDisk)
+		if($scope.curSel == 'localDir') {
+			dataPath = configDir + '/movies_data/';
+		} else {
+			dataPath = $scope.curDisk + '/movies_data/';
+		}
+		
+		var mycommon = require('mycommon');
+
+		mycommon.mkdirs(dataPath + 'thumbnails');
+
+		dbFile = dataPath + "movies.db";
+
 		fs.exists(dbFile, function(exists) {  
 			if(exists){
 				 $mdDialog.show(
@@ -192,18 +224,23 @@
 		
 		});
 	};
-	this.scan = function(){
+	this.scan = function(volume){
+		volume = true;
+
+		if(!$scope.curDisk){
+			return false;		
+		}
 
 	 var confirm = $mdDialog.confirm()
           .title('Would you like to scan the hard disk?')
-          .textContent('wawa.wa')
+          .textContent($scope.curDisk)
           .ok('ok')
           .cancel('No');
 
 		$mdDialog.show(confirm).then(function() {
 			var rd = require('rd');
 			var sql3 = require("sqlite3").verbose();
-			var db = new sql3.Database('./movies.db');
+			var db = new sql3.Database(dbFile);
 
 			//var filePattern = /^\w*\\.[mp4|rmvb|flv|mpeg|avi|mkv|rm]$/i;
 			var filePattern = /\.(mp4|rmvb|flv|mpeg|avi|mkv|rm|wmv)$/i;
@@ -218,7 +255,7 @@
 			//db.run("UPDATE tbl SET name = ? WHERE id = ?", [ "bar", 2 ]);
 
 			// 异步遍历目录下的所有文件
-			rd.eachFileFilter('e:/',filePattern,function (f, s, next) {
+			rd.eachFileFilter($scope.curDisk,filePattern,function (f, s, next) {
 			  // 每找到一个文件都会调用一次此函数
 			  // 参数s是通过 fs.stat() 获取到的文件属性值
 		
@@ -228,6 +265,10 @@
 				var filename = arr[arr.length - 1];
 
 				var path = filefullPath.replace(filename,'');
+				//去掉盘符
+				if(volume){
+					path = path.replace(/^\w:/i,'');
+				}
 				var parentsfolder = arr[arr.length - 2];
 				var ctime = Date.parse(s.ctime)/1000
 				var mtime = Date.parse(s.mtime)/1000
@@ -279,10 +320,10 @@
 		var {remote} = require('electron');
 		var {shell} = remote;
 		var os = require('os');
-		console.log('os.homedir',os.homedir());
+		//console.log('os.homedir',os.homedir());
 		//C:\\Users\\Administrator
 		//e:\\BaiduYunDownload\\DM王朝1566.2007.46集全
-		shell.showItemInFolder(os.homedir());
+		shell.showItemInFolder(configDir);
 	
 	},
 	this.thumTojpg = function(filepath,filename){
@@ -304,23 +345,8 @@
 		  });
 	};
 
-	function videoToJpeg(input){
-		var ffmpeg = require('fluent-ffmpeg');
-		var exec = require('child_process').exec;
-		var output = input+'.jpeg';
-		var command = `ffmpeg -i ${input} -r 1 -s WxH -f image2 ${output} -vframes 1`;
-		return new Promise((resolve,reject)=>{
-			exec(command, (error, stdout, stderr) => {
-			if(error) return reject(error);
-			if(stderr) return reject(stderr);
-			resolve(output);
-			});
-		})
-	}
-
-
-
     // function end
+	
 	
 	
   }
