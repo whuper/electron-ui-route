@@ -14,16 +14,13 @@
         </md-select>
 
 
-	<md-button class="md-raised " ng-click="showInit = !showInit">初始化选项</md-button>
+	<md-button class="md-raised md-primary" ng-click="showInit = !showInit">初始化选项</md-button>
 	
-	   <div layout-align=center" ng-show="showInit">
-		   <md-radio-group ng-model="curSel">
-      <md-radio-button value="localDir" class="md-primary">local</md-radio-button>
-      <md-radio-button value="extenalDisk"> extenal </md-radio-button>
-    </md-radio-group>
-		   <div class="sel-box" ng-show="curSel == 'localdir'">
+	   <div layout-align=center" class="init-box" ng-show="showInit">
+		  
+		   <div class="sel-box" ng-show="curSel == 'localDir'">
 			   		 <p>本地硬盘或者目录</p>
-			<md-select ng-model="curDisk" placeholder="请选择" class="md-underline">
+			<md-select ng-model="curDisk" ng-change="ctrl.changesel()" placeholder="请选择" class="md-underline">
 				<md-option ng-value=""><em>请选择</em></md-option>
 			  <md-option ng-value="localdir" ng-repeat="localdir in localDirlist">{{localdir}}</md-option>
 			</md-select>
@@ -33,18 +30,31 @@
 
 		   <div class="sel-box" ng-show="curSel == 'extenalDisk'">
 				  <p>外接硬盘</p>
-			<md-select ng-model="curDisk" placeholder="请选择硬盘" class="md-underline">
+			<md-select ng-model="curDisk" ng-change="ctrl.changesel()" placeholder="请选择硬盘" class="md-underline">
 				<md-option ng-value=""><em>请选择硬盘</em></md-option>
 			  <md-option ng-value="disk" ng-repeat="disk in disklist">{{disk}}</md-option>
 			</md-select>
 		   </div>
-		   
+
+	 <md-radio-group ng-model="curSel">
+      <md-radio-button value="localDir" class="md-primary">local</md-radio-button>
+      <md-radio-button value="extenalDisk"> extenal </md-radio-button>
+    </md-radio-group>
+
       
-	<md-button class="md-raised " ng-click="ctrl.initDB()">创建数据库</md-button>
-	<md-button class="md-raised " ng-click="ctrl.scan()">扫描磁盘</md-button>
+	<md-button class="md-raised " ng-click="ctrl.initDB()">	<md-tooltip md-direction="top">
+	创建数据库文件及目录
+	 </md-tooltip>创建数据</md-button>
+	<md-button class="md-raised md-warn" ng-click="ctrl.scan()">扫描磁盘</md-button>
 	</div>
 
 	  
+	<md-button class="md-raised " ng-show="dataPath" ng-click="ctrl.userDir(dataPath)">
+	<md-tooltip md-direction="top">
+	{{dataPath}}
+	 </md-tooltip>	
+data目录</md-button>
+
 	<md-button class="md-raised " ng-click="ctrl.userDir()">打开用户目录</md-button>
 
         <md-divider ></md-divider>
@@ -71,7 +81,7 @@
         md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="8px" >
 
     <!--<md-grid-tile  ng-repeat="file in fileList" md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" md-colspan-gt-sm="1" md-rowspan-gt-sm="1">-->
-	<md-grid-tile  ng-repeat="file in fileList" md-rowspan="2" md-colspan="2" ng-class="{true: 'active',false:''}[ctrl.curItemIndex == $index]" ng-click="ctrl.curItemIndex = $index" ng-dblclick="ctrl.itemClick(file)">
+	<md-grid-tile  ng-repeat="file in fileList" md-rowspan="1" md-colspan="1" ng-class="{true: 'active',false:''}[ctrl.curItemIndex == $index]" ng-click="ctrl.curItemIndex = $index" ng-dblclick="ctrl.itemClick(file)">
 	 <md-tooltip md-direction="top">
 	
 	 {{file[2].mtime}} <br />

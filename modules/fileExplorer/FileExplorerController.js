@@ -13,7 +13,7 @@
 
 	var system = appCfg.platform;
 	var dbFile = '';
-	var dataPath = '';
+	
 	console.log('system',system);
 	/*if(system == 'darwin'){
 		var curDirPath = 'D:/nodejs/electron/electron-ui-route/';
@@ -45,6 +45,8 @@
 		$scope.curDisk = '';
 		$scope.showInit = false;
 		$scope.curSel = 'localDir';
+
+		$scope.dataPath = '';
 
 		if(system == 'win32'){
 			$scope.disklist = jsonObj.disklistWin;
@@ -159,6 +161,17 @@
 		return deferred.promise;
 	
 	};
+	this.changesel = function(){
+			//判断是否是本地的目录数组
+		//curSel Array.isArray($scope.curDisk)
+		if($scope.curSel == 'localDir') {
+			$scope.dataPath = configDir + '/movies_data/';
+		} else {
+			$scope.dataPath = $scope.curDisk + '/movies_data/';
+		}
+		console.log('$scope.curDisk',$scope.curDisk);
+	
+	},
 	this.initDB = function(){
 
 		if(!$scope.curDisk){
@@ -170,19 +183,13 @@
 			return;
 		}
 		var fs= require("fs");
-		//判断是否是本地的目录数组
-		//curSel Array.isArray($scope.curDisk)
-		if($scope.curSel == 'localDir') {
-			dataPath = configDir + '/movies_data/';
-		} else {
-			dataPath = $scope.curDisk + '/movies_data/';
-		}
+	
 		
 		var mycommon = require('mycommon');
 
-		mycommon.mkdirs(dataPath + 'thumbnails');
+		mycommon.mkdirs($scope.dataPath + 'thumbnails');
 
-		dbFile = dataPath + "movies.db";
+		dbFile = $scope.dataPath + "movies.db";
 
 		fs.exists(dbFile, function(exists) {  
 			if(exists){
@@ -217,6 +224,7 @@
 									'path		  text,' +
 									'md5		   VARCHAR(50),' +
 									'ctime		   VARCHAR(30),' +
+									'designation	VARCHAR(20),' +
 									'cartoon      BOOLEAN)');
 					});
 					db.close();
@@ -315,7 +323,7 @@
 	
 	
 	};
-	this.userDir = function(){	
+	this.userDir = function(item){	
 		//const shell = require('electron').shell
 		var {remote} = require('electron');
 		var {shell} = remote;
@@ -323,7 +331,15 @@
 		//console.log('os.homedir',os.homedir());
 		//C:\\Users\\Administrator
 		//e:\\BaiduYunDownload\\DM王朝1566.2007.46集全
-		shell.showItemInFolder(configDir);
+		if(!item){
+				shell.showItemInFolder(configDir);
+		} else {
+				shell.showItemInFolder(item);
+		}
+	
+	},
+	this.showItem = function(item){
+			
 	
 	},
 	this.thumTojpg = function(filepath,filename){

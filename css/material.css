@@ -118,6 +118,10 @@ background: #ff8a80; }
 	z-index:50;
 	top:100px;
 	left:0;
-	padding:0 20px;
+	padding:0  0 20px 15px;
 
+}
+.init-box {
+	border:1px solid #cecece;
+	padding:10px 5px;
 }
