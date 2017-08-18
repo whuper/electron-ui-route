@@ -165,7 +165,7 @@
 			//判断是否是本地的目录数组
 		//curSel Array.isArray($scope.curDisk)
 		if($scope.curSel == 'localDir') {
-			$scope.dataPath = configDir + '/movies_data/';
+			$scope.dataPath = configDir.replace(/\\/g,'/') + '/movies_data/';
 		} else {
 			$scope.dataPath = $scope.curDisk + '/movies_data/';
 		}
@@ -187,7 +187,9 @@
 		
 		var mycommon = require('mycommon');
 
-		mycommon.mkdirs($scope.dataPath + 'thumbnails');
+		console.log($scope.dataPath + 'thumbnails');
+		mycommon.mkdirsSync($scope.dataPath + 'thumbnails');
+		//mycommon.mkdirsSync('E:/movies_data/thumbnails/a/b/c');
 
 		dbFile = $scope.dataPath + "movies.db";
 
