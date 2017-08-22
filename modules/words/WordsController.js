@@ -16,6 +16,9 @@
 	var interval_;
 	var timeout_;
 
+	var os = require('os');
+	var homedir = os.homedir();
+
     /**
      * initialize function - description
      *
@@ -156,7 +159,7 @@
 	this.speak = function(sentence){
 		
 		var stop = sentence.search(/[\u4e00-\u9fa5]/);
-		if(index != -1 && index > 0){
+		if(stop != -1 && stop > 0){
 			var enSentence = sentence.substring(0,stop);
 		} else {
 			var enSentence = sentence;
@@ -182,9 +185,9 @@
        var folder_size = 500
         var folder_name = 'within_' + String( ( parseInt( (wordId - 1) / folder_size) + 1) * folder_size )
 		if(isDict){
-        var save_path = 'D:/python/ens/iciba/audios_15328/' + folder_name
+        var save_path = homedir + '/myfiles/audios_15328/' + folder_name
 		} else {
-        var save_path = 'assets/audios/' + folder_name
+        var save_path = homedir + '/myfiles/audios/' + folder_name
 		}
         var mp3_path = save_path + '/' + wordReal  + '.mp3'
 		
