@@ -11,6 +11,9 @@
 	var wordsArray = [];
 	var wordsNo = 0;
 	var wordAudio = new Audio();
+	var clickAudio = new Audio('./assets/click.mp3');
+          clickAudio.loop = true;
+
 	wordAudio.addEventListener('ended',playEndedHandler,false);
 
 	var interval_;
@@ -116,10 +119,15 @@
 
     }
 	 this.selectWord = function(item){
+
+        if($scope.spellWordName && $scope.selectedWord && $scope.selectedWord['id'] == item['id']){
+            return false;        
+        }
 	
 		var phonetic = item['phonetic'] ? item['phonetic'].split("#"):[];
 		var wordGroup = item['wordsGroup'] ? item['wordsGroup'].split("#"):[];
 		var example = item['example'] ? item['example'].split("#"):[];
+
 
 		 $scope.selectedWord = {
 			 id:item['id'],
@@ -218,11 +226,16 @@
 			$timeout.cancel(timeout_);
 			//return
 		}
+        clickAudio.currentTime = 0;
+        clickAudio.play();
 	
 		interval_ = $interval(function(){
 
 			if($scope.LetterNo >= wordReal.length){
 				$interval.cancel(interval_)
+
+                 clickAudio.pause();
+
 				timeout_ = $timeout(function(){
 					console.log('clear');
 					wordsArray = [];
