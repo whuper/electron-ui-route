@@ -151,7 +151,9 @@
 	this.miniSize = function(){
 		var BrowserWindow = app.getMainWindow();
 
+			BrowserWindow.setFullScreen(false);
 			BrowserWindow.setSize(960,500,true);
+			BrowserWindow.center()
 	
 	}
 

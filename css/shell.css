@@ -75,5 +75,9 @@ max-height:600px;
 }
 
 .md-table-pagination>.buttons,.md-table-pagination div.limit-select{
-margin-left:0 !important;
+/*margin-left:0 !important;*/
+}
+
+.md-table-pagination md-select {
+min-width:10px;
 }
