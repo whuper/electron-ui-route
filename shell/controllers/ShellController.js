@@ -148,6 +148,13 @@
      *
      * @return {type}  description
      */
+	this.miniSize = function(){
+		var BrowserWindow = app.getMainWindow();
+
+			BrowserWindow.setSize(960,500,true);
+	
+	}
+
     this.minimizeApp = function () {
       app.minimizeAppToSysTray()
     }

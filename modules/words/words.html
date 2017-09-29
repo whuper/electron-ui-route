@@ -1,7 +1,7 @@
 <div layout="column" layout-fill ng-init="ctrl.initialize()">
 <div flex layout="row" layout-padding>
 		
-	<div flex-sm="50" flex-gt-sm="50">
+	<div flex-sm="50" flex-gt-sm="50" class="left-info">
 		
 	<form ng-submit="$event.preventDefault()">
       <md-autocomplete
@@ -48,7 +48,7 @@
     </table>
     </md-table-container>
 
-  <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{'5500'}}" md-on-paginate="getItems" ></md-table-pagination>	
+  <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{'5500'}}" md-on-paginate="getItems" md-page-select ></md-table-pagination>	
 	</div>
 
 	<!--col-md-5 end//-->

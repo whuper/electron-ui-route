@@ -9,13 +9,14 @@ html, body {
 md-content[ui-view='content'], md-content[ui-view='module'] {
 /*  height: 85vh;
   width: 99vw;
-  overflow: hidden;*/
+  */
+  overflow: hidden;
 }
 md-content[ui-view='content'] {
   padding: 20px;
   height: 100%;
   width: 100%;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
 }
 [ui-view='status'] {
   position: relative;
@@ -62,9 +63,17 @@ md-fab-speed-dial.md-scale.md-is-open .md-fab-action-item {
 .share {
 
 }
+.left-info {
+overflow:scroll;
+max-height:600px;
+-webkit-user-select:text;
+}
 .right-info {
 overflow:scroll;
-height:600px;
+max-height:600px;
 -webkit-user-select:text;
 }
 
+.md-table-pagination>.buttons,.md-table-pagination div.limit-select{
+margin-left:0 !important;
+}
