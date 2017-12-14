@@ -121,7 +121,7 @@
 		fpath = fpath.replace(/\/$/,'');
 		fpath = fpath.replace(/\//g, '\\')
 		console.log(fpath);
-			shell.showItemInFolder(fpath);
+		shell.showItemInFolder(fpath);
 	
 		//shell.openItem(path);
 	
@@ -250,7 +250,7 @@
 		$mdDialog.show(confirm).then(function() {
 			var rd = require('rd');
 			var sql3 = require("sqlite3").verbose();
-			var db = new sql3.Database(dbFile);
+			var db = new sql3.Database($scope.dataPath + "movies.db");
 
 			//var filePattern = /^\w*\\.[mp4|rmvb|flv|mpeg|avi|mkv|rm]$/i;
 			var filePattern = /\.(mp4|rmvb|flv|mpeg|avi|mkv|rm|wmv)$/i;
@@ -313,11 +313,12 @@
 	};
 	this.browse = function(){
 		var sql3 = require("sqlite3").verbose();
-		var db = new sql3.Database('./movies.db');
+		var db = new sql3.Database($scope.dataPath + "movies.db");
 		db.all("SELECT * from porns", function(err, rows) {
 
 			$scope.movieList = rows;
 			console.log('rows',rows);
+			console.log('err',err);
 		
 		});
 		db.close();
@@ -358,7 +359,7 @@
 		  .screenshots({
 			timestamps: ['10%','20%','40%'],
 			filename: '%b-at-%s-seconds.png',
-			folder: './output'
+			folder: $scope.dataPath + './output'
 			//size: '320x240'
 		  });
 	};

@@ -10,7 +10,7 @@ md-content[ui-view='content'], md-content[ui-view='module'] {
 /*  height: 85vh;
   width: 99vw;
   */
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 md-content[ui-view='content'] {
   padding: 20px;

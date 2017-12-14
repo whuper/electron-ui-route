@@ -92,9 +92,9 @@ background: #ff8a80; }
 	width:100%;
 }
 .gridList md-grid-tile-footer figcaption h3 {
-	margin: 0;
-	width: 100%;
-	text-align: center; 
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
 }
 .path-nav {
 	position:fixed;
@@ -125,3 +125,4 @@ background: #ff8a80; }
 	border:1px solid #cecece;
 	padding:10px 5px;
 }
+

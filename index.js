@@ -3,7 +3,7 @@
   angular.module('electron-app', ['ngMaterial', 'ngSanitize','ngMessages', 'ui.router', 'ngAnimate', 'angular-timeline', 'angular-centered','md.data.table'])
     .config(function ($mdThemingProvider,$mdIconProvider) {
       $mdThemingProvider.theme('default')
-        .primaryPalette('blue')
+        .primaryPalette('green')
         .accentPalette('red')
 	$mdThemingProvider.theme('docs-dark', 'default')
       .primaryPalette('yellow')

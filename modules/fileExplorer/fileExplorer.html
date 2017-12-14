@@ -1,7 +1,7 @@
 <div layout="column"  ng-init="ctrl.initialize()" ng-cloak>
 
    <section layout="row" class="path-nav" >
-	   <md-button ng-click="ctrl.dirClick(path)" ng-repeat="path in pathList">{{path + '/'}}</md-button>
+	   <md-button ng-click="ctrl.dirClick(path)" ng-disabled="$index == (pathList.length -1)" ng-repeat="path in pathList">{{path + '/'}}</md-button>
     </section>
 
 	<section layout="column" class="tag-nav" >
@@ -76,8 +76,8 @@ data目录</md-button>
 
 <div class="gridList" flex="80">
     <md-grid-list ng-hide="movieList && movieList.length > 0"
-        md-cols-gt-md="12" md-cols="8" md-cols-md="10"
-        md-row-height-gt-md="1:1" md-row-height="4:3"
+    md-cols="6" md-cols-md="10"
+        md-row-height-gt-md="1:1" md-row-height="1:1"
         md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="8px" >
 
     <!--<md-grid-tile  ng-repeat="file in fileList" md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" md-colspan-gt-sm="1" md-rowspan-gt-sm="1">-->
@@ -114,13 +114,13 @@ data目录</md-button>
       </md-button>
       <md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
         <md-menu-item >
-          <md-button ng-click="ctrl.sysOpen(movie['path'] + movie['name'])">
+          <md-button ng-click="ctrl.sysOpen(curDisk + movie['path'] + movie['name'])">
            在文件夹中打开
           </md-button>
         </md-menu-item>
 		<md-menu-item >
 		
-          <md-button ng-click="ctrl.thumTojpg(movie['path'],movie['name'])">
+          <md-button ng-click="ctrl.thumTojpg(curDisk + movie['path'],movie['name'])">
            生成缩略图
           </md-button>
         </md-menu-item>
