@@ -7,10 +7,10 @@
 	<section layout="column" class="tag-nav" >
 		<md-button class="md-raised " ng-click="ctrl.browse()">浏览影片库</md-button>
 
-		<md-select ng-model="curlibrary" placeholder="请选择影片库" class="md-underline">
-			<md-option ng-value=""><em>请选择影片库</em></md-option>
-		  <md-option ng-value="2" >全部库</md-option>
-		  <md-option ng-value="3" >本地库</md-option>
+		<md-select ng-change="ctrl.changesel()" ng-model="curlibrary" placeholder="请选择影片库" class="md-underline">
+			<md-option ><em>请选择影片库</em></md-option>
+		  <md-option ng-value="1000" >全部库</md-option>
+		  <md-option ng-repeat="library in libraries" ng-value="$index" >{{library.path}}</md-option>
         </md-select>
 
 
@@ -18,28 +18,32 @@
 	
 	   <div layout-align=center" class="init-box" ng-show="showInit">
 		  
+		    <!--
 		   <div class="sel-box" ng-show="curSel == 'localDir'">
 			   		 <p>本地硬盘或者目录</p>
-			<md-select ng-model="curDisk" ng-change="ctrl.changesel()" placeholder="请选择" class="md-underline">
+			<md-select ng-model="curDir" ng-change="ctrl.changesel()" placeholder="请选择" class="md-underline">
 				<md-option ng-value=""><em>请选择</em></md-option>
-			  <md-option ng-value="localdir" ng-repeat="localdir in localDirlist">{{localdir}}</md-option>
+			  <md-option ng-value="localdir" ng-repeat="localdir in libraries">{{localdir}}</md-option>
 			</md-select>
 		   </div>
 		   
 
 
+		  
 		   <div class="sel-box" ng-show="curSel == 'extenalDisk'">
 				  <p>外接硬盘</p>
-			<md-select ng-model="curDisk" ng-change="ctrl.changesel()" placeholder="请选择硬盘" class="md-underline">
+			<md-select ng-model="curDir" ng-change="ctrl.changesel()" placeholder="请选择硬盘" class="md-underline">
 				<md-option ng-value=""><em>请选择硬盘</em></md-option>
 			  <md-option ng-value="disk" ng-repeat="disk in disklist">{{disk}}</md-option>
 			</md-select>
 		   </div>
-
+		  
 	 <md-radio-group ng-model="curSel">
       <md-radio-button value="localDir" class="md-primary">local</md-radio-button>
       <md-radio-button value="extenalDisk"> extenal </md-radio-button>
     </md-radio-group>
+	 -->
+
 
       
 	<md-button class="md-raised " ng-click="ctrl.initDB()">	<md-tooltip md-direction="top">
@@ -49,17 +53,17 @@
 	</div>
 
 	  
-	<md-button class="md-raised " ng-show="dataPath" ng-click="ctrl.userDir(dataPath)">
+	<md-button class="md-raised " ng-show="dataPath" ng-click="ctrl.showDir(dataPath)">
 	<md-tooltip md-direction="top">
 	{{dataPath}}
 	 </md-tooltip>	
 data目录</md-button>
 
-	<md-button class="md-raised " ng-click="ctrl.userDir()">打开用户目录</md-button>
+	<md-button class="md-raised " ng-click="ctrl.showDir()">打开用户目录</md-button>
 
         <md-divider ></md-divider>
         <md-list-item class="md-2-line" ng-click="null">
-          <img ng-src="./assets/icons/folder.png" class="md-avatar" alt="{{todos[0].who}}" />
+          <img ng-src="./assets/icons/folder.png" class="md-avatar" />
           <div class="md-list-item-text">
             <h3>文件</h3>
             <p>Secondary text</p>
@@ -114,13 +118,13 @@ data目录</md-button>
       </md-button>
       <md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
         <md-menu-item >
-          <md-button ng-click="ctrl.sysOpen(curDisk + movie['path'] + movie['name'])">
+          <md-button ng-click="ctrl.sysOpen(curDir + movie['path'] + movie['name'])">
            在文件夹中打开
           </md-button>
         </md-menu-item>
 		<md-menu-item >
 		
-          <md-button ng-click="ctrl.thumTojpg(curDisk + movie['path'],movie['name'])">
+          <md-button ng-click="ctrl.thumTojpg(curDir + movie['path'],movie['name'])">
            生成缩略图
           </md-button>
         </md-menu-item>

@@ -26,9 +26,16 @@
 	//Mac OS X:/Users/username
 
 	try {
-			//获取自定义皮肤的配置
 	var fs = require('fs');
 	var jsonObj = JSON.parse(fs.readFileSync('./movies_data/config.json',"utf8"));
+	console.log('jsonObj',jsonObj);
+	if(system == 'darwin'){
+		var libraries = jsonObj.disklistMac;
+	}
+	if(system == 'win32'){
+		var libraries = jsonObj.disklistWin;
+
+	}
 
 	}catch(error){
             console.log(error);
@@ -40,21 +47,19 @@
     this.initialize = function () {
 
 		$scope.curItemIndex = undefined;
-		$scope.employee = 'obama';  
 		$scope.imagePath = './assets/washedout.png';
-		$scope.curDisk = '';
+		//当前选择的目录库
+		$scope.curDir = '';
 		$scope.showInit = false;
 		$scope.curSel = 'localDir';
 
 		$scope.dataPath = '';
 
 		if(system == 'win32'){
-			$scope.disklist = jsonObj.disklistWin;
-			$scope.localDirlist = jsonObj.localDirWin;
+			$scope.libraries = jsonObj.dirlistWin;
 		
 		} else {
-			$scope.disklist = jsonObj.disklistMac;
-			$scope.localDirlist = [];
+			$scope.libraries = jsonObj.dirlistMac;
 		}
 	
 		$scope.ctrl.changeDir();
@@ -68,6 +73,7 @@
 		}
 		$scope.ctrl.getCurDirFile(path).then(function(json){
 		$scope.fileList = json;
+		console.log('$scope.fileList',$scope.fileList);
 		 var pathArray = curDirPath.split("/"); 
 	
 
@@ -122,7 +128,6 @@
 		fpath = fpath.replace(/\//g, '\\')
 		console.log(fpath);
 		shell.showItemInFolder(fpath);
-	
 		//shell.openItem(path);
 	
 	};
@@ -142,7 +147,7 @@
 			} else {
 					var filelist = [];
 					for (var i = 0; i < files.length; i++) {
-						if(files[i].indexOf('Sys') == -1){
+						if(files[i].indexOf('Sys') == -1 && files[i].indexOf('.git') == -1){
 							var fileinfo = fs.statSync(fullPath + files[i]);
 							
 							if(fileinfo.isDirectory()){
@@ -150,6 +155,8 @@
 							} else {
 								filelist.push([files[i],'blank',fileinfo])
 							}
+						} else {
+							continue;
 						}
 					};
 					curDirPath = fullPath;
@@ -163,18 +170,27 @@
 	};
 	this.changesel = function(){
 			//判断是否是本地的目录数组
-		//curSel Array.isArray($scope.curDisk)
-		if($scope.curSel == 'localDir') {
+		//curSel Array.isArray($scope.curDir)
+		if($scope.curlibrary == 1000){
+
+			alert('all');
+			return;
+		
+		}
+		var item = $scope.libraries[$scope.curlibrary]
+		if(item.type == 'internal') {
 			$scope.dataPath = configDir.replace(/\\/g,'/') + '/movies_data/';
 		} else {
-			$scope.dataPath = $scope.curDisk + '/movies_data/';
+			$scope.curDir = item.path;
+			$scope.dataPath = item.path + '/movies_data/';
 		}
-		console.log('$scope.curDisk',$scope.curDisk);
+		dbFile = $scope.dataPath + "movies.db";
+		$scope.ctrl.changeDir(item.path);
 	
 	},
 	this.initDB = function(){
 
-		if(!$scope.curDisk){
+		if(!$scope.curDir){
 				 $mdDialog.show(
 					  $mdDialog.alert()
 						.textContent('没有选择磁盘')
@@ -187,11 +203,10 @@
 		
 		var mycommon = require('mycommon');
 
-		console.log($scope.dataPath + 'thumbnails');
 		mycommon.mkdirsSync($scope.dataPath + 'thumbnails');
 		//mycommon.mkdirsSync('E:/movies_data/thumbnails/a/b/c');
 
-		dbFile = $scope.dataPath + "movies.db";
+		
 
 		fs.exists(dbFile, function(exists) {  
 			if(exists){
@@ -237,13 +252,13 @@
 	this.scan = function(volume){
 		volume = true;
 
-		if(!$scope.curDisk){
+		if(!$scope.curDir){
 			return false;		
 		}
 
 	 var confirm = $mdDialog.confirm()
           .title('Would you like to scan the hard disk?')
-          .textContent($scope.curDisk)
+          .textContent($scope.curDir)
           .ok('ok')
           .cancel('No');
 
@@ -265,7 +280,7 @@
 			//db.run("UPDATE tbl SET name = ? WHERE id = ?", [ "bar", 2 ]);
 
 			// 异步遍历目录下的所有文件
-			rd.eachFileFilter($scope.curDisk,filePattern,function (f, s, next) {
+			rd.eachFileFilter($scope.curDir,filePattern,function (f, s, next) {
 			  // 每找到一个文件都会调用一次此函数
 			  // 参数s是通过 fs.stat() 获取到的文件属性值
 		
@@ -312,13 +327,32 @@
 	
 	};
 	this.browse = function(){
+		console.log('$scope.dataPath',$scope.dataPath);
+		if(!$scope.dataPath){
+			  $mdDialog.show(
+					  $mdDialog.alert()
+						.title('当前没有选择任何库')
+						.textContent($scope.dataPath)
+						.ok('OK')
+					);
+			  return false;
+		}
 		var sql3 = require("sqlite3").verbose();
-		var db = new sql3.Database($scope.dataPath + "movies.db");
+		if(!fs.existsSync(dbFile)){			
+				 $mdDialog.show(
+					  $mdDialog.alert()
+						.title('注意')
+						.textContent(err)
+						.ok('OK')
+					);
+				return;
+		};
+		var db = new sql3.Database(dbFile);
 		db.all("SELECT * from porns", function(err, rows) {
 
+	
 			$scope.movieList = rows;
 			console.log('rows',rows);
-			console.log('err',err);
 		
 		});
 		db.close();
@@ -326,7 +360,7 @@
 	
 	
 	};
-	this.userDir = function(item){	
+	this.showDir = function(item){	
 		//const shell = require('electron').shell
 		var {remote} = require('electron');
 		var {shell} = remote;
@@ -335,9 +369,10 @@
 		//C:\\Users\\Administrator
 		//e:\\BaiduYunDownload\\DM王朝1566.2007.46集全
 		if(!item){
-				shell.showItemInFolder(configDir);
+				shell.openItem(configDir);
 		} else {
-				shell.showItemInFolder(item);
+				//shell.showItemInFolder(item);
+				shell.openItem(item);
 		}
 	
 	},

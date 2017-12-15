@@ -1,5 +1,9 @@
 {
-	"localDirWin":["E:/dir","D:/python/dir"],
-	"disklistWin":["E:","D:/python"],
-	"disklistMac":["/Volumes"]
+	"dirlistWin":[
+	{"path":"E:/","type":"external"},
+	{"path":"D:/python/","type":"internal"}
+	],
+	"dirlistMac":[
+	{"path":"/Volumes/","type":"internal"}
+	]
 }
