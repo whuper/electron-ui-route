@@ -1,0 +1,1 @@
+cmd_../build/lib/binding/electron-v1.4-darwin-x64/node_sqlite3.node := rm -rf "../build/lib/binding/electron-v1.4-darwin-x64/node_sqlite3.node" && cp -af "Release/node_sqlite3.node" "../build/lib/binding/electron-v1.4-darwin-x64/node_sqlite3.node"
