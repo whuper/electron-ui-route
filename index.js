@@ -56,10 +56,13 @@
   // var ActivityService = require('./shell/services/ActivityService')
   var WordsService = require('./modules/words/WordsService')
 
+
   var ModuleProvider = require('./scripts/ModuleProvider')
   var ShellController = require('./shell/controllers/ShellController')
+
   // hint: has to initialize modules here, otherwise controller objects are not found :(
   ModuleProvider.loadModules()
+  
   angular.module('electron-app').provider('modules', [ModuleProvider])
   angular.module('electron-app').service('WordsService',['$q',WordsService])
   // angular.module('electron-app').service('PouchDBService', [PouchDBService])
@@ -69,4 +72,12 @@
   // angular.module('electron-app').service('ActivityService', ['ActivityDataService', ActivityService])
   // angular.module('electron-app').controller('ShellController', ['$scope', '$log', '$q', '$mdSidenav', 'modules', 'ActivityService', ShellController])
   angular.module('electron-app').controller('ShellController', ['$scope', '$log', '$q', '$mdSidenav', 'modules','WordsService', ShellController])
+    window.TT = 'aaa';
+  window.destroyModule = function() {
+    console.log('destroyModule');
+    
+
+    alert('destroyModule');
+    
+  }
 })(global.angular)

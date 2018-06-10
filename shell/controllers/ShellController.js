@@ -16,6 +16,8 @@
     var BrowserWindow = app.getMainWindow();
     var notifier = require('electron-notifications')
     var appCfg = app.sysConfig()
+    BrowserWindow.webContents.openDevTools()
+
     /**
      *
      */
@@ -111,6 +113,9 @@
      */
     this.initialize = function () {
       this.modules = modulesProvider.modules 
+      console.log('this.modules',this.modules);
+      window.modules = this.modules;
+      
       	//获取mac地址
 /*		require('getmac').getMac(function(err,macAddress){
 		    if (err) {
@@ -125,7 +130,7 @@
       console.log('shell initialize');
       
       
-      BrowserWindow.show();
+      //BrowserWindow.show();
 	  
     }
     /**
@@ -210,7 +215,7 @@
 
 	this.openDevTools = function () {	
 	
-		var BrowserWindow = app.getMainWindow();
+		// var BrowserWindow = app.getMainWindow();
 		if(BrowserWindow.isDevToolsOpened()){
 			BrowserWindow.webContents.closeDevTools()
 		} else {

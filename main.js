@@ -34,16 +34,41 @@
       width: 1280,
       height: 800,
       frame: false,
-      show: false
+      show: false,
+      backgroundColor: '#2e2c29'
     })
     win.loadURL('file://' + __dirname + '/index.html')
-    win.on('closed', () => {
-      console.log('aa');
-      
-      mainWindow = null;
+    win.on('close', () => {
+      console.log('win close');
+  
       //app.close();
     })
+    win.on('closed', () => {
+      console.log('win closed');
+ 
+      
+      //mainWindow = null;
+      //app.close();
+    })
+
+    win.once('ready-to-show', () => {
+      win.show()
+      console.log('ready-to-show');
+      
+    })
+
+    
     win.webContents.on('crashed', onCrash)
+    win.webContents.on('destroyed', (event) => {
+      
+      console.log('webContents destroyed');
+ 
+      //console.log('win',win.destroyModule);
+ 
+      
+    })
+
+
 	//win.webContents.openDevTools()
     win.on('unresponsive', onCrash)
     return win
@@ -150,7 +175,7 @@
   })
 
   app.on('quit',function() {
-    alert('quit');
+  
     console.log('app quit');
     
   });
