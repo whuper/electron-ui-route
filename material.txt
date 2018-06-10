@@ -1,6 +1,8 @@
 https://github.com/leizongmin/node-rd
 
 http://google.github.io/material-design-icons/
+https://material.io/tools/icons/?icon=bug_report&style=baseline
+
 
 angular-material-dashboard
 

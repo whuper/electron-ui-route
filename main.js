@@ -33,10 +33,16 @@
     var win = new BrowserWindow({
       width: 1280,
       height: 800,
-      frame: false
+      frame: false,
+      show: false
     })
     win.loadURL('file://' + __dirname + '/index.html')
-    win.on('closed', onClosed)
+    win.on('closed', () => {
+      console.log('aa');
+      
+      mainWindow = null;
+      //app.close();
+    })
     win.webContents.on('crashed', onCrash)
 	//win.webContents.openDevTools()
     win.on('unresponsive', onCrash)
@@ -47,11 +53,11 @@
    *
    * @return {type}  description
    */
-  function onClosed () {
+/*   function onClosed () {
     // deref the window
     // for multiple windows store them in an array
     mainWindow = null
-  }
+  } */
   /**
    * onCrash - description
    *
@@ -131,7 +137,10 @@
    * @return {type}  description
    */
   app.on('ready', function () {
-    mainWindow = createMainWindow()
+    mainWindow = createMainWindow();
+  
+    console.log('app on ready',new Date());
+    
 	  /*
     const isDev = require('electron-is-dev')
     if (isDev) {
@@ -139,6 +148,13 @@
     }
 	*/
   })
+
+  app.on('quit',function() {
+    alert('quit');
+    console.log('app quit');
+    
+  });
+
   /**
    * serviceFinder function - description
    *

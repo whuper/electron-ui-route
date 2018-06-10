@@ -12,7 +12,8 @@
    * @return {type}                 description
    */
   function ShellController ($scope, $log, $q, $mdSidenav, modulesProvider,Wordservice) {
-    var app = require('electron').remote.app
+    var app = require('electron').remote.app;
+    var BrowserWindow = app.getMainWindow();
     var notifier = require('electron-notifications')
     var appCfg = app.sysConfig()
     /**
@@ -121,6 +122,10 @@
 /*      return Promise.all([
         ActivityService.initialize()
       ])*/
+      console.log('shell initialize');
+      
+      
+      BrowserWindow.show();
 	  
     }
     /**
@@ -148,8 +153,8 @@
      *
      * @return {type}  description
      */
-	this.miniSize = function(){
-		var BrowserWindow = app.getMainWindow();
+	this.mediumSize = function(){
+		//var BrowserWindow = app.getMainWindow();
 
 			BrowserWindow.setFullScreen(false);
 			BrowserWindow.setSize(960,500,true);
@@ -160,15 +165,22 @@
     this.minimizeApp = function () {
       app.minimizeAppToSysTray()
     }
+
+    this.miniWindow = function(){
+        BrowserWindow.minimize();
+    },
+    
     /**
      * closeApp function - description
      *
      * @return {type}  description
      */
     this.closeApp = function () {
-    //关闭app时候做一些清理工作，比如关闭数据库
-		Wordservice.closeDB();
-		app.close()
+      //关闭app时候做一些清理工作，比如关闭数据库
+      Wordservice.closeDB();
+      //关闭以后BrowserWindow以后，main.js 会监听到，调用app.close
+      //BrowserWindow.close()
+      app.close()
 
       /*
       ActivityService.close().then(() => {
