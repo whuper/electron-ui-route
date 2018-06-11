@@ -1,31 +1,40 @@
-title GIT提交批处理
-color 16
+@echo off
+echo Start committing code to the local repository
+echo The current directory is:%cd%
 
+echo;
+echo;
+echo Start identifying the current version of git
+echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+git --version
+echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+echo;
+echo;
 
-echo 开始提交代码到本地仓库
-echo 当前目录是：%cd%
-
-echo 开始添加变更
+echo Start adding changes
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 git add -A .
-echo 执行结束！
+echo Perform the end!
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 echo;
-echo 提交变更到本地仓库
+echo Submit the changes to the local repository
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-set /p declation=输入修改:
-git commit -m "%declation%"
+@echo off
+set /p var=Please Enter The Comments: 
+echo;
+echo The Comments you entered is:  %var%
+echo;
+git commit -m %var%
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-echo;
-echo 将变更情况提交到远程git服务器
+echo Commit the changes to the remote git server
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 git push origin master
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 echo;
-echo 批处理执行完毕！
+echo Done!
 echo;
 
 pause
