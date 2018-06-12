@@ -24,6 +24,11 @@ md-toolbar .md-button:not(.selected) md-icon {
 }
 md-toolbar.md-whiteframe-z3 {
   /*min-height: 88px;*/
+  flex-direction: row;
+}
+.menu-title {
+
+  min-width:90%;
 }
 md-toolbar h1 {
   margin: auto;

@@ -116,7 +116,7 @@
      */
     this.initialize = function () {
 			BrowserWindow.show();
-      //this.modules = modulesProvider.modules 
+      this.modules = modulesProvider.modules 
       console.log('this.modules',this.modules);
       //window.modules = this.modules;
 			///window.$scope = $scope;
