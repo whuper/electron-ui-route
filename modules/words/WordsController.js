@@ -128,6 +128,25 @@
 		var wordGroup = item['wordsGroup'] ? item['wordsGroup'].split("#"):[];
 		var example = item['example'] ? item['example'].split("#"):[];
 
+		if(example.length){
+
+				example.forEach(function(element,index,arr){
+					//提取网址
+					var reg = /([\da-z\.-]+)\.([a-z\.]{2,6})/g;
+					 
+					/*element.replace(reg,function(match){
+						console.log('match',match);
+								return element.replace(match,'');						
+							//return '<br />' + match;
+						});*/
+					
+					arr[index] = element.replace(reg,"## $1");
+
+				});
+		
+		}
+	
+
 
 		 $scope.selectedWord = {
 			 id:item['id'],
@@ -160,7 +179,7 @@
 	//toggleSidenav
 
     this.toggleSidenav = (evt,menuId) => {
-            console.log('mdSidenav',menuId);
+            console.log('mdSidenav',menuI);
        $mdSidenav(menuId).toggle();    
 
         }; 
@@ -177,6 +196,8 @@
 		//匹配出英文单词
 		var wordsArr = enSentence.match(/[a-z]+[\-\']?[a-z]*/ig);
 
+		console.log('wordsArr',wordsArr);
+
 		WordsService.getWordsArray(wordsArr).then(function(json){
 
 			 wordsArray = json;
@@ -190,8 +211,8 @@
 			//return false;
 		//}
 		console.log('wordReal',wordReal);
-       var folder_size = 500
-        var folder_name = 'within_' + String( ( parseInt( (wordId - 1) / folder_size) + 1) * folder_size )
+    var folder_size = 500
+    var folder_name = 'within_' + String( ( parseInt( (wordId - 1) / folder_size) + 1) * folder_size )
 		if(isDict){
         var save_path = homedir + '/myfiles/audios_15328/' + folder_name
 		} else {

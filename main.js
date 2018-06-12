@@ -33,32 +33,35 @@
     var win = new BrowserWindow({
       width: 1280,
       height: 800,
+			transparent: true,
       frame: false,
       show: false,
       backgroundColor: '#2e2c29'
     })
     win.loadURL('file://' + __dirname + '/index.html')
-    win.on('close', () => {
+
+    win.on('close', (event) => {
+		
       console.log('win close');
+			//event.preventDefault()
   
       //app.close();
     })
+
     win.on('closed', () => {
       console.log('win closed');
- 
-      
-      //mainWindow = null;
+      mainWindow = null;
       //app.close();
     })
 
-    win.once('ready-to-show', () => {
+    /*win.once('ready-to-show', () => {
       win.show()
       console.log('ready-to-show');
-      
-    })
+    })*/
 
     
     win.webContents.on('crashed', onCrash)
+
     win.webContents.on('destroyed', (event) => {
       
       console.log('webContents destroyed');
@@ -173,6 +176,16 @@
     }
 	*/
   })
+
+	  // 当全部窗口关闭时退出。
+  app.on('window-all-closed', () => {
+    // 在 macOS 上，除非用户用 Cmd + Q 确定地退出，
+    // 否则绝大部分应用及其菜单栏会保持激活。
+    if (process.platform !== 'darwin') {
+      app.quit()
+    }
+  })
+  
 
   app.on('quit',function() {
   

@@ -72,12 +72,5 @@
   // angular.module('electron-app').service('ActivityService', ['ActivityDataService', ActivityService])
   // angular.module('electron-app').controller('ShellController', ['$scope', '$log', '$q', '$mdSidenav', 'modules', 'ActivityService', ShellController])
   angular.module('electron-app').controller('ShellController', ['$scope', '$log', '$q', '$mdSidenav', 'modules','WordsService', ShellController])
-    window.TT = 'aaa';
-  window.destroyModule = function() {
-    console.log('destroyModule');
-    
-
-    alert('destroyModule');
-    
-  }
+ 
 })(global.angular)

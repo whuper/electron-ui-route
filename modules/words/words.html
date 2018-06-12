@@ -74,10 +74,10 @@
 	<h3 ng-show="selectedWord">双语列句 </h3>
 
 	<md-list>
-	  <md-list-item class="md-3-line" ng-repeat="exp in selectedWord.example" ng-click="ctrl.speak(exp)">
+	  <md-list-item class="md-3-line" ng-repeat="exp in selectedWord.example track by $index"  ng-click="ctrl.speak(exp)">
 	<div class="md-list-item-text">
-	<p>
-	{{exp}}
+	<p ng-bind="exp">
+
 	</p>
 	 </div>
 	  </md-list-item>

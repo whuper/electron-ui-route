@@ -16,7 +16,10 @@
     var BrowserWindow = app.getMainWindow();
     var notifier = require('electron-notifications')
     var appCfg = app.sysConfig()
-    BrowserWindow.webContents.openDevTools()
+    //BrowserWindow.webContents.openDevTools()
+		//
+	
+
 
     /**
      *
@@ -112,9 +115,11 @@
      * @return {type}  description
      */
     this.initialize = function () {
-      this.modules = modulesProvider.modules 
+			BrowserWindow.show();
+      //this.modules = modulesProvider.modules 
       console.log('this.modules',this.modules);
-      window.modules = this.modules;
+      //window.modules = this.modules;
+			///window.$scope = $scope;
       
       	//获取mac地址
 /*		require('getmac').getMac(function(err,macAddress){
@@ -184,8 +189,8 @@
       //关闭app时候做一些清理工作，比如关闭数据库
       Wordservice.closeDB();
       //关闭以后BrowserWindow以后，main.js 会监听到，调用app.close
-      //BrowserWindow.close()
-      app.close()
+      BrowserWindow.close()
+      //app.close()
 
       /*
       ActivityService.close().then(() => {
