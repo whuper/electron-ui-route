@@ -254,6 +254,7 @@
    */
   app.toggleFullscreen = function () {
     if (mainWindow) {
+			console.log(mainWindow.isFullScreen());
       mainWindow.setFullScreen(!mainWindow.isFullScreen())
     }
   }

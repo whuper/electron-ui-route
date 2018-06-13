@@ -53,7 +53,21 @@
 
 	<!--col-md-5 end//-->
 
-	<div flex-sm="50" flex-gt-sm="50" class="right-info"  ng-show="selectedWord">
+	<div flex-sm="50" flex-gt-sm="50" class="right-info" >
+	  <md-nav-bar
+      md-no-ink-bar="disableInkBar"
+      md-selected-nav-item="currentNavItem"
+      nav-bar-aria-label="navigation links">
+
+      <md-nav-item md-nav-click="ctrl.goto('word')">
+        word
+      </md-nav-item>
+      <md-nav-item md-nav-click="ctrl.goto('history')">
+        history
+      </md-nav-item>
+ 
+    </md-nav-bar>
+	<md-content class="md-padding box" ng-show="selectedWord && currentNavItem == 'word'">
 		<h3>{{selectedWord.wordname}} </h3> 
 	  <p>
 	  英{{selectedWord.phonetic[0]}} &nbsp;&nbsp; 美{{selectedWord.phonetic[1]}} 
@@ -64,14 +78,14 @@
 	  <p>
 	  {{selectedWord.desc}}
 	  </p>
-	<h3 ng-show="selectedWord">词组短语 </h3>
+	<h3  >词组短语 </h3>
 		<md-list>
 	  <md-list-item class="md-2-line" ng-repeat="wordgroup in selectedWord.wordGroup" ng-click="ctrl.speak(wordgroup)" >
 	  <!--<md-button> {{wordgroup}}	 </md-button>-->
 	  <div class="md-list-item-text" >{{wordgroup}}</div>
 	  </md-list-item>
 	</md-list>
-	<h3 ng-show="selectedWord">双语列句 </h3>
+	<h3>双语列句 </h3>
 
 	<md-list>
 	  <md-list-item class="md-3-line" ng-repeat="exp in selectedWord.example track by $index"  ng-click="ctrl.speak(exp)">
@@ -80,10 +94,20 @@
 	 </div>
 	  </md-list-item>
 	</md-list>
+			
+			</md-content>
+		
 
-	</div>
 	
-
+			<md-content class="md-padding" ng-show="currentNavItem == 'history'">
+		
+		history
+				</md-content>
+		
+			
+		</div>
+	
+	</div>
 
 	</div>
 <!--row end-->

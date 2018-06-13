@@ -37,6 +37,7 @@
     limit: 10,
     page: 1
   };
+	$scope.currentNavItem = 'page2';
   WordsService.getWordsList($scope.query).then(function(json){
   
   $scope.wordResult = json;
@@ -140,7 +141,8 @@
 							//return '<br />' + match;
 						});*/
 					
-					arr[index] = element.replace(reg,"## $1");
+					//arr[index] = element.replace(reg,"## $1");
+					arr[index] = element.replace(reg,"");
 
 				});
 		
@@ -270,6 +272,12 @@
 		},200);
   
 	};
+
+
+  this.goto = function(page) {
+      $scope.status = "Goto " + page;
+    };
+
 	//function end
 	
 		//音频播放结束执行的函数
