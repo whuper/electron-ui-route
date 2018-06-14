@@ -60,18 +60,26 @@
 		return defered.promise;
 
       },
-	  searchWords:function(txt){
+	  searchWords:function(txt,specific){
 		var defered = $q.defer(),colum = 'words',table = 'english',limit = 15;
-		//如果有中文字符
-		var index = txt.search(/[\u4e00-\u9fa5]/);
-		if(index != -1){
-			colum = 'meaning';
-			txt = '%' + txt + '%';
+
+		if(specific){
+			//精确查找
+			var sqlStr = `SELECT * FROM ${table} where words = '${txt}'`;
+
 		} else {
-			txt = txt + '%';		
+				//如果有中文字符
+				var index = txt.search(/[\u4e00-\u9fa5]/);
+				if(index != -1){
+					colum = 'meaning';
+					txt = '%' + txt + '%';
+				} else {
+					txt = txt + '%';		
+				}
+				var txt = txt.toLowerCase();
+				var sqlStr = `SELECT * FROM ${table} where ${colum} like '${txt}' limit ${limit}`;
 		}
-		var txt = txt.toLowerCase();
-		var sqlStr = `SELECT * FROM ${table} where ${colum} like '${txt}' limit ${limit}`;
+
 			console.info('sqlStr',sqlStr);
 			db.all(sqlStr,function(err, rows){
 				if(rows && rows.length > 0){
@@ -83,7 +91,12 @@
 				} else {
 					console.log('没有搜索到结果,到dict中查找');
 					table = 'dict';
-					var sqlStr = `SELECT * FROM ${table} where ${colum} like '${txt}' limit ${limit}`;
+					if(specific){
+							//精确查找
+							var sqlStr = `SELECT * FROM ${table} where words = '${txt}'`;
+					} else {
+							var sqlStr = `SELECT * FROM ${table} where ${colum} like '${txt}' limit ${limit}`;
+					}					
 					console.info('sqlStr',sqlStr);
 						db.all(sqlStr,function(err, rows2){							
 								var res = {

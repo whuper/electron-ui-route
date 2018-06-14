@@ -187,7 +187,14 @@
      */
     this.closeApp = function () {
       //关闭app时候做一些清理工作，比如关闭数据库
-      Wordservice.closeDB();
+      try {
+        Wordservice.closeDB();
+
+      } catch(e){
+        console.log(e);        
+
+      }
+    
       //关闭以后BrowserWindow以后，main.js 会监听到，调用app.close
       BrowserWindow.close()
       //app.close()
@@ -218,14 +225,13 @@
       })
     }
 
-	this.openDevTools = function () {	
-	
-		// var BrowserWindow = app.getMainWindow();
-		if(BrowserWindow.isDevToolsOpened()){
-			BrowserWindow.webContents.closeDevTools()
-		} else {
-			BrowserWindow.webContents.openDevTools()
-		}
+	this.openDevTools = function () {		
+      // var BrowserWindow = app.getMainWindow();
+      if(BrowserWindow.isDevToolsOpened()){
+        BrowserWindow.webContents.closeDevTools()
+      } else {
+        BrowserWindow.webContents.openDevTools()
+      }
     }
 
 	

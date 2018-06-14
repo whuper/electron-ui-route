@@ -54,31 +54,42 @@
 	<!--col-md-5 end//-->
 
 	<div flex-sm="50" flex-gt-sm="50" class="right-info" >
-	  <md-nav-bar
-      md-no-ink-bar="disableInkBar"
-      md-selected-nav-item="currentNavItem"
+	  <md-nav-bar md-selected-nav-item="currentNavItem"
       nav-bar-aria-label="navigation links">
 
-      <md-nav-item md-nav-click="ctrl.goto('word')">
-        word
+      <md-nav-item md-nav-click="ctrl.goto('info')">
+					info
+			</md-nav-item>
+			<md-nav-item md-nav-click="ctrl.goto('recent')">
+					recent
       </md-nav-item>
       <md-nav-item md-nav-click="ctrl.goto('history')">
-        history
+					history
       </md-nav-item>
  
     </md-nav-bar>
-	<md-content class="md-padding box" ng-show="selectedWord && currentNavItem == 'word'">
-		<h3>{{selectedWord.wordname}} </h3> 
+	<md-content class="md-padding box" ng-show="currentNavItem == 'info'">
+			<div ng-show="!selectedWord">
+					<h2 > No word selected</h2>
+					<p  class="md-body-2"> Choose one</p>
+
+					<!-- <p class="md-display-4">Headline</p>  -->
+			</div>
+
+			<!-- word box begin -->
+			<div class="word-box" ng-show="selectedWord" ng-class="{true:'',false:'dict'}[tableName == 'english']">
+
+					<h3>{{selectedWord.wordname}} </h3> 
 	  <p>
 	  英{{selectedWord.phonetic[0]}} &nbsp;&nbsp; 美{{selectedWord.phonetic[1]}} 
-	   <md-button class="md-secondary md-icon-button" ng-click="ctrl.play(selectedWord.id,selectedWord.wordname)" ng-click="ctrl.play(selectedWord.id,selectedWord.wordname)" aria-label="call">
+	   <md-button class="md-secondary md-icon-button" ng-click="ctrl.play(selectedWord.id,selectedWord.wordname)" aria-label="call">
 	  <md-icon class="material-icon">queue_music</md-icon>
 	   </md-button>
 	  </p>
 	  <p>
 	  {{selectedWord.desc}}
 	  </p>
-	<h3  >词组短语 </h3>
+	<h3 >词组短语 </h3>
 		<md-list>
 	  <md-list-item class="md-2-line" ng-repeat="wordgroup in selectedWord.wordGroup" ng-click="ctrl.speak(wordgroup)" >
 	  <!--<md-button> {{wordgroup}}	 </md-button>-->
@@ -94,16 +105,40 @@
 	 </div>
 	  </md-list-item>
 	</md-list>
+
+	<h3 class="md-subhead" ng-show="tableName == 'dict'">This is from {{tableName}}</h3>
+
+			</div>
+
+			<!-- wordbox end // -->
 			
 			</md-content>
-		
 
-	
+			<!-- tab 2 begin  -->
+	<!-- 当前历史单词 -->
+	<md-content class="md-padding" ng-show="currentNavItem == 'recent'">
+			<md-list class="md-dense" flex>
+					<md-list-item class="md-3-line" ng-repeat="item in currentHistory track by $index" ng-click="ctrl.searchWordSpec(item.word)">
+					<div class="md-list-item-text">
+						<h2 class="md-headline">	{{item.word}}</h2>						
+				</div>
+				</md-list-item>
+				<md-list>
+					
+		</md-content>		
+
+<!-- tab 3 begin  -->
+	<!-- 历史单词 -->
 			<md-content class="md-padding" ng-show="currentNavItem == 'history'">
-		
-		history
-				</md-content>
-		
+					<md-list class="md-dense" flex>
+							<md-list-item class="md-3-line" ng-repeat="item in historyWords track by $index" ng-click="ctrl.searchWordSpec(item.word)">
+							<div class="md-list-item-text">
+								<h2 class="md-headline">	{{item.word}}</h2>						
+						</div>
+						</md-list-item>
+						<md-list>
+							
+				</md-content>		
 			
 		</div>
 	
@@ -125,6 +160,50 @@
     </div>
   <!--</centered>-->
  
+
+	<!-- dialog div begin -->
+	<div style="visibility: hidden">
+			<div class="md-dialog-container" id="myDialog">
+				<md-dialog layout-padding>
+							<!-- word box begin -->
+			<div class="word-box" ng-class="{true:'',false:'dict'}[tableName == 'english']">
+
+					<h3>{{selectedWordDialog.wordname}} </h3> 
+	  <p>
+	  英{{selectedWordDialog.phonetic[0]}} &nbsp;&nbsp; 美{{selectedWordDialog.phonetic[1]}} 
+	   <md-button class="md-secondary md-icon-button" ng-click="null" aria-label="call">
+	  <md-icon class="material-icon">queue_music</md-icon>
+	   </md-button>
+	  </p>
+	  <p>
+	  {{selectedWordDialog.desc}}
+	  </p>
+	<h3 >词组短语 </h3>
+		<md-list>
+	  <md-list-item class="md-2-line" ng-repeat="wordgroup in selectedWordDialog.wordGroup" ng-click="null" >
+	  <!--<md-button> {{wordgroup}}	 </md-button>-->
+	  <div class="md-list-item-text" >{{wordgroup}}</div>
+	  </md-list-item>
+	</md-list>
+	<h3>双语列句 </h3>
+
+	<md-list>
+	  <md-list-item class="md-3-line" ng-repeat="exp in selectedWordDialog.example track by $index"  ng-click="ctrl.speak(exp)">
+	<div class="md-list-item-text">
+	<p>{{exp}}</p>
+	 </div>
+	  </md-list-item>
+	</md-list>
+
+	<h3 class="md-subhead" ng-show="tableName == 'dict'">This is from {{tableName}}</h3>
+
+			</div>
+
+			<!-- wordbox end // -->
+				</md-dialog>
+			</div>
+		</div>
+
   
 </div>
  

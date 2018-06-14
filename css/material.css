@@ -41,7 +41,7 @@ h3 {
 	top:40%;
 	width:100%;
 	text-align:center;
-	font:normal 80px Consolas,Monaco,monospace;
+	font:normal 90px Consolas,Monaco,monospace;
 	color:#000;
 	text-shadow: 5px 5px 5px #ccc;
 }
@@ -127,4 +127,8 @@ background: #ff8a80; }
 	border:1px solid #cecece;
 	padding:10px 5px;
 }
+.word-box.dict {
 
+	background: #ddd;
+
+}

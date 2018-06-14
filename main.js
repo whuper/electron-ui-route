@@ -40,6 +40,7 @@
     })
     win.loadURL('file://' + __dirname + '/index.html')
 
+    /*
     win.on('close', (event) => {
 		
       console.log('win close');
@@ -47,6 +48,7 @@
   
       //app.close();
     })
+    */
 
     win.on('closed', () => {
       console.log('win closed');
@@ -275,5 +277,36 @@
     if (mainWindow) {
       mainWindow.hide()
     }
+  },
+  app.getNowFormatDate = function() {
+		var date = new Date();
+		var seperator1 = "-";
+		var seperator2 = ":";
+		var month = date.getMonth() + 1;
+		var strDate = date.getDate();
+
+		var strHour = date.getHours();
+
+		var strMinnute = date.getMinutes();
+
+		if (month >= 1 && month <= 9) {
+			month = "0" + month;
+		}
+		if (strDate >= 0 && strDate <= 9) {
+			strDate = "0" + strDate;
+		}
+
+		if (strHour <= 9) {
+			strHour = "0" + strHour;
+		}
+		if (strMinnute <= 9) {
+			strMinnute = "0" + strMinnute;
+		}
+
+		var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+				+ " " + strHour + seperator2 + strMinnute
+				+ seperator2 + date.getSeconds();
+		return currentdate;
   }
+  
 })()

@@ -9,14 +9,15 @@ html, body {
 md-content[ui-view='content'], md-content[ui-view='module'] {
 /*  height: 85vh;
   width: 99vw;
-  */
-  /*overflow: hidden;*/
+  
+overflow: hidden;
+*/
 }
-md-content[ui-view='content'] {
-  padding: 20px;
+md-content.ui-view-container {
+  /* padding: 20px; */
   height: 100%;
   width: 100%;
-  /*overflow-y: auto;*/
+  /* overflow:hidden; */
 }
 [ui-view='status'] {
   position: relative;

@@ -5,22 +5,69 @@
     /**
      *
      */
-    this.events = []
-	this.noCache = true;
 
+	var app = require('electron').remote.app;
+	var BrowserWindow = app.getMainWindow();
+
+	const {dialog} = require('electron').remote;
+	var historyFile = './assets/history.json';
+
+	var trueClose = false;
 	var wordsArray = [];
 	var wordsNo = 0;
 	var wordAudio = new Audio();
 	var clickAudio = new Audio('./assets/click.mp3');
-          clickAudio.loop = true;
+	clickAudio.loop = true;
+	
+	window.addEventListener('keydown',function(e) {	
+		if(e && (e.metaKey || e.ctrlKey )){  
+				if (e.key == 'r') {
+					trueCloseHander('reload');											
+				}
+			}
+		},true)
 
 	wordAudio.addEventListener('ended',playEndedHandler,false);
+	
+	window.addEventListener('beforeunload',(e) => {
+		console.log('I do not want to be closed')	
+	  
+		// 与通常的浏览器不同,会提示给用户一个消息框,
+		//返回非空值将默认取消关闭
+		//建议使用对话框 API 让用户确认关闭应用程序.
+
+		if(!trueClose){
+			e.returnValue = false;
+
+/* 			dialog.showMessageBox(BrowserWindow,{type:'none',message:' Are you sure want to do this',buttons:['取消','确定']},function(response){
+				if(response == 1){
+					trueClose = true // 相当于 `return false` ，但是不推荐使用
+					BrowserWindow.close();
+	
+				} else {
+					trueClose = false // 相当于 `return false` ，但是不推荐使用
+				}				
+	
+			}); */
+			this.showConfirm();		
+
+		}
+
+	  }
+
+	);
+	  
 
 	var interval_;
 	var timeout_;
 
 	var os = require('os');
 	var homedir = os.homedir();
+	
+
+	this.events = []
+	this.noCache = true;
+
 
     /**
      * initialize function - description
@@ -37,7 +84,7 @@
     limit: 10,
     page: 1
   };
-	$scope.currentNavItem = 'page2';
+	$scope.currentNavItem = 'history';
   WordsService.getWordsList($scope.query).then(function(json){
   
   $scope.wordResult = json;
@@ -53,8 +100,26 @@
 		  $scope.wordResult = json;
 	 });
   };
+  $scope.currentHistory = [];
+
+  this.getHistoryWords();
 		 
-    };
+	};
+
+	this.getHistoryWords = function(){	
+		try {
+			var fs = require('fs');
+			var historyWords = JSON.parse(fs.readFileSync(historyFile,"utf8"));
+			$scope.historyWords = historyWords;
+		} catch(e) {
+			console.log(e);
+			$scope.historyWords = [];
+		
+		}
+		console.log('$scope.historyWords',$scope.historyWords);
+	},
+
+	// initialize end 
 
 	//aotocomplete
 	 this.newState = function(state) {
@@ -104,8 +169,38 @@
 		if(!item){
 			return false;
 		}
+		let time = app.getNowFormatDate();
+
+		$scope.currentHistory.unshift({
+			word:item['words'],
+			id:item['id'],
+			time:time
+		});		
 		$scope.ctrl.selectWord(item);
-    }
+	};
+	
+	this.searchWordSpec = function (word) {
+
+		WordsService.searchWords(word,true).then(function(json){
+			console.log('json.list',json.list);		
+			$scope.tableName = json.flag;
+			$scope.selectedWordDialog = json.list[0];
+
+			$scope.ctrl.selectWord(json.list[0],true);
+
+			$scope.ctrl.showPrerenderedDialog();
+		});
+		
+	};
+
+	this.showPrerenderedDialog = function() {
+		$mdDialog.show({
+		  contentElement: '#myDialog',
+		  parent: angular.element(document.body),
+		  clickOutsideToClose: true
+		});
+	  };
+	
 
 
     /**
@@ -119,11 +214,12 @@
       };
 
     }
-	 this.selectWord = function(item){
+	 this.selectWord = function(item,dialog){
 
         if($scope.spellWordName && $scope.selectedWord && $scope.selectedWord['id'] == item['id']){
             return false;        
-        }
+		}
+		
 	
 		var phonetic = item['phonetic'] ? item['phonetic'].split("#"):[];
 		var wordGroup = item['wordsGroup'] ? item['wordsGroup'].split("#"):[];
@@ -147,18 +243,34 @@
 				});
 		
 		}
-	
+		if(dialog){
+
+			$scope.selectedWordDialog = {
+				id:item['id'],
+				wordname:item['words'],
+				desc:item['meaning'],
+				phonetic:phonetic,
+				wordGroup:wordGroup,
+				example:example
+			};
 
 
-		 $scope.selectedWord = {
-			 id:item['id'],
-			 wordname:item['words'],
-			 desc:item['meaning'],
-			 phonetic:phonetic,
-			 wordGroup:wordGroup,
-			 example:example
-		 };
-     this.play(item['id'],item['words'],false);
+		} else {
+
+			$scope.selectedWord = {
+				id:item['id'],
+				wordname:item['words'],
+				desc:item['meaning'],
+				phonetic:phonetic,
+				wordGroup:wordGroup,
+				example:example
+			};
+			$scope.currentNavItem = 'info';
+			this.play(item['id'],item['words'],false);
+			
+
+		}
+
 	 },
     
     this.showAlert = function () {
@@ -181,7 +293,6 @@
 	//toggleSidenav
 
     this.toggleSidenav = (evt,menuId) => {
-            console.log('mdSidenav',menuI);
        $mdSidenav(menuId).toggle();    
 
         }; 
@@ -194,7 +305,6 @@
 			var enSentence = sentence;
 		}
 		
-		console.log('enSentence',enSentence);
 		//匹配出英文单词
 		var wordsArr = enSentence.match(/[a-z]+[\-\']?[a-z]*/ig);
 
@@ -239,7 +349,7 @@
 	};
 	this.spellNew = function(){
 	
-	},
+	};
 	this.spell = function(wordReal){
 		$scope.LetterNo = 0;
 		$scope.spellWordName = '';
@@ -273,15 +383,35 @@
   
 	};
 
-
-  this.goto = function(page) {
-      $scope.status = "Goto " + page;
-    };
-
-	//function end
+	this.showConfirm = function() {
+		
+		var confirm = $mdDialog.confirm()
+			  .title('Would you like to do this?')
+			  //.textContent('All of the banks have agreed to forgive you your debts.')
+			  .ok('Yes')
+			  .cancel('cancel');
 	
-		//音频播放结束执行的函数
-		function playEndedHandler(){
+		$mdDialog.show(confirm).then(function() {
+		  //$scope.status = 'You decided to get rid of your debt.';
+		  trueCloseHander();
+		}, function() {
+		  //$scope.status = 'You decided to keep your debt.';
+		});
+	  };
+	
+
+
+ this.goto = function(page) {
+	  $scope.currentNavItem = page;
+	  console.log('$scope.currentNavItem',$scope.currentNavItem);
+	  
+	  
+    }; 
+
+	// end
+	
+//音频播放结束执行的函数
+function playEndedHandler(){
 			console.log('ended');
 			wordsNo += 1;
 			if(!wordsArray.length || wordsArray.length == wordsNo){
@@ -299,6 +429,30 @@
 			
 		}
 
+function trueCloseHander(type){
+trueClose = true;
+// var deferred = $q.defer();
+try {
+	var fs = require('fs');
+	let allHistoryWords = $scope.currentHistory.concat($scope.historyWords);
+	fs.writeFile(historyFile,JSON.stringify(allHistoryWords,null,4), "utf8",function(err){
+
+	if(type == 'reload'){
+		BrowserWindow.reload();
+	} else{
+		BrowserWindow.close();
+	}
+
+	
+	});
+
+
+} catch(e){
+	console.log(e);
+	trueClose = false;
+}
+
+}
   }
   module.exports = WordsController
 })()
