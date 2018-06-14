@@ -1,5 +1,6 @@
-<div layout="column" layout-fill ng-init="ctrl.initialize()">
-<div flex layout="row" layout-padding>
+
+<!-- <div layout="column" class="word-container" layout-fill ng-init="ctrl.initialize()" > -->
+<div flex layout="row" class="word-container" layout-fill ng-init="ctrl.initialize()" >
 		
 	<div flex-sm="50" flex-gt-sm="50" class="left-info">
 		
@@ -77,7 +78,7 @@
 			</div>
 
 			<!-- word box begin -->
-			<div class="word-box" ng-show="selectedWord" ng-class="{true:'',false:'dict'}[tableName == 'english']">
+			<div class="word-box" ng-show="selectedWord" ng-class="{true:'dict',false:''}[tableName == 'dict']">
 
 					<h3>{{selectedWord.wordname}} </h3> 
 	  <p>
@@ -166,7 +167,7 @@
 			<div class="md-dialog-container" id="myDialog">
 				<md-dialog layout-padding>
 							<!-- word box begin -->
-			<div class="word-box" ng-class="{true:'',false:'dict'}[tableName == 'english']">
+			<div class="word-box" ng-class="{true:'dict',false:''}[tableName == 'dict']">
 
 					<h3>{{selectedWordDialog.wordname}} </h3> 
 	  <p>
@@ -205,5 +206,5 @@
 		</div>
 
   
-</div>
+<!-- </div> -->
  

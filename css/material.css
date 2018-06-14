@@ -132,3 +132,8 @@ background: #ff8a80; }
 	background: #ddd;
 
 }
+.word-container.layout-fill {
+
+	/* overflow: hidden; */
+
+}
