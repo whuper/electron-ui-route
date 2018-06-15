@@ -271,6 +271,8 @@
 			};
 			// $scope.currentNavItem = 'info';
 			$scope.$parent.shell.currentNavItem  = 'info';
+
+			$scope.tableName = 'english';
 			
 			this.play(item['id'],item['words'],false);
 			
@@ -302,7 +304,7 @@
        $mdSidenav(menuId).toggle();    
 
         }; 
-	this.speak = function(sentence){
+	this.speak = function(sentence,baiduAi){
 		
 		var stop = sentence.search(/[\u4e00-\u9fa5]/);
 		if(stop != -1 && stop > 0){
@@ -310,17 +312,24 @@
 		} else {
 			var enSentence = sentence;
 		}
+		if(baiduAi){
+
+			aiSpeek(enSentence);
+
+
+		} else {
+			//匹配出英文单词
+			var wordsArr = enSentence.match(/[a-z]+[\-\']?[a-z]*/ig);
+
+			console.log('wordsArr',wordsArr);
+
+			WordsService.getWordsArray(wordsArr).then(function(json){
+
+				wordsArray = json;
+				$scope.ctrl.play(wordsArray[wordsNo]['id'],wordsArray[wordsNo]['words'],true,true);		
+			});
+		}
 		
-		//匹配出英文单词
-		var wordsArr = enSentence.match(/[a-z]+[\-\']?[a-z]*/ig);
-
-		console.log('wordsArr',wordsArr);
-
-		WordsService.getWordsArray(wordsArr).then(function(json){
-
-			 wordsArray = json;
-			 $scope.ctrl.play(wordsArray[wordsNo]['id'],wordsArray[wordsNo]['words'],true,true);		
-		});
 
 		
 	};
@@ -328,9 +337,9 @@
 		//if(wordAudio && !wordAudio.ended){
 			//return false;
 		//}
-		console.log('wordReal',wordReal);
-    var folder_size = 500
-    var folder_name = 'within_' + String( ( parseInt( (wordId - 1) / folder_size) + 1) * folder_size )
+		
+    	var folder_size = 500
+    	var folder_name = 'within_' + String( ( parseInt( (wordId - 1) / folder_size) + 1) * folder_size )
 		if(isDict){
         var save_path = homedir + '/myfiles/audios_15328/' + folder_name
 		} else {
@@ -462,6 +471,32 @@ try {
 	console.log(e);
 	trueClose = false;
 }
+
+}
+//百度ai speech
+function aiSpeek(sentence){
+	var AipSpeechClient = require("baidu-aip-sdk").speech;
+
+	// 设置APPID/AK/SK
+	var APP_ID = "11405723";
+	var API_KEY = "nTrfKypNEi2n59hGCzy0oBcY";
+	var SECRET_KEY = "EL3HrYAv2l8g3hq5TxnMX7rMCj0mkLp4";
+	
+	// 新建一个对象，建议只保存一个对象调用服务接口
+	var client = new AipSpeechClient(APP_ID, API_KEY, SECRET_KEY);
+
+	client.text2audio(sentence).then(function(result) {
+		if (result.data) {
+			var fs = require('fs');
+			fs.writeFileSync('./assets/temp/tts.mpVoice3.mp3', result.data);
+		} else {
+			// 服务发生错误
+			console.log(result)
+		}
+	}, function(e) {
+		// 发生网络错误
+		console.log(e)
+	});
 
 }
   }

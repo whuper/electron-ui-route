@@ -7,6 +7,6 @@ pids
 *.pid
 *.seed
 .DS_Store
-
+assets/tmp
 node_modules
 

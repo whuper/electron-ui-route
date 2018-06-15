@@ -89,7 +89,7 @@
 	<h3>双语列句 </h3>
 
 	<md-list>
-	  <md-list-item class="md-3-line" ng-repeat="exp in selectedWord.example track by $index"  ng-click="ctrl.speak(exp)">
+	  <md-list-item class="md-3-line" ng-repeat="exp in selectedWord.example track by $index"  ng-click="ctrl.speak(exp,'baiduAi')">
 	<div class="md-list-item-text">
 	<p>{{exp}}</p>
 	 </div>
@@ -161,7 +161,7 @@
 					<h3>{{selectedWordDialog.wordname}} </h3> 
 	  <p>
 	  英{{selectedWordDialog.phonetic[0]}} &nbsp;&nbsp; 美{{selectedWordDialog.phonetic[1]}} 
-	   <md-button class="md-secondary md-icon-button" ng-click="null" aria-label="call">
+	   <md-button class="md-secondary md-icon-button" ng-click="ctrl.play(selectedWordDialog.id,selectedWordDialog.wordname)"  aria-label="call">
 	  <md-icon class="material-icon">queue_music</md-icon>
 	   </md-button>
 	  </p>
@@ -178,7 +178,7 @@
 	<h3>双语列句 </h3>
 
 	<md-list>
-	  <md-list-item class="md-3-line" ng-repeat="exp in selectedWordDialog.example track by $index"  ng-click="ctrl.speak(exp)">
+	  <md-list-item class="md-3-line" ng-repeat="exp in selectedWordDialog.example track by $index"  ng-click="null">
 	<div class="md-list-item-text">
 	<p>{{exp}}</p>
 	 </div>

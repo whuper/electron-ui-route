@@ -35,7 +35,7 @@
       height: 800,
 			transparent: true,
       frame: false,
-      show: false,
+      show: true,
       backgroundColor: '#2e2c29'
     })
     win.loadURL('file://' + __dirname + '/index.html')
@@ -74,7 +74,7 @@
     })
 
 
-	//win.webContents.openDevTools()
+	win.webContents.openDevTools()
     win.on('unresponsive', onCrash)
     return win
   }
