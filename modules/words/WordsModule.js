@@ -27,6 +27,9 @@
               },
               'header@app': {
                 template: `${moduleConfig.label}`
+              },
+              'toolbar@app': {
+                templateUrl: `${moduleConfig.path}/words.actions.html`
               }
             }
           })

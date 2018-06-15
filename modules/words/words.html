@@ -24,7 +24,7 @@
         </md-not-found>
       </md-autocomplete>
 	 
-    </form>
+		</form>
 
    <!-- exact table from live demo -->
     <md-table-container>
@@ -55,21 +55,10 @@
 	<!--col-md-5 end//-->
 
 	<div flex-sm="50" flex-gt-sm="50" class="right-info" >
-	  <md-nav-bar md-selected-nav-item="currentNavItem"
-      nav-bar-aria-label="navigation links">
 
-      <md-nav-item md-nav-click="ctrl.goto('info')">
-					info
-			</md-nav-item>
-			<md-nav-item md-nav-click="ctrl.goto('recent')">
-					recent
-      </md-nav-item>
-      <md-nav-item md-nav-click="ctrl.goto('history')">
-					history
-      </md-nav-item>
- 
-    </md-nav-bar>
-	<md-content class="md-padding box" ng-show="currentNavItem == 'info'">
+		
+
+	<md-content class="md-padding box" ng-show="shell.currentNavItem == 'info'">
 			<div ng-show="!selectedWord">
 					<h2 > No word selected</h2>
 					<p  class="md-body-2"> Choose one</p>
@@ -117,7 +106,7 @@
 
 			<!-- tab 2 begin  -->
 	<!-- 当前历史单词 -->
-	<md-content class="md-padding" ng-show="currentNavItem == 'recent'">
+	<md-content class="md-padding" ng-show="shell.currentNavItem == 'recent'">
 			<md-list class="md-dense" flex>
 					<md-list-item class="md-3-line" ng-repeat="item in currentHistory track by $index" ng-click="ctrl.searchWordSpec(item.word)">
 					<div class="md-list-item-text">
@@ -130,7 +119,7 @@
 
 <!-- tab 3 begin  -->
 	<!-- 历史单词 -->
-			<md-content class="md-padding" ng-show="currentNavItem == 'history'">
+			<md-content class="md-padding" ng-show="shell.currentNavItem == 'history'">
 					<md-list class="md-dense" flex>
 							<md-list-item class="md-3-line" ng-repeat="item in historyWords track by $index" ng-click="ctrl.searchWordSpec(item.word)">
 							<div class="md-list-item-text">

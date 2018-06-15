@@ -11,7 +11,7 @@
    * @param  {type} ActivityService description
    * @return {type}                 description
    */
-  function ShellController ($scope, $log, $q, $mdSidenav, modulesProvider,Wordservice) {
+  function ShellController ($scope, $log, $q, $mdSidenav, modulesProvider) {
     var app = require('electron').remote.app;
     var BrowserWindow = app.getMainWindow();
     var notifier = require('electron-notifications')
@@ -41,10 +41,14 @@
      *
      */
     this.isDirty = false
+
+    this.isDialOpen = false
     /**
      *
      */
-    this.fabOpen = false
+  
+
+    this.currentNavItem = 'history';
     /**
      *
      */
@@ -115,9 +119,12 @@
      * @return {type}  description
      */
     this.initialize = function () {
-			BrowserWindow.show();
+      
+      BrowserWindow.show();
+  
       this.modules = modulesProvider.modules 
       console.log('this.modules',this.modules);
+
       //window.modules = this.modules;
 			///window.$scope = $scope;
       
@@ -187,13 +194,13 @@
      */
     this.closeApp = function () {
       //关闭app时候做一些清理工作，比如关闭数据库
-      try {
-        Wordservice.closeDB();
+ /*       try {
+        WordsService.closeDB();
 
       } catch(e){
         console.log(e);        
 
-      }
+      } */
     
       //关闭以后BrowserWindow以后，main.js 会监听到，调用app.close
       BrowserWindow.close()

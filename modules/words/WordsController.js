@@ -84,10 +84,14 @@
     limit: 10,
     page: 1
   };
-	$scope.currentNavItem = 'history';
+	$scope.$parent.shell.currentNavItem = 'history';
+
   WordsService.getWordsList($scope.query).then(function(json){
-  
   $scope.wordResult = json;
+
+  //console.log('##',$scope.$parent.shell);
+  
+  //$scope.$parent.shell.$scope.setReady();
   
   });
   function success(desserts) {
@@ -265,7 +269,9 @@
 				wordGroup:wordGroup,
 				example:example
 			};
-			$scope.currentNavItem = 'info';
+			// $scope.currentNavItem = 'info';
+			$scope.$parent.shell.currentNavItem  = 'info';
+			
 			this.play(item['id'],item['words'],false);
 			
 
@@ -401,12 +407,13 @@
 	
 
 
- this.goto = function(page) {
+/*  this.goto = function(page) {
+
 	  $scope.currentNavItem = page;
 	  console.log('$scope.currentNavItem',$scope.currentNavItem);
 	  
 	  
-    }; 
+    }; */ 
 
 	// end
 	
@@ -435,6 +442,10 @@ trueClose = true;
 try {
 	var fs = require('fs');
 	let allHistoryWords = $scope.currentHistory.concat($scope.historyWords);
+	   
+     WordsService.closeDB();
+
+  
 	fs.writeFile(historyFile,JSON.stringify(allHistoryWords,null,4), "utf8",function(err){
 
 	if(type == 'reload'){
