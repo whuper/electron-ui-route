@@ -9,6 +9,8 @@
 	var app = require('electron').remote.app;
 	var appCfg = app.sysConfig();
 	var configDir = app.getPath('userData');
+
+	var utilHao = require(app.sysConfig().paths.dirname + '/util-hao.js');
 	
 
 	var system = appCfg.platform;
@@ -200,10 +202,8 @@
 		}
 		var fs= require("fs");
 	
-		
-		var mycommon = require('mycommon');
 
-		mycommon.mkdirsSync($scope.dataPath + 'thumbnails');
+		utilHao.mkdirsSync($scope.dataPath + 'thumbnails');
 		//mycommon.mkdirsSync('E:/movies_data/thumbnails/a/b/c');
 
 		

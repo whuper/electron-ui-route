@@ -35,10 +35,12 @@
       height: 800,
 			transparent: true,
       frame: false,
-      show: true,
+      show: false,
       backgroundColor: '#2e2c29'
     })
-    win.loadURL('file://' + __dirname + '/index.html')
+    win.loadURL('file://' + __dirname + '/index.html');
+    //调试
+    //win.webContents.openDevTools()
 
     /*
     win.on('close', (event) => {
@@ -53,7 +55,7 @@
     win.on('closed', () => {
       console.log('win closed');
       mainWindow = null;
-      //app.close();
+      app.close();
     })
 
     /*win.once('ready-to-show', () => {
@@ -74,7 +76,7 @@
     })
 
 
-	win.webContents.openDevTools()
+	
     win.on('unresponsive', onCrash)
     return win
   }
@@ -226,7 +228,8 @@
         home: homeDir,
         temp: tempDir,
         data: dataDir,
-        cache: cacheDir
+        cache: cacheDir,
+        dirname:__dirname
       }
     }
   }
@@ -277,36 +280,6 @@
     if (mainWindow) {
       mainWindow.hide()
     }
-  },
-  app.getNowFormatDate = function() {
-		var date = new Date();
-		var seperator1 = "-";
-		var seperator2 = ":";
-		var month = date.getMonth() + 1;
-		var strDate = date.getDate();
-
-		var strHour = date.getHours();
-
-		var strMinnute = date.getMinutes();
-
-		if (month >= 1 && month <= 9) {
-			month = "0" + month;
-		}
-		if (strDate >= 0 && strDate <= 9) {
-			strDate = "0" + strDate;
-		}
-
-		if (strHour <= 9) {
-			strHour = "0" + strHour;
-		}
-		if (strMinnute <= 9) {
-			strMinnute = "0" + strMinnute;
-		}
-
-		var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-				+ " " + strHour + seperator2 + strMinnute
-				+ seperator2 + date.getSeconds();
-		return currentdate;
   }
   
 })()

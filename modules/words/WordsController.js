@@ -10,7 +10,14 @@
 	var BrowserWindow = app.getMainWindow();
 
 	const {dialog} = require('electron').remote;
+
+	var utilHao = require(app.sysConfig().paths.dirname + '/util-hao.js');
+
 	var historyFile = './assets/history.json';
+	var audioListFile = './assets/temp/audios.json';
+
+	var audioList = [];
+	var audioListCurrent = [];
 
 	var trueClose = false;
 	var wordsArray = [];
@@ -76,6 +83,9 @@
      */
 
     this.initialize = function () {
+
+		console.log('__dirname',__dirname);
+		
     
   $scope.selected = [];
   
@@ -114,13 +124,20 @@
 		try {
 			var fs = require('fs');
 			var historyWords = JSON.parse(fs.readFileSync(historyFile,"utf8"));
+			
 			$scope.historyWords = historyWords;
 		} catch(e) {
 			console.log(e);
 			$scope.historyWords = [];
 		
 		}
-		console.log('$scope.historyWords',$scope.historyWords);
+
+		try {
+			audioList = JSON.parse(fs.readFileSync(audioListFile,"utf8"));
+		} catch (error) {
+			console.log(error);			
+		}
+	
 	},
 
 	// initialize end 
@@ -173,13 +190,16 @@
 		if(!item){
 			return false;
 		}
-		let time = app.getNowFormatDate();
+	
+		let time = utilHao.getNowFormatDate();
 
 		$scope.currentHistory.unshift({
 			word:item['words'],
 			id:item['id'],
 			time:time
-		});		
+		});
+		console.log(time);
+		
 		$scope.ctrl.selectWord(item);
 	};
 	
@@ -314,7 +334,20 @@
 		}
 		if(baiduAi){
 
-			aiSpeek(enSentence);
+			let audioName = utilHao.excludeSpecial(enSentence,' ');
+			console.log('audioName',audioName);
+			
+			//先判断本地有没有
+			if(audioList.indexOf(audioName) != -1){
+				console.log('不必请求');
+				var filePathName = './assets/temp/' + audioName + '.mp3';
+				this.playAudio(filePathName);
+			} else {
+				$scope.shell.setBusy('waiting');				
+				aiSpeek(enSentence,audioName);
+			}
+
+	
 
 
 		} else {
@@ -345,14 +378,9 @@
 		} else {
         var save_path = homedir + '/myfiles/audios/' + folder_name
 		}
-        var mp3_path = save_path + '/' + wordReal  + '.mp3'
+		var mp3_path = save_path + '/' + wordReal  + '.mp3'
 		
-		wordAudio.src = mp3_path;
-		/*if(wordsArray && wordsArray.length > 0){
-		wordAudio.addEventListener('ended',playEndedHandler,false);
-		}*/
-        wordAudio.currentTime = 0;
-        wordAudio.play();
+		this.playAudio(mp3_path);
 
 		if(!noSpell){
 			$scope.ctrl.spell(wordReal);
@@ -362,6 +390,15 @@
 		//调用父state中controller中的方法
 		//$scope.$parent.shell.toggleSidebar();
 	};
+	this.playAudio = function(path){
+		wordAudio.src = path;
+		/*if(wordsArray && wordsArray.length > 0){
+		wordAudio.addEventListener('ended',playEndedHandler,false);
+		}*/
+        wordAudio.currentTime = 0;
+        wordAudio.play();
+
+	},
 	this.spellNew = function(){
 	
 	};
@@ -446,35 +483,101 @@ function playEndedHandler(){
 		}
 
 function trueCloseHander(type){
-trueClose = true;
-// var deferred = $q.defer();
-try {
-	var fs = require('fs');
-	let allHistoryWords = $scope.currentHistory.concat($scope.historyWords);
+	trueClose = true;
+
+	var fs = require('fs');	
 	   
-     WordsService.closeDB();
-
+	WordsService.closeDB();	
   
-	fs.writeFile(historyFile,JSON.stringify(allHistoryWords,null,4), "utf8",function(err){
+/* 	fs.writeFile(historyFile,JSON.stringify(allHistoryWords,null,4), "utf8",function(err){
 
-	if(type == 'reload'){
-		BrowserWindow.reload();
-	} else{
-		BrowserWindow.close();
-	}
-
+		fs.writeFile(audioListFile,JSON.stringify(audioList,null,4), "utf8",function(err2){
 	
+		});	
 	});
+ */
 
+function writeHistory(){
 
-} catch(e){
-	console.log(e);
-	trueClose = false;
+	var defered = $q.defer();
+	setTimeout(function(){	
+
+		if($scope.currentHistory.length > 0){
+			var allHistoryWords = $scope.currentHistory.concat($scope.historyWords);		
+
+		} else {
+			defered.resolve('ok1');
+			return;
+		}		
+		//写入单词json文件
+		try {
+			if(!allHistoryWords || allHistoryWords.length < 1){
+				console.log('历史危险');	
+				return;
+			}
+			fs.writeFile(historyFile,JSON.stringify(allHistoryWords,null,4), "utf8",function(err){
+				if(err){
+					defered.reject(err);
+				}else {
+					defered.resolve('ok2');
+				}
+			});
+		} catch(e){
+			defered.reject(e);
+		}
+	},200);
+
+	return defered.promise;
+
 }
+function writeAudioFile(){
+	var defered = $q.defer();
+
+	setTimeout(function(){
+	
+		if(audioListCurrent.length < 1){
+			defered.resolve('ok3');
+			return;
+		}			
+		try {
+			//记录音频json文件
+			if(!audioList || audioList.length < 1){
+				console.log('音频危险');					
+				return;
+			}
+			fs.writeFile(audioListFile,JSON.stringify(audioList,null,4), "utf8",function(err2){
+				if(err2){
+					defered.reject(err);
+				} else {
+					defered.resolve('ok4');
+				}
+			});
+		} catch(e){
+			defered.reject(e);			
+		}
+
+	},200);
+	return defered.promise;
+
+}
+
+	$q.all([writeHistory(),writeAudioFile()]).then(function(result){
+			console.log(result);
+			if(type == 'reload'){
+				BrowserWindow.reload();
+			} else {
+				BrowserWindow.close();
+			}
+		},function(err){
+			console.log(err);
+			trueClose = false;	
+		})
+
+
 
 }
 //百度ai speech
-function aiSpeek(sentence){
+function aiSpeek(sentence,audioName){
 	var AipSpeechClient = require("baidu-aip-sdk").speech;
 
 	// 设置APPID/AK/SK
@@ -485,12 +588,37 @@ function aiSpeek(sentence){
 	// 新建一个对象，建议只保存一个对象调用服务接口
 	var client = new AipSpeechClient(APP_ID, API_KEY, SECRET_KEY);
 
+	var filePathName = './assets/temp/' + audioName + '.mp3';
+
+	//$scope.shell.isBusy = true;
+
 	client.text2audio(sentence).then(function(result) {
 		if (result.data) {
 			var fs = require('fs');
-			fs.writeFileSync('./assets/temp/tts.mpVoice3.mp3', result.data);
+			fs.writeFile(filePathName, result.data,function(err) {
+				
+			/* 	$scope.$apply(function(){  
+					$scope.shell.isBusy = false;
+				});  */	
+				audioList.unshift(audioName);
+				audioListCurrent.push(audioName);
+		
+				
+				$scope.shell.setReady();
+				
+				if (err) {
+					throw err;
+				} else {
+					$scope.ctrl.playAudio(filePathName);
+				}                                   
+				
+			})			
 		} else {
 			// 服务发生错误
+		/* 	$scope.$apply(function(){  
+				$scope.shell.isBusy = false;
+			});  */
+			$scope.shell.setReady();
 			console.log(result)
 		}
 	}, function(e) {
