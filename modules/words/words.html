@@ -40,14 +40,17 @@
         </tr>
         </thead>
         <tbody md-body>
-        <tr ng-click="ctrl.selectWord(items)" md-row ng-repeat="items in wordResult">
+        <tr md-row ng-repeat="items in wordResult">
             <!--<td md-cell ng-repeat="item in items">{{item}}</td>                     -->
-			<td md-cell >{{items['words']}}</td>                    
-			<td md-cell >{{items['meaning']}}</td>                    
+			<td md-cell ng-click="ctrl.selectWord(items)"  >{{items['words']}}</td>                    
+			<td md-cell ng-click="ctrl.selectWord(items)" >{{items['meaning']}}</td>
+			<td md-cell > <md-button ng-click="ctrl.updateWords(items)">
+				<md-icon class="material-icon">add</md-icon>
+			</md-button></td>                       
         </tr>
         </tbody>
     </table>
-    </md-table-container>
+    </md-table-contaner>
 
   <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{'5500'}}" md-on-paginate="getItems" md-page-select ></md-table-pagination>	
 	</div>

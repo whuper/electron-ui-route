@@ -402,6 +402,11 @@
 	this.spellNew = function(){
 	
 	};
+	this.updateWords = function(item){
+
+		console.log('updateWords',item);
+		
+	},
 	this.spell = function(wordReal){
 		$scope.LetterNo = 0;
 		$scope.spellWordName = '';

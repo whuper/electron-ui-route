@@ -23,12 +23,21 @@ md-content .ext-content {
 table.md-table tbody.md-body>tr.md-row, table.md-table tfoot.md-foot>tr.md-row {
 	/*height:35px;*/
 }
+table.md-table tbody.md-body>tr:focus {
+	outline-color: #ccc;
+	outline-style: dashed;
+	outline-width: 2px;
+	font-weight: bold;
+
+}
+
 table.md-table tbody.md-body>tr td {
 	font-size:14px;
 }
 table.md-table td.md-cell.md-numeric, table.md-table th.md-column.md-numeric {
 	text-align:left;
 }
+
 table.md-table tbody.md-body>tr.md-row:not([disabled]):hover {
 	background-color: #eee!important
 }
