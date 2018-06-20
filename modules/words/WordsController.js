@@ -26,11 +26,36 @@
 	var clickAudio = new Audio('./assets/click.mp3');
 	clickAudio.loop = true;
 	
-	window.addEventListener('keydown',function(e) {	
-		if(e && (e.metaKey || e.ctrlKey )){  
+	window.addEventListener('keydown',function(e) {
+		if(!e){
+			return false;
+		}	
+		if(e.metaKey || e.ctrlKey ){  
 				if (e.key == 'r') {
 					trueCloseHander('reload');											
 				}
+			} else {
+				console.log(e);
+				
+				if(e.keyCode==38){//上,左
+					console.log('38=上键，37=左键');
+					if($scope.currentItemIndex > 0){
+						$scope.currentItemIndex -= 1;
+					}					
+									
+					}					
+				if(e.keyCode==40){//下,右
+					console.log('40=下键，39=右键',$scope.currentItemIndex < $scope.wordResult.length);
+					if($scope.currentItemIndex < $scope.wordResult.length){
+
+						$scope.currentItemIndex += 1;
+					}					
+				
+					}
+				if(e.keyCode==13){//下,右					
+				
+					}
+				$scope.$apply(); 
 			}
 		},true)
 
@@ -115,6 +140,9 @@
 	 });
   };
   $scope.currentHistory = [];
+
+  $scope.currentItemIndex = 0;
+
 
   this.getHistoryWords();
 		 
@@ -238,7 +266,15 @@
       };
 
     }
-	 this.selectWord = function(item,dialog){
+	 this.selectWord = function(item,dialog,itemIndex){
+
+		console.log('item',item);
+
+		if(itemIndex){			
+			
+			$scope.currentItemIndex = itemIndex;
+			
+		}		
 
         if($scope.spellWordName && $scope.selectedWord && $scope.selectedWord['id'] == item['id']){
             return false;        

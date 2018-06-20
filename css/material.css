@@ -23,6 +23,11 @@ md-content .ext-content {
 table.md-table tbody.md-body>tr.md-row, table.md-table tfoot.md-foot>tr.md-row {
 	/*height:35px;*/
 }
+table.md-table tbody.md-body>tr.selected {
+	background:#c5eeee;
+	font-weight: bold;
+
+}
 table.md-table tbody.md-body>tr:focus {
 	outline-color: #ccc;
 	outline-style: dashed;

@@ -28,7 +28,7 @@
 
    <!-- exact table from live demo -->
     <md-table-container>
-     <table md-table class="md-row-select">
+     <table md-table >
     <thead md-head >
       <tr md-row>
             <!--<th md-column md-numeric wordResult ng-repeat="col in wordResult.columns">{{col}}</th>    
@@ -40,10 +40,10 @@
         </tr>
         </thead>
         <tbody md-body>
-        <tr md-row ng-repeat="items in wordResult">
+        <tr md-row ng-repeat="items in wordResult"  ng-class="{true:'selected',false:''}[currentItemIndex == $index]">
             <!--<td md-cell ng-repeat="item in items">{{item}}</td>                     -->
-			<td md-cell ng-click="ctrl.selectWord(items)"  >{{items['words']}}</td>                    
-			<td md-cell ng-click="ctrl.selectWord(items)" >{{items['meaning']}}</td>
+			<td md-cell ng-click="ctrl.selectWord(items,null,$index)"  >{{items['words']}}</td>                    
+			<td md-cell ng-click="ctrl.selectWord(items,null,$index)" >{{items['meaning']}}</td>
 			<td md-cell > <md-button ng-click="ctrl.updateWords(items)">
 				<md-icon class="material-icon">add</md-icon>
 			</md-button></td>                       
