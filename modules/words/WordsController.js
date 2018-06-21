@@ -10,6 +10,7 @@
 	var BrowserWindow = app.getMainWindow();
 
 	const {dialog} = require('electron').remote;
+	const {ipcRenderer} = require('electron')
 
 	var utilHao = require(app.sysConfig().paths.dirname + '/util-hao.js');
 
@@ -25,6 +26,8 @@
 	var wordAudio = new Audio();
 	var clickAudio = new Audio('./assets/click.mp3');
 	clickAudio.loop = true;
+
+
 	
 	window.addEventListener('keydown',function(e) {
 		if(!e){
@@ -35,26 +38,58 @@
 					trueCloseHander('reload');											
 				}
 			} else {
-				console.log(e);
-				
-				if(e.keyCode==38){//上,左
-					console.log('38=上键，37=左键');
-					if($scope.currentItemIndex > 0){
-						$scope.currentItemIndex -= 1;
-					}					
-									
-					}					
-				if(e.keyCode==40){//下,右
-					console.log('40=下键，39=右键',$scope.currentItemIndex < $scope.wordResult.length);
-					if($scope.currentItemIndex < $scope.wordResult.length){
+				console.log(e);		
+				switch (e.keyCode) {
+					case 38:
+						console.log('38=上键，37=左键');
+						if($scope.currentItemIndex > 0){
+							$scope.currentItemIndex -= 1;
+						}							
+						break;
+					case 40:
+						console.log('40=下键，39=右键',$scope.currentItemIndex < $scope.wordResult.length);
+						if($scope.currentItemIndex < $scope.wordResult.length-1){
 
-						$scope.currentItemIndex += 1;
-					}					
-				
-					}
-				if(e.keyCode==13){//下,右					
-				
-					}
+							$scope.currentItemIndex += 1;
+						}
+						break;
+					case 13:
+						let tempItem = $scope.wordResult[$scope.currentItemIndex];
+						$scope.ctrl.selectWord(tempItem,null,$scope.currentItemIndex);
+
+						let notification = {
+							title:tempItem.words,
+							body:tempItem.meaning
+						};
+
+						ipcRenderer.sendSync('synchronous-message',notification);					
+					
+						const myNotification = new window.Notification(notification.title, notification)
+
+						myNotification.onclick = () => {
+						  console.log('Notification clicked')
+						}				
+						break;
+					case 33:
+						if($scope.query.page > 1){
+							$scope.query.page -= 1;
+							$scope.getItems();
+						}					
+						break;
+					case 34:	
+						try{
+							$scope.query.page += 1;
+							$scope.getItems();	
+						}catch(e){
+							console.log(e);
+							
+						}				
+									
+						
+						break;
+					default:
+						break;
+				}
 				$scope.$apply(); 
 			}
 		},true)
@@ -134,7 +169,7 @@
   }
   
   $scope.getItems = function(){
-	 console.log($scope.query);
+	//  console.log($scope.query);
 	 WordsService.getWordsList($scope.query).then(function(json){
 		  $scope.wordResult = json;
 	 });

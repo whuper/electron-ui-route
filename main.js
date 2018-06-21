@@ -7,6 +7,9 @@
   const os = require('os')
   const BrowserWindow = electron.BrowserWindow
   const Tray = electron.Tray
+  const ipcMain = electron.ipcMain
+  const Notification = electron.Notification
+
   // initialize service finder module
   //const ServiceFinder = require('node-servicefinder').ServiceFinder
   const appName = app.getName()
@@ -22,6 +25,13 @@
   // adds debug features like hotkeys for triggering dev tools and reload
   //require('electron-debug')()
   process.on('uncaughtException', onCrash)
+  
+  ipcMain.on('synchronous-message', (event, arg) => {
+    console.log(arg) // prints "ping"
+
+    event.returnValue = false;
+  })
+
   // add this switch for the notification window
   app.commandLine.appendSwitch('--enable-transparent-visuals')
   /**
