@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+	<title>单词板 </title>
+
+	<!-- angular material design styles -->
+	<link rel="stylesheet" href="css/normalize.css" />
+<style>
+
+.draggable {
+  -webkit-app-region: drag;
+	user-select: none;
+	cursor: pointer;
+
+}
+.box {
+padding:5px 20px;
+background: #eee;
+border-radius: 8px;
+}
+</style>
+</head>
+
+<body>
+
+
+	<div class="draggable box">
+		<p id="wait">waiting...</p>
+		<h1 id="words">  </h1>
+		<h4 id="phonetic">  </h4>
+		<h5 id="meaning"> </h5>
+
+		<!-- <a id="close" href="javascript:window.close()">Close</a> -->
+	</div>
+
+</body>
+<script type="text/javascript">
+setTimeout(function(){
+	document.getElementById('wait').style.display = "none";
+
+},4000);
+    const ipc = require('electron').ipcRenderer
+    const BrowserWindow = require('electron').remote.BrowserWindow
+
+    ipc.on('update-word', function (event, mes) {
+				document.getElementById('words').innerText =  mes.words;		    
+				document.getElementById('phonetic').innerText =  mes.phonetic;		    
+				document.getElementById('meaning').innerText =  mes.meaning;
+  
+    })
+
+    function factorial (num) {
+      if (num === 0) return 1
+      return num * factorial(num - 1)
+    }
+  </script>
+</html>

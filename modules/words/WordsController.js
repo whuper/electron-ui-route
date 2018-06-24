@@ -7,7 +7,7 @@
      */
 
 	var app = require('electron').remote.app;
-	var BrowserWindow = app.getMainWindow();
+	var MainWindow = app.getMainWindow();
 
 	const {dialog} = require('electron').remote;
 	const {ipcRenderer} = require('electron')
@@ -23,6 +23,7 @@
 	var trueClose = false;
 	var wordsArray = [];
 	var wordsNo = 0;
+	var playInterval = null;
 	var wordAudio = new Audio();
 	var clickAudio = new Audio('./assets/click.mp3');
 	clickAudio.loop = true;
@@ -38,24 +39,39 @@
 					trueCloseHander('reload');											
 				}
 			} else {
-				console.log(e);		
+
+				if(e.keyCode == 27){
+
+					$scope.ctrl.stopPlay();						
+
+				}	
+
+				if(!$scope.ctrl.tableIsfocus){
+					return false;
+				}		
+							
 				switch (e.keyCode) {
 					case 38:
-						console.log('38=上键，37=左键');
+						//console.log('38=上键，37=左键');
 						if($scope.currentItemIndex > 0){
 							$scope.currentItemIndex -= 1;
 						}							
 						break;
 					case 40:
-						console.log('40=下键，39=右键',$scope.currentItemIndex < $scope.wordResult.length);
+						//console.log('40=下键，39=右键',$scope.currentItemIndex < $scope.wordResult.length);
 						if($scope.currentItemIndex < $scope.wordResult.length-1){
 
 							$scope.currentItemIndex += 1;
 						}
 						break;
 					case 13:
-						let tempItem = $scope.wordResult[$scope.currentItemIndex];
-						$scope.ctrl.selectWord(tempItem,null,$scope.currentItemIndex);
+						e.preventDefault();
+						//return false;
+					/*
+						let index = $scope.currentItemIndex;
+						let tempItem = $scope.wordResult[index];
+
+						$scope.ctrl.selectWord(tempItem,null,index,false);
 
 						let notification = {
 							title:tempItem.words,
@@ -68,7 +84,10 @@
 
 						myNotification.onclick = () => {
 						  console.log('Notification clicked')
-						}				
+						} */
+						//自动朗读
+						
+						//$scope.ctrl.autoPlayAll();		
 						break;
 					case 33:
 						if($scope.query.page > 1){
@@ -83,14 +102,15 @@
 						}catch(e){
 							console.log(e);
 							
-						}				
-									
-						
+						}
+
 						break;
 					default:
 						break;
 				}
-				$scope.$apply(); 
+				$scope.$apply(function(){
+					//$scope.currentItemIndex = 3;
+				}); 
 			}
 		},true)
 
@@ -106,10 +126,10 @@
 		if(!trueClose){
 			e.returnValue = false;
 
-/* 			dialog.showMessageBox(BrowserWindow,{type:'none',message:' Are you sure want to do this',buttons:['取消','确定']},function(response){
+/* 			dialog.showMessageBox(MainWindow,{type:'none',message:' Are you sure want to do this',buttons:['取消','确定']},function(response){
 				if(response == 1){
 					trueClose = true // 相当于 `return false` ，但是不推荐使用
-					BrowserWindow.close();
+					MainWindow.close();
 	
 				} else {
 					trueClose = false // 相当于 `return false` ，但是不推荐使用
@@ -174,6 +194,7 @@
 		  $scope.wordResult = json;
 	 });
   };
+
   $scope.currentHistory = [];
 
   $scope.currentItemIndex = 0;
@@ -181,6 +202,15 @@
 
   this.getHistoryWords();
 		 
+	};
+	this.moduleClick = function(event) {
+		
+		if(event.target.tagName == 'TH' || event.target.tagName == 'TD' ){
+			this.tableIsfocus = true;
+		} else {
+			this.tableIsfocus = false;
+
+		}
 	};
 
 	this.getHistoryWords = function(){	
@@ -232,7 +262,58 @@
 		//$scope.searchResults = WordsService.searchWords(text);
 	
 		
-    }
+	};
+	this.autoPlayAll = function(isSelectedWord){
+		window.clearInterval(playInterval);
+		$scope.shell.setBusy('阅读模式...');
+		playInterval = window.setInterval(function(){
+			if($scope.currentItemIndex < $scope.wordResult.length-1){
+				$scope.currentItemIndex += 1;
+			} else {
+				$scope.currentItemIndex = 0;
+				//翻页
+				$scope.query.page += 1;
+				$scope.getItems();
+				$scope.$apply();
+
+				setTimeout(function(){
+
+					let curItem = 	$scope.wordResult[$scope.currentItemIndex];	
+					if(isSelectedWord){
+						$scope.ctrl.selectWord(curItem,false,$scope.currentItemIndex,true);
+					}
+					$scope.ctrl.newWin.webContents.send('update-word', curItem);
+					$scope.ctrl.play(curItem['id'],curItem['words'],false,'nospell');	
+
+
+				},200);
+				return;
+			}
+			
+			$scope.$apply();
+
+			let curItem = 	$scope.wordResult[$scope.currentItemIndex];	
+			if(isSelectedWord){
+				$scope.ctrl.selectWord(curItem,false,$scope.currentItemIndex,true);
+			}
+			$scope.ctrl.newWin.webContents.send('update-word', curItem);
+			$scope.ctrl.play(curItem['id'],curItem['words'],false,'nospell');
+
+	
+		},4000);
+
+	};
+	this.stopPlay = function(){
+
+		$scope.shell.setReady();
+		if($scope.ctrl.newWin){
+			$scope.ctrl.newWin.close();
+		}
+		
+
+		window.clearInterval(playInterval);
+
+	};
 	this.searchResults = function(text) {
 		console.log('text',text);
 		if(!text){
@@ -301,20 +382,15 @@
       };
 
     }
-	 this.selectWord = function(item,dialog,itemIndex){
-
-		console.log('item',item);
-
-		if(itemIndex){			
-			
-			$scope.currentItemIndex = itemIndex;
-			
-		}		
+	 this.selectWord = function(item,dialog,itemIndex,nospell){
 
         if($scope.spellWordName && $scope.selectedWord && $scope.selectedWord['id'] == item['id']){
             return false;        
 		}
-		
+		if(itemIndex){
+			$scope.currentItemIndex = itemIndex;			
+		}		
+
 	
 		var phonetic = item['phonetic'] ? item['phonetic'].split("#"):[];
 		var wordGroup = item['wordsGroup'] ? item['wordsGroup'].split("#"):[];
@@ -365,7 +441,7 @@
 
 			$scope.tableName = 'english';
 			
-			this.play(item['id'],item['words'],false);
+			this.play(item['id'],item['words'],false,nospell);
 			
 
 		}
@@ -462,13 +538,16 @@
 		//$scope.$parent.shell.toggleSidebar();
 	};
 	this.playAudio = function(path){
-		wordAudio.src = path;
-		/*if(wordsArray && wordsArray.length > 0){
-		wordAudio.addEventListener('ended',playEndedHandler,false);
-		}*/
-        wordAudio.currentTime = 0;
-        wordAudio.play();
-
+		try{
+			wordAudio.src = path;
+	
+			wordAudio.currentTime = 0;
+			wordAudio.play();
+		} catch(e) {
+			console.log('加载音频出错',e);
+			
+		}
+	
 	},
 	this.spellNew = function(){
 	
@@ -476,6 +555,8 @@
 	this.updateWords = function(item){
 
 		console.log('updateWords',item);
+
+		createWindow();
 		
 	},
 	this.spell = function(wordReal){
@@ -515,7 +596,7 @@
 		
 		var confirm = $mdDialog.confirm()
 			  .title('Would you like to do this?')
-			  //.textContent('All of the banks have agreed to forgive you your debts.')
+			  .textContent('This will exit the program.')
 			  .ok('Yes')
 			  .cancel('cancel');
 	
@@ -564,6 +645,10 @@ function trueCloseHander(type){
 	var fs = require('fs');	
 	   
 	WordsService.closeDB();	
+	if($scope.ctrl.newWin){
+		$scope.ctrl.newWin.close();
+	}
+	
   
 /* 	fs.writeFile(historyFile,JSON.stringify(allHistoryWords,null,4), "utf8",function(err){
 
@@ -640,9 +725,9 @@ function writeAudioFile(){
 	$q.all([writeHistory(),writeAudioFile()]).then(function(result){
 			console.log(result);
 			if(type == 'reload'){
-				BrowserWindow.reload();
+				MainWindow.reload();
 			} else {
-				BrowserWindow.close();
+				MainWindow.close();
 			}
 		},function(err){
 			console.log(err);
@@ -701,6 +786,43 @@ function aiSpeek(sentence,audioName){
 		// 发生网络错误
 		console.log(e)
 	});
+
+}
+function createWindow() {
+	const {BrowserWindow} = require('electron').remote
+	const path = require('path')
+
+	if($scope.ctrl.newWin ){
+		$scope.ctrl.newWin.show();
+		return;
+	}
+	
+	const modalPath = path.join('file://', app.sysConfig().paths.dirname + '/window.html')
+
+	let win = new BrowserWindow({ title:'单词板',width: 300, height: 200,  transparent: true,frame: false,show: false ,alwaysOnTop:true})
+
+	win.on('close', () => { win = null 
+		$scope.ctrl.newWin = null;
+		$scope.ctrl.stopPlay();
+
+	})
+	win.loadURL(modalPath)
+	win.once('ready-to-show', () => {
+		win.show()
+	  })
+	win.webContents.on('did-finish-load', () => {
+		/* var mes = {title:'dd',meaning:'bb'};
+		win.webContents.send('update-word', mes) */
+		$scope.ctrl.autoPlayAll();
+	})
+
+	win.setPosition(1000,100)
+
+	$scope.ctrl.newWin = win;
+	
+
+	
+
 
 }
   }

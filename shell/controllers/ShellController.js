@@ -52,7 +52,7 @@
     /**
      *
      */
-    $scope.setBusy = (msg) => {
+    this.setBusy = (msg) => {
       $q.when(true).then(() => {
         this.isBusy = true
         this.statusMessage = msg
@@ -62,7 +62,7 @@
     /**
      *
      */
-    $scope.setReady = (dirty) => {
+    this.setReady = (dirty) => {
       $q.when(true).then(() => {
         this.isBusy = false
         this.statusMessage = ''

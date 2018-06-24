@@ -1,6 +1,6 @@
 
 <!-- <div layout="column" class="word-container" layout-fill ng-init="ctrl.initialize()" > -->
-<div flex layout="row" class="word-container" layout-fill ng-init="ctrl.initialize()" >
+<div flex layout="row" class="word-container" layout-fill ng-init="ctrl.initialize()" ng-click="ctrl.moduleClick($event)" >
 		
 	<div flex-sm="50" flex-gt-sm="50" class="left-info">
 		
@@ -40,11 +40,11 @@
         </tr>
         </thead>
         <tbody md-body>
-        <tr md-row ng-repeat="items in wordResult"  ng-class="{true:'selected',false:''}[currentItemIndex == $index]">
+        <tr md-row ng-repeat="items in wordResult"  ng-class="{true:'selected',false:''}[currentItemIndex == $index && ctrl.tableIsfocus]">
             <!--<td md-cell ng-repeat="item in items">{{item}}</td>                     -->
 			<td md-cell ng-click="ctrl.selectWord(items,null,$index)"  >{{items['words']}}</td>                    
 			<td md-cell ng-click="ctrl.selectWord(items,null,$index)" >{{items['meaning']}}</td>
-			<td md-cell > <md-button ng-click="ctrl.updateWords(items)">
+			<td md-cell > <md-button ng-click="ctrl.updateWords(items,$index)">
 				<md-icon class="material-icon">add</md-icon>
 			</md-button></td>                       
         </tr>
@@ -163,7 +163,7 @@
 					<h3>{{selectedWordDialog.wordname}} </h3> 
 	  <p>
 	  英{{selectedWordDialog.phonetic[0]}} &nbsp;&nbsp; 美{{selectedWordDialog.phonetic[1]}} 
-	   <md-button class="md-secondary md-icon-button" ng-click="ctrl.play(selectedWordDialog.id,selectedWordDialog.wordname)"  aria-label="call">
+	   <md-button class="md-secondary md-icon-button" ng-click="ctrl.play(selectedWordDialog.id,selectedWordDialog.wordname,false,'nospell')"  aria-label="call">
 	  <md-icon class="material-icon">queue_music</md-icon>
 	   </md-button>
 	  </p>

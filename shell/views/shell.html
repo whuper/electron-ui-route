@@ -1,6 +1,6 @@
 <div flex layout="column" tabindex="-1" class="md-whiteframe-z1" ng-init="shell.initialize()" ng-cloak>
 
-  <centered ng-if="shell.isBusy">
+  <centered ng-show="shell.isBusy">
     <div layout="column" layout-align="space-around center">
       <h3>{{ shell.statusMessage }}</h3>
       <md-progress-circular class="md-accent" md-mode="indeterminate"></md-progress-circular>
