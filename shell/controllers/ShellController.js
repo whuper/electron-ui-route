@@ -32,7 +32,8 @@
     /**
      *
      */
-    this.isBusy = false
+    this.isBusy = false;
+    this.isLoading = false;
     /**
      *
      */
@@ -68,6 +69,10 @@
         this.statusMessage = ''
         this.isDirty = dirty
       })
+    }
+
+    this.setLoading = (val)=>{
+      this.isLoading = val;
     }
     /**
      *

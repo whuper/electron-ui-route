@@ -265,7 +265,8 @@
 	};
 	this.autoPlayAll = function(isSelectedWord){
 		window.clearInterval(playInterval);
-		$scope.shell.setBusy('阅读模式...');
+		// $scope.shell.setBusy('阅读模式...');
+		$scope.shell.setLoading(true);
 		playInterval = window.setInterval(function(){
 			if($scope.currentItemIndex < $scope.wordResult.length-1){
 				$scope.currentItemIndex += 1;
@@ -283,7 +284,7 @@
 						$scope.ctrl.selectWord(curItem,false,$scope.currentItemIndex,true);
 					}
 					$scope.ctrl.newWin.webContents.send('update-word', curItem);
-					$scope.ctrl.play(curItem['id'],curItem['words'],false,'nospell');	
+					$scope.ctrl.play(curItem['id'],curItem['words'],'english','nospell');	
 
 
 				},200);
@@ -297,7 +298,7 @@
 				$scope.ctrl.selectWord(curItem,false,$scope.currentItemIndex,true);
 			}
 			$scope.ctrl.newWin.webContents.send('update-word', curItem);
-			$scope.ctrl.play(curItem['id'],curItem['words'],false,'nospell');
+			$scope.ctrl.play(curItem['id'],curItem['words'],'english','nospell');
 
 	
 		},4000);
@@ -305,7 +306,7 @@
 	};
 	this.stopPlay = function(){
 
-		$scope.shell.setReady();
+		$scope.shell.setLoading(false);
 		if($scope.ctrl.newWin){
 			$scope.ctrl.newWin.close();
 		}
@@ -483,8 +484,14 @@
 
 			let audioName = utilHao.excludeSpecial(enSentence,' ');
 			console.log('audioName',audioName);
-			
-			//先判断本地有没有
+
+			//直接重从本地定位,并读取文件
+
+			$scope.ctrl.play($scope.selectedWord.id,audioName,'baiduAudio',false);
+
+			return;
+			// ----先判断本地有没有
+		
 			if(audioList.indexOf(audioName) != -1){
 				console.log('不必请求');
 				var filePathName = './assets/temp/' + audioName + '.mp3';
@@ -494,43 +501,55 @@
 				aiSpeek(enSentence,audioName);
 			}
 
-	
-
-
 		} else {
 			//匹配出英文单词
 			var wordsArr = enSentence.match(/[a-z]+[\-\']?[a-z]*/ig);
 
-			console.log('wordsArr',wordsArr);
-
 			WordsService.getWordsArray(wordsArr).then(function(json){
 
 				wordsArray = json;
-				$scope.ctrl.play(wordsArray[wordsNo]['id'],wordsArray[wordsNo]['words'],true,true);		
+				$scope.ctrl.play(wordsArray[wordsNo]['id'],wordsArray[wordsNo]['words'],'dict',true);		
 			});
 		}
 		
 
 		
 	};
-	this.play = function(wordId,wordReal,isDict,noSpell){
+	this.play = function(wordId,wordReal,type,noSpell){
 		//if(wordAudio && !wordAudio.ended){
 			//return false;
 		//}
 		
     	var folder_size = 500
-    	var folder_name = 'within_' + String( ( parseInt( (wordId - 1) / folder_size) + 1) * folder_size )
-		if(isDict){
-        var save_path = homedir + '/myfiles/audios_15328/' + folder_name
-		} else {
-        var save_path = homedir + '/myfiles/audios/' + folder_name
+		var folder_name = 'within_' + String( ( parseInt( (wordId - 1) / folder_size) + 1) * folder_size );
+
+		var soundOff = false;
+		
+		switch (type) {
+			case 'english':
+				var save_path = homedir + '/files-wenhao/audios/' + folder_name;				
+				break;
+			case 'dict':
+				var save_path = homedir + '/files-wenhao/audios_15328/' + folder_name;
+				
+				break;
+			case 'baiduAudio':
+				var save_path = homedir + '/files-wenhao/baiduSpeech/' + folder_name;
+				soundOff = true;		
+				break;		
+			default:
+				var save_path = homedir + '/files-wenhao/audios/' + folder_name;
+				break;
 		}
+
+
+
 		var mp3_path = save_path + '/' + wordReal  + '.mp3'
 		
 		this.playAudio(mp3_path);
 
 		if(!noSpell){
-			$scope.ctrl.spell(wordReal);
+			$scope.ctrl.spell(wordReal,soundOff);
 			//$scope.spellWordName = wordReal;
 		}
 		
@@ -559,7 +578,7 @@
 		createWindow();
 		
 	},
-	this.spell = function(wordReal){
+	this.spell = function(wordReal,soundOff){
 		$scope.LetterNo = 0;
 		$scope.spellWordName = '';
 
@@ -568,15 +587,19 @@
 			$timeout.cancel(timeout_);
 			//return
 		}
-        clickAudio.currentTime = 0;
-        clickAudio.play();
+		if(!soundOff){
+			clickAudio.currentTime = 0;
+			clickAudio.play();
+		} 
 	
 		interval_ = $interval(function(){
 
 			if($scope.LetterNo >= wordReal.length){
 				$interval.cancel(interval_)
-
-                 clickAudio.pause();
+				
+				if(!soundOff){
+					clickAudio.pause();
+				}
 
 				timeout_ = $timeout(function(){
 					console.log('clear');
@@ -588,7 +611,7 @@
 			$scope.spellWordName += wordReal[$scope.LetterNo];
 			$scope.LetterNo += 1;
 
-		},200);
+		},130);
   
 	};
 
@@ -635,7 +658,7 @@ function playEndedHandler(){
 			}
 			console.log('播放下一个单词',wordsArray[wordsNo]);
 			
-			$scope.ctrl.play(wordsArray[wordsNo]['id'],wordsArray[wordsNo]['words'],true,true);
+			$scope.ctrl.play(wordsArray[wordsNo]['id'],wordsArray[wordsNo]['words'],'dict',true);
 			
 		}
 
@@ -766,6 +789,7 @@ function aiSpeek(sentence,audioName){
 		
 				
 				$scope.shell.setReady();
+				$scope.shell.setLoading(false);
 				
 				if (err) {
 					throw err;
