@@ -1,0 +1,24 @@
+{
+    "page": 5,
+    "selectedWord": {
+        "id": 47,
+        "wordname": "ache",
+        "desc": "vi.痛；哀怜 n.(指连续)疼痛、酸痛",
+        "phonetic": [
+            "[eɪk]",
+            "[ek]"
+        ],
+        "wordGroup": [
+            "aches and pains 痛苦；不适；各种各样的病痛",
+            "stomach ache 胃疼",
+            "ache for 想念，渴望",
+            "tooth ache 牙痛",
+            "ache all over 全身疼痛"
+        ],
+        "example": [
+            "Every bone in my body seems to ache. 我全身疼痛。 《新英汉大辞典》",
+            "The excruciating pain of the first blast is gone, and now there is the throb and ache of an amputated soul. 第一次爆发的极度痛苦已经消失，现在有的是一个被截去一部分的灵魂的悸动和疼痛。 ",
+            "Established truths are comforting, but it is the mysteries that make the soul ache and render a life of exploration worth living. 已经确定的真理让人鼓舞，但是却是那些谜团让灵魂渴望，让我们为值得探索的事物而活。 "
+        ]
+    }
+}

@@ -9,6 +9,8 @@
 	var app = require('electron').remote.app;
 	var MainWindow = app.getMainWindow();
 
+	var fs = require('fs');	
+
 	const {dialog} = require('electron').remote;
 	const {ipcRenderer} = require('electron')
 
@@ -16,7 +18,9 @@
 
 	var historyFile = './assets/history.json';
 	var audioListFile = './assets/temp/audios.json';
+	var stateFile = './assets/state.json'; 
 
+	var stateObj = {};
 	var audioList = [];
 	var audioListCurrent = [];
 
@@ -167,13 +171,17 @@
 		console.log('__dirname',__dirname);
 		
     
-  $scope.selected = [];
+  
+
+	stateObj = this.getState();
   
   $scope.query = {
     order: 'name',
     limit: 10,
-    page: 1
+    page: stateObj.page
   };
+	$scope.selectedWord = stateObj.selectedWord;
+
 	$scope.$parent.shell.currentNavItem = 'history';
 
   WordsService.getWordsList($scope.query).then(function(json){
@@ -213,6 +221,16 @@
 		}
 	};
 
+	this.getState = function(){
+	
+		
+		try {
+			return JSON.parse(fs.readFileSync(stateFile,"utf8"));
+		} catch (error) {
+			console.log(error);			
+			return {page:1};
+		}
+	}
 	this.getHistoryWords = function(){	
 		try {
 			var fs = require('fs');
@@ -230,6 +248,7 @@
 		} catch (error) {
 			console.log(error);			
 		}
+
 	
 	},
 
@@ -662,25 +681,32 @@ function playEndedHandler(){
 			
 		}
 
-function trueCloseHander(type){
-	trueClose = true;
 
-	var fs = require('fs');	
-	   
-	WordsService.closeDB();	
-	if($scope.ctrl.newWin){
-		$scope.ctrl.newWin.close();
-	}
-	
-  
-/* 	fs.writeFile(historyFile,JSON.stringify(allHistoryWords,null,4), "utf8",function(err){
+function writeState(){
 
-		fs.writeFile(audioListFile,JSON.stringify(audioList,null,4), "utf8",function(err2){
-	
-		});	
-	});
- */
+	var defered = $q.defer();
+	setTimeout(function(){	
 
+		//写入单词当前页码,和单词
+		try {
+			stateObj.page = $scope.query.page;
+			stateObj.selectedWord = $scope.selectedWord
+		console.log('stateObj',stateObj);
+			fs.writeFile(stateFile,JSON.stringify(stateObj,null,4), "utf8",function(err){
+				if(err){
+					defered.reject(err);
+				}else {
+					defered.resolve('ok3');
+				}
+			});
+		} catch(e){
+			defered.reject(e);
+		}
+	},200);
+
+	return defered.promise;
+
+}
 function writeHistory(){
 
 	var defered = $q.defer();
@@ -714,6 +740,7 @@ function writeHistory(){
 	return defered.promise;
 
 }
+
 function writeAudioFile(){
 	var defered = $q.defer();
 
@@ -745,7 +772,18 @@ function writeAudioFile(){
 
 }
 
-	$q.all([writeHistory(),writeAudioFile()]).then(function(result){
+function trueCloseHander(type){
+	trueClose = true;
+
+
+	   
+	WordsService.closeDB();	
+	if($scope.ctrl.newWin){
+		$scope.ctrl.newWin.close();
+	}
+
+
+	$q.all([writeHistory(),writeAudioFile(),writeState()]).then(function(result){
 			console.log(result);
 			if(type == 'reload'){
 				MainWindow.reload();
@@ -754,11 +792,9 @@ function writeAudioFile(){
 			}
 		},function(err){
 			console.log(err);
+			MainWindow.close();
 			trueClose = false;	
 		})
-
-
-
 }
 //百度ai speech
 function aiSpeek(sentence,audioName){
