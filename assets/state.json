@@ -1,24 +1,26 @@
 {
-    "page": 5,
+    "page": 80,
     "selectedWord": {
-        "id": 47,
-        "wordname": "ache",
-        "desc": "vi.痛；哀怜 n.(指连续)疼痛、酸痛",
+        "id": 2437,
+        "wordname": "infinite",
+        "desc": "a.无限的,无穷的 n.无限",
         "phonetic": [
-            "[eɪk]",
-            "[ek]"
+            "['ɪnfɪnət]",
+            "['ɪnfɪnət]"
         ],
         "wordGroup": [
-            "aches and pains 痛苦；不适；各种各样的病痛",
-            "stomach ache 胃疼",
-            "ache for 想念，渴望",
-            "tooth ache 牙痛",
-            "ache all over 全身疼痛"
+            "infinite loop 无限循环",
+            "infinite space 无限空间",
+            "infinite variety 多种多样",
+            "infinite bus 无限大容量母线；无限汇流排",
+            "infinite dimensional 无限维的",
+            "infinite medium 无限介质，无限媒质",
+            "infinite distance 无限远距离，无穷远"
         ],
         "example": [
-            "Every bone in my body seems to ache. 我全身疼痛。 《新英汉大辞典》",
-            "The excruciating pain of the first blast is gone, and now there is the throb and ache of an amputated soul. 第一次爆发的极度痛苦已经消失，现在有的是一个被截去一部分的灵魂的悸动和疼痛。 ",
-            "Established truths are comforting, but it is the mysteries that make the soul ache and render a life of exploration worth living. 已经确定的真理让人鼓舞，但是却是那些谜团让灵魂渴望，让我们为值得探索的事物而活。 "
+            "Feelings of infinite melancholy stole over him. 无限的哀情愁思向他悄悄袭来。 《新英汉大辞典》",
+            "If you go on living, you do so only through your capacity for objectification, your ability to free yourself, in writing, from the infinite strain. 如果你还要继续活下去，你只有通过自身客体化的能力，你能用写作从无限的拉力中解放你自己。 ",
+            "Note that in a closed universe you could start a journey off in one direction and, if allowed enough time, ultimately return to your starting point; in an infinite universe, you would never return. 请注意，在一个封闭的宇宙你可以朝着一个方向开始旅行，如果允许足够的时间，最终将返回到出发点；而在一个无限的宇宙中，你永远不会回来。 "
         ]
     }
 }

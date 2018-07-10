@@ -320,7 +320,7 @@
 			$scope.ctrl.play(curItem['id'],curItem['words'],'english','nospell');
 
 	
-		},4000);
+		},7000);
 
 	};
 	this.stopPlay = function(){
