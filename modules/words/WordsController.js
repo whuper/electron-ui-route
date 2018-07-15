@@ -506,7 +506,7 @@
 
 			//直接重从本地定位,并读取文件
 
-			$scope.ctrl.play($scope.selectedWord.id,audioName,'baiduAudio',false);
+			$scope.ctrl.play($scope.selectedWord.id,audioName,'baiduAudio','nospell');
 
 			return;
 			// ----先判断本地有没有

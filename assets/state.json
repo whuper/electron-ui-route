@@ -1,47 +1,28 @@
 {
-<<<<<<< HEAD
-    "page": 13,
+    "page": 19,
     "selectedWord": {
-        "id": 4249,
-        "wordname": "shall",
-        "desc": "aux.v.(我,我们)将要,会；必须,应该",
+        "id": 127,
+        "wordname": "aim",
+        "desc": "n.目的；瞄准 vi.(at)目的在于 vt.把…瞄准",
         "phonetic": [
-            "[ʃæl; ʃ(ə)l]",
-            "[ʃəl]"
+            "[eɪm]",
+            "[em]"
         ],
         "wordGroup": [
-            "shall we 我们…好吗",
-            "what shall i do 我该怎么办",
-            "shall we dance 我们跳舞吧"
+            "aim of 旨在；瞄准；致力于…",
+            "aim at v. 针对；瞄准；目的在于",
+            "aim for 瞄准；以…为目标",
+            "aim high 胸怀大志，力争上游；向高处瞄准",
+            "take aim 瞄准",
+            "take aim at 瞄准；盯着；注意到；以…为目标",
+            "aim low ◎向低处瞄准(尤指拳击比赛中不道德的打法) , ◎志向不高",
+            "cry aim 喝彩助威；予以鼓励",
+            "aim at doing sth 目的是做…"
         ],
         "example": [
-            "We shall requite him for his insults. 对于他的侮辱我们将进行报复。 ",
-            "We shall go through these papers together. 我们将在一起审阅这些论文。 《21世纪大英汉词典》",
-            "I shall write to you if anything comes up. 如果发生了什么事情我将写信告诉你。 《21世纪大英汉词典》"
-=======
-    "page": 80,
-    "selectedWord": {
-        "id": 2437,
-        "wordname": "infinite",
-        "desc": "a.无限的,无穷的 n.无限",
-        "phonetic": [
-            "['ɪnfɪnət]",
-            "['ɪnfɪnət]"
-        ],
-        "wordGroup": [
-            "infinite loop 无限循环",
-            "infinite space 无限空间",
-            "infinite variety 多种多样",
-            "infinite bus 无限大容量母线；无限汇流排",
-            "infinite dimensional 无限维的",
-            "infinite medium 无限介质，无限媒质",
-            "infinite distance 无限远距离，无穷远"
-        ],
-        "example": [
-            "Feelings of infinite melancholy stole over him. 无限的哀情愁思向他悄悄袭来。 《新英汉大辞典》",
-            "If you go on living, you do so only through your capacity for objectification, your ability to free yourself, in writing, from the infinite strain. 如果你还要继续活下去，你只有通过自身客体化的能力，你能用写作从无限的拉力中解放你自己。 ",
-            "Note that in a closed universe you could start a journey off in one direction and, if allowed enough time, ultimately return to your starting point; in an infinite universe, you would never return. 请注意，在一个封闭的宇宙你可以朝着一个方向开始旅行，如果允许足够的时间，最终将返回到出发点；而在一个无限的宇宙中，你永远不会回来。 "
->>>>>>> 598314a0c3421773c1a6d700781433d29d779a60
+            "He directed his aim to us. 他把他的目标对准我们。 《21世纪大英汉词典》",
+            "She took careful aim,but her arrow fell short. 她仔细瞄准，但箭没有击中目标。 《21世纪大英汉词典》",
+            "It's far beyond reach of our ability to obtain such aim. 按我们的能力这种目标是不可企及的。 《新英汉大辞典》"
         ]
     }
 }
