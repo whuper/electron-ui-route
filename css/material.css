@@ -49,16 +49,18 @@ table p:focus {
 	outline:none;
 
 }
-table.md-table tbody.md-body>tr td:focus {
+/* table.md-table tbody.md-body>tr td:focus {
 	font-weight: bold;
 	text-shadow: 2px 3px 6px #ccc;
 }
+ */
 table.md-table td.md-cell.md-numeric, table.md-table th.md-column.md-numeric {
 	text-align:left;
 }
 
 table.md-table tbody.md-body>tr.md-row:not([disabled]):hover {
-	background-color: #eee!important
+	background-color: #eee!important;
+	cursor: pointer;
 }
 h3 {
 	margin:5px 0;

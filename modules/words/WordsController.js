@@ -49,10 +49,13 @@
 				}	
 
 				if(!$scope.ctrl.tableIsfocus){
+					console.log('555');
+					
 					return false;
 				}		
-							
-				switch (e.keyCode) {
+				console.log(e.keyCode);		
+				switch (e.keyCode) {					
+					
 					case 38:
 						//console.log('38=上键，37=左键');
 						if($scope.currentItemIndex > 0){
@@ -223,15 +226,29 @@
 					this.tableIsfocus = false;
 
 			} */
-			console.log(event.target);
+		
+			var target = event.target
+			// var tagName = event.target.nodeName.toLowerCase();
+			console.log('currentTarget',event.currentTarget);
 			
-			var tagName = event.target.tagName;
-			if(tagName == 'TR'){
-				var index = angular.getElement(event.target);
-				console.log('tr',index);			
+			while(target !== event.currentTarget ){
 
+				if(target.tagName.toLowerCase() == 'tr'){
+			
+					var index = target.getAttribute('data-index');
+					
+					$scope.ctrl.selectWord($scope.wordResult[index],false,index,false);
 
+					$scope.currentItemIndex = index;
+					$scope.ctrl.tableIsfocus = true;
+									
+					
+					break;
+				}
+				target = target.parentNode;
 			}
+
+			//$scope.$apply();
 			
 
 		};

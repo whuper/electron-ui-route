@@ -1,20 +1,22 @@
 {
     "page": 20,
     "selectedWord": {
-        "id": 191,
-        "wordname": "ankle",
-        "desc": "n.足踝,踝关节",
+        "id": 200,
+        "wordname": "antique",
+        "desc": "a.古式的,过时的　n.有价值的古物,古董",
         "phonetic": [
-            "['æŋk(ə)l]",
-            "['æŋkl]"
+            "[æn'tiːk]",
+            "[æn'tik]"
         ],
         "wordGroup": [
-            "ankle joint 踝关节"
+            "antique furniture 古董家具；古典家具；古式家具",
+            "antique shop 古董店",
+            "antique brass 古铜色"
         ],
         "example": [
-            "She twisted her ankle when she fell. 她摔倒时扭伤了脚踝。 《21世纪大英汉词典》",
-            "The flesh around the ankle had swollen up. 脚踝四周的皮肉肿起来了。 ",
-            "Stay away from horizontal lines, such as horizontal stripes on garments, chokers, and ankle straps, unless you do something to diminish their effect. 不要那些水平线条，比如衣服、项链还有踝袜上的水平条纹，除非你做点别的来削弱它们的效果。 "
+            "This carved chest is a genuine antique. 这只雕花盒子是件古玩真品。 ",
+            "He delights in browing through antique stores. 他喜爱逛古董店随意观看商品。 《21世纪大英汉词典》",
+            "The collector knew that he had latched onto a rare antique. 收藏家知道他得到了一件稀世古董。 《21世纪大英汉词典》"
         ]
     }
 }
