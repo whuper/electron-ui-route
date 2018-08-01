@@ -32,8 +32,6 @@
 	var clickAudio = new Audio('./assets/click.mp3');
 	clickAudio.loop = true;
 
-
-	
 	window.addEventListener('keydown',function(e) {
 		if(!e){
 			return false;
@@ -66,17 +64,19 @@
 						if($scope.currentItemIndex < $scope.wordResult.length-1){
 
 							$scope.currentItemIndex += 1;
+					
 						}
 						break;
 					case 13:
-						e.preventDefault();
-						//return false;
-					/*
+				/* 		e.preventDefault();
+						e.returnValue = false;						
+						return false; */
+					
 						let index = $scope.currentItemIndex;
 						let tempItem = $scope.wordResult[index];
 
 						$scope.ctrl.selectWord(tempItem,null,index,false);
-
+						/*
 						let notification = {
 							title:tempItem.words,
 							body:tempItem.meaning
@@ -212,14 +212,30 @@
 		 
 	};
 	this.moduleClick = function(event) {
-		
-		if(event.target.tagName == 'TH' || event.target.tagName == 'TD' ){
-			this.tableIsfocus = true;
-		} else {
-			this.tableIsfocus = false;
+		if(event && event.target){
+/* 			if(event.target.className.split(' ')[0] == 'word-container'){
+				return;
+			}
+			
+			if(event.target.tagName == 'TH' || event.target.tagName == 'TD' || event.target.tagName == 'SPAN'){
+				this.tableIsfocus = true;
+				} else {				 
+					this.tableIsfocus = false;
 
-		}
-	};
+			} */
+			console.log(event.target);
+			
+			var tagName = event.target.tagName;
+			if(tagName == 'TR'){
+				var index = angular.getElement(event.target);
+				console.log('tr',index);			
+
+
+			}
+			
+
+		};
+	}
 
 	this.getState = function(){
 	
@@ -409,7 +425,8 @@
 		}
 		if(itemIndex){
 			$scope.currentItemIndex = itemIndex;			
-		}		
+		}
+		window.focus();
 
 	
 		var phonetic = item['phonetic'] ? item['phonetic'].split("#"):[];

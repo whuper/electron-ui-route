@@ -40,11 +40,16 @@
         </tr>
         </thead>
         <tbody md-body>
-        <tr md-row ng-repeat="items in wordResult"  ng-class="{true:'selected',false:''}[currentItemIndex == $index && ctrl.tableIsfocus]">
+				<tr data-index="{{$index}}" md-row ng-repeat="items in wordResult"  ng-class="{true:'selected',false:''}[currentItemIndex == $index && ctrl.tableIsfocus]">
             <!--<td md-cell ng-repeat="item in items">{{item}}</td>                     -->
-			<td md-cell ng-click="ctrl.selectWord(items,null,$index)"  >{{items['words']}}</td>                    
-			<td md-cell ng-click="ctrl.selectWord(items,null,$index)" >{{items['meaning']}}</td>
-			<td md-cell > <md-button ng-click="ctrl.updateWords(items,$index)">
+<!-- 			<td md-cell   > <a href="javascript:void(0)" ng-click="ctrl.selectWord(items,null,$index)" >{{items['words']}}</a> </td>                    
+			<td md-cell  ><a href="javascript:void(0)"  ng-click="ctrl.selectWord(items,null,$index)">{{items['meaning']}} </a> </td> -->
+
+			<td md-cell   > <span data-click="ctrl.selectWord(items,null,$index)" >{{items['words']}}</span> </td>                    
+			<td md-cell  ><span  data-click="ctrl.selectWord(items,null,$index)">{{items['meaning']}} </span> </td> 
+
+
+			<td md-cell > <md-button data-click="ctrl.updateWords(items,$index)">
 				<md-icon class="material-icon">add</md-icon>
 			</md-button></td>                       
         </tr>
@@ -52,7 +57,8 @@
     </table>
     </md-table-contaner>
 
-  <md-table-pagination md-dense md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{'5500'}}" md-on-paginate="getItems" md-page-select ></md-table-pagination>	
+	<md-table-pagination md-dense md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{'5500'}}" md-on-paginate="getItems" md-page-select ></md-table-pagination>	
+	<h4> {{ctrl.tableIsfocus}} </h4>
 	</div>
 
 	<!--col-md-5 end//-->
