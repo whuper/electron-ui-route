@@ -43,18 +43,29 @@
 			} else {
 
 				if(e.keyCode == 27){
-
-					$scope.ctrl.stopPlay();						
-
+					$scope.ctrl.stopPlay();	
 				}	
 
 				if(!$scope.ctrl.tableIsfocus){
-					console.log('555');
-					
+					console.log('The table is not focused');
 					return false;
 				}		
-				console.log(e.keyCode);		
-				switch (e.keyCode) {					
+				console.log('e.keyCode',e.keyCode);		
+				switch (e.keyCode) {
+					case 37:
+						$scope.currentItemIndex = 0;
+						//翻页
+						$scope.query.page -= 1;
+						$scope.getItems();
+						$scope.$apply();
+						break;
+					case 39:
+						$scope.currentItemIndex = 0;
+						//翻页
+						$scope.query.page += 1;
+						$scope.getItems();
+						$scope.$apply();
+						break;				
 					
 					case 38:
 						//console.log('38=上键，37=左键');
@@ -229,13 +240,17 @@
 		
 			var target = event.target
 			// var tagName = event.target.nodeName.toLowerCase();
-			console.log('currentTarget',event.currentTarget);
+			// console.log('currentTarget',event.currentTarget);
 			
 			while(target !== event.currentTarget ){
 
 				if(target.tagName.toLowerCase() == 'tr'){
 			
 					var index = target.getAttribute('data-index');
+
+					if(!$scope.wordResult[index]){
+							return false;
+					}
 					
 					$scope.ctrl.selectWord($scope.wordResult[index],false,index,false);
 
@@ -640,19 +655,19 @@
 			$timeout.cancel(timeout_);
 			//return
 		}
-		if(!soundOff){
+/* 		if(!soundOff){
 			clickAudio.currentTime = 0;
 			clickAudio.play();
-		} 
+		}  */
 	
 		interval_ = $interval(function(){
 
 			if($scope.LetterNo >= wordReal.length){
 				$interval.cancel(interval_)
 				
-				if(!soundOff){
+			/* 	if(!soundOff){
 					clickAudio.pause();
-				}
+				} */
 
 				timeout_ = $timeout(function(){
 					console.log('clear');

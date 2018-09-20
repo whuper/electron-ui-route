@@ -1,22 +1,39 @@
 {
-    "page": 20,
+    "page": 58,
     "selectedWord": {
-        "id": 200,
-        "wordname": "antique",
-        "desc": "a.古式的,过时的　n.有价值的古物,古董",
+        "id": 575,
+        "wordname": "budget",
+        "desc": "n.预算 v.做预算",
         "phonetic": [
-            "[æn'tiːk]",
-            "[æn'tik]"
+            "['bʌdʒɪt]",
+            "['bʌdʒɪt]"
         ],
         "wordGroup": [
-            "antique furniture 古董家具；古典家具；古式家具",
-            "antique shop 古董店",
-            "antique brass 古铜色"
+            "budget deficit 预算赤字",
+            "budget for 为…作预算",
+            "project budget 项目预算，工程预算",
+            "overall budget 总体预算",
+            "financial budget 财务预算",
+            "federal budget 联邦预算",
+            "annual budget n. 年度预算",
+            "government budget 政府预算；国家预算",
+            "on a budget 避免不必要的开支，节省费用",
+            "sales budget 销售预算",
+            "state budget 国家财政预算",
+            "budget constraint 预算约束；预算限制",
+            "congressional budget office 国会预算局",
+            "defense budget 国防预算",
+            "budget plan 预算方案；分期付款",
+            "balanced budget 平衡预算",
+            "budget committee 预算委员会",
+            "capital budget 资本预算",
+            "fiscal budget n. 财政预算",
+            "budget accounting 预算会计"
         ],
         "example": [
-            "This carved chest is a genuine antique. 这只雕花盒子是件古玩真品。 ",
-            "He delights in browing through antique stores. 他喜爱逛古董店随意观看商品。 《21世纪大英汉词典》",
-            "The collector knew that he had latched onto a rare antique. 收藏家知道他得到了一件稀世古董。 《21世纪大英汉词典》"
+            "The congress approved the budget. 国会批准了国家预算。 《新英汉大辞典》",
+            "We couldn't budget for every emergency. 我们不能为每个紧急需要做安排。 ",
+            "With a limited budget the society is handicapped in its operation. 由于该协会的预算有限， 其活动受到限制。 《新英汉大辞典》"
         ]
     }
 }
