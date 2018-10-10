@@ -26,6 +26,7 @@ table.md-table tbody.md-body>tr.md-row, table.md-table tfoot.md-foot>tr.md-row {
 table.md-table tbody.md-body>tr.selected {
 	background:#c5eeee;
 	/* font-weight: bold; */
+	box-shadow: inset 0px 0px 10px rgb(139, 219, 202);
 
 }
 /*

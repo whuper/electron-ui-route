@@ -1,39 +1,20 @@
 {
-    "page": 58,
+    "page": 31,
     "selectedWord": {
-        "id": 575,
-        "wordname": "budget",
-        "desc": "n.预算 v.做预算",
+        "id": 4031,
+        "wordname": "revise",
+        "desc": "v.修订,校订;修正,修改",
         "phonetic": [
-            "['bʌdʒɪt]",
-            "['bʌdʒɪt]"
+            "[rɪ'vaɪz]",
+            "[rɪ'vaɪz]"
         ],
         "wordGroup": [
-            "budget deficit 预算赤字",
-            "budget for 为…作预算",
-            "project budget 项目预算，工程预算",
-            "overall budget 总体预算",
-            "financial budget 财务预算",
-            "federal budget 联邦预算",
-            "annual budget n. 年度预算",
-            "government budget 政府预算；国家预算",
-            "on a budget 避免不必要的开支，节省费用",
-            "sales budget 销售预算",
-            "state budget 国家财政预算",
-            "budget constraint 预算约束；预算限制",
-            "congressional budget office 国会预算局",
-            "defense budget 国防预算",
-            "budget plan 预算方案；分期付款",
-            "balanced budget 平衡预算",
-            "budget committee 预算委员会",
-            "capital budget 资本预算",
-            "fiscal budget n. 财政预算",
-            "budget accounting 预算会计"
+            "revise for v. 复习功课（迎考）"
         ],
         "example": [
-            "The congress approved the budget. 国会批准了国家预算。 《新英汉大辞典》",
-            "We couldn't budget for every emergency. 我们不能为每个紧急需要做安排。 ",
-            "With a limited budget the society is handicapped in its operation. 由于该协会的预算有限， 其活动受到限制。 《新英汉大辞典》"
+            "If the hypothesis does not match the observations, you must revise your hypothesis. 如果这个假设与观察到的现象不相匹配，您必须修订您的假设。 ",
+            "We have the ability to \"replace\" processes with new ones, without having to revise the whole process system. 我们可以在不修订整个过程系统的情况下。 用新的过程来“替换”这些过程。 ",
+            "Revise the goals until all parties agree on them and understand them. 修订目标，直到各方理解他们，并对此达成一致意见。 "
         ]
     }
 }

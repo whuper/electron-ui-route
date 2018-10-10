@@ -126,6 +126,8 @@
 					default:
 						break;
 				}
+				console.log('$scope.currentItemIndex',$scope.currentItemIndex);
+				
 				$scope.$apply(function(){
 					//$scope.currentItemIndex = 3;
 				}); 
@@ -246,7 +248,7 @@
 
 				if(target.tagName.toLowerCase() == 'tr'){
 			
-					var index = target.getAttribute('data-index');
+					var index = parseInt(target.getAttribute('data-index'));
 
 					if(!$scope.wordResult[index]){
 							return false;
