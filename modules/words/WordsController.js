@@ -651,15 +651,25 @@
 	this.spell = function(wordReal,soundOff){
 		$scope.LetterNo = 0;
 		$scope.spellWordName = '';
+	
+
 
 		if(interval_ || timeout_){
 			$interval.cancel(interval_);
 			$timeout.cancel(timeout_);
-			//return
 		}
+		$scope.spellWordName = wordReal;
+			timeout_ = $timeout(function(){
+			
+					wordsArray = [];
+					$scope.spellWordName = '';
+				},800);
+     return false;
+
 /* 		if(!soundOff){
 			clickAudio.currentTime = 0;
 			clickAudio.play();
+			clickAudio.pause();
 		}  */
 	
 		interval_ = $interval(function(){
@@ -667,10 +677,6 @@
 			if($scope.LetterNo >= wordReal.length){
 				$interval.cancel(interval_)
 				
-			/* 	if(!soundOff){
-					clickAudio.pause();
-				} */
-
 				timeout_ = $timeout(function(){
 					console.log('clear');
 					wordsArray = [];

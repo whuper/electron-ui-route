@@ -1,4 +1,4 @@
-<div flex layout="column" tabindex="-1" class="md-whiteframe-z1" ng-init="shell.initialize()" ng-cloak>
+<div flex layout="column" tabindex="-1" class="md-whiteframe-z1" ng-init="shell.initialize()" back-ng-cloak>
 
   <centered ng-show="shell.isBusy">
     <div layout="column" layout-align="space-around center">
@@ -113,9 +113,7 @@
     </div>-->
   </md-toolbar>
 
-   <section layout="row" flex>
-
-   <md-sidenav class="md-sidenav-left" md-component-id="sidebar"
+	   <md-sidenav class="md-sidenav-left" md-component-id="sidebar"
                 back-md-disable-backdrop md-whiteframe="4">
 
       <md-toolbar class="md-theme-indigo">
@@ -150,6 +148,10 @@
       </md-content>
 
     </md-sidenav>
+
+   <section layout="row" flex>
+
+
     <!-- layout-margin down -->
   <md-content  flex layout-fill  ui-view="module" class="ui-view-container">
   </md-content>

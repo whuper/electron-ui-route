@@ -153,7 +153,7 @@
   </div>-->
 
    <!--<centered ng-show="spellWordName">-->
-    <div class="spell-word title-h typing">
+    <div ng-class="{true:'active',false:''}[spellWordName.length > 0]" class="spell-word title-h typing">
      {{ spellWordName }}
     </div>
   <!--</centered>-->

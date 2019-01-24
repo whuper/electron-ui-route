@@ -1,20 +1,28 @@
 {
-    "page": 31,
+    "page": 60,
     "selectedWord": {
-        "id": 4031,
-        "wordname": "revise",
-        "desc": "v.修订,校订;修正,修改",
+        "id": 6,
+        "wordname": "abnormal",
+        "desc": "a.反常的,不正常的,不规则的",
         "phonetic": [
-            "[rɪ'vaɪz]",
-            "[rɪ'vaɪz]"
+            "[æb'nɔːml]",
+            "[æbˈnɔːrml]"
         ],
         "wordGroup": [
-            "revise for v. 复习功课（迎考）"
+            "abnormal phenomena 异常现象",
+            "abnormal behavior 异常行为；变态行为",
+            "abnormal condition 异常情况",
+            "abnormal psychology 变态心理学",
+            "abnormal sound 不正常声音；杂音",
+            "abnormal return 异常返回",
+            "abnormal situation 异常情况",
+            "abnormal distribution [化]非正态分布",
+            "abnormal menstruation 月经失调"
         ],
         "example": [
-            "If the hypothesis does not match the observations, you must revise your hypothesis. 如果这个假设与观察到的现象不相匹配，您必须修订您的假设。 ",
-            "We have the ability to \"replace\" processes with new ones, without having to revise the whole process system. 我们可以在不修订整个过程系统的情况下。 用新的过程来“替换”这些过程。 ",
-            "Revise the goals until all parties agree on them and understand them. 修订目标，直到各方理解他们，并对此达成一致意见。 "
+            "That is simply abnormal. 那简直是反常的。 ",
+            "The machinist pressed his ear to the instrument in order to listen and tell where the abnormal sound came from. 机械师把耳朵紧贴在仪器上想听出和找出反常的声音出自何处。 《21世纪大英汉词典》",
+            "They have one abnormal gene from that parent and one normal gene from the other parent. 他们具有来自父母一方的一个异常基因和来自父母另一方的一个正常基因。 "
         ]
     }
 }
