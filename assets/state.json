@@ -1,28 +1,17 @@
 {
-    "page": 60,
+    "page": 77,
     "selectedWord": {
-        "id": 6,
-        "wordname": "abnormal",
-        "desc": "a.反常的,不正常的,不规则的",
+        "id": 770,
+        "wordname": "cigaret",
+        "desc": "n.(cigarette)香烟,纸烟,卷烟",
         "phonetic": [
-            "[æb'nɔːml]",
-            "[æbˈnɔːrml]"
+            "['sɪɡə'rɛt]"
         ],
-        "wordGroup": [
-            "abnormal phenomena 异常现象",
-            "abnormal behavior 异常行为；变态行为",
-            "abnormal condition 异常情况",
-            "abnormal psychology 变态心理学",
-            "abnormal sound 不正常声音；杂音",
-            "abnormal return 异常返回",
-            "abnormal situation 异常情况",
-            "abnormal distribution [化]非正态分布",
-            "abnormal menstruation 月经失调"
-        ],
+        "wordGroup": [],
         "example": [
-            "That is simply abnormal. 那简直是反常的。 ",
-            "The machinist pressed his ear to the instrument in order to listen and tell where the abnormal sound came from. 机械师把耳朵紧贴在仪器上想听出和找出反常的声音出自何处。 《21世纪大英汉词典》",
-            "They have one abnormal gene from that parent and one normal gene from the other parent. 他们具有来自父母一方的一个异常基因和来自父母另一方的一个正常基因。 "
+            "I could hardly see her through the haze of cigaret smoke. 在香烟的烟雾弥漫中，我简直看不见她。 ",
+            "The busboy who alerted patrons of the fire at the Hills Super Club said that cigaret butts dumped into soiled tablelinen may have caused the fatal blaze. 向客人惊呼希尔斯高级俱乐部起火了的餐厅侍者说，这场损失惨重的大火很可能是由于把香烟蒂到在弄脏了的桌布里引起的。 ",
+            "RA 7171 plows back annually 15 percent of cigaret excise tax revenues collected by the National Government to the virginia leaf producing provinces of Ilocos Sur, Ilocos Norte, La Union and Abra. RA 7171把国家政府每年征收的卷烟消费税，每年向弗吉尼亚烟叶生产省南伊洛克斯省、北伊洛克斯省、拉乌尼翁和埃尔阿布拉再投资15%。 "
         ]
     }
 }

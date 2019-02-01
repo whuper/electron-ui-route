@@ -35,18 +35,35 @@
 			<th md-column md-numeric wordResult >{{wordResult.columns[1]}}</th>     
 			<th md-column md-numeric wordResult >{{wordResult.columns[2]}}</th> 
 			  -->
-			<th md-column md-numeric wordResult >words</th> 
-			<th md-column md-numeric wordResult >meaning</th> 
+			<th md-column md-numeric >words</th> 
+			<th md-column md-numeric >
+M
+<!-- 				<md-select ng-model="selectedItems"
+				md-on-close="clearSearchTerm()"
+				data-md-container-class="selectdemoSelectHeader"
+				multiple>
+<md-optgroup label="wordResult.columns">
+ <md-option ng-value="wordItem" ng-repeat="wordItem in wordResult.columns">{{wordItem}}</md-option>
+</md-optgroup>
+</md-select> -->
+
+			</th> 
         </tr>
-        </thead>
+		</thead>
+				
         <tbody md-body>
 				<tr data-index="{{$index}}" md-row ng-repeat="items in wordResult"  ng-class="{true:'selected',false:''}[currentItemIndex == $index && ctrl.tableIsfocus]">
             <!--<td md-cell ng-repeat="item in items">{{item}}</td>                     -->
 <!-- 			<td md-cell   > <a href="javascript:void(0)" ng-click="ctrl.selectWord(items,null,$index)" >{{items['words']}}</a> </td>                    
 			<td md-cell  ><a href="javascript:void(0)"  ng-click="ctrl.selectWord(items,null,$index)">{{items['meaning']}} </a> </td> -->
 
-			<td md-cell   > <span data-click="ctrl.selectWord(items,null,$index)" >{{items['words']}}</span> </td>                    
-			<td md-cell  ><span  data-click="ctrl.selectWord(items,null,$index)">{{items['meaning']}} </span> </td> 
+			<td md-cell   > <span data-click="ctrl.selectWord(items,null,$index)" >{{items['words']}}</span>
+			  <md-tooltip md-direction="right"> {{items['meaning']}} 	</md-tooltip> 
+			</td>                    
+			<td md-cell  >
+				<span  data-click="ctrl.selectWord(items,null,$index)"> {{items['meaning']}} </span>
+			 </td> 
+			<!-- <td md-cell  ><span  data-click="ctrl.selectWord(items,null,$index)">{{items['meaning']}} </span> </td>  -->
 
 
 			<td md-cell > <md-button data-click="ctrl.updateWords(items,$index)">
