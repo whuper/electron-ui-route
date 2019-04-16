@@ -1,17 +1,35 @@
 {
-    "page": 77,
+    "page": 83,
     "selectedWord": {
-        "id": 770,
-        "wordname": "cigaret",
-        "desc": "n.(cigarette)香烟,纸烟,卷烟",
+        "id": 830,
+        "wordname": "clutch",
+        "desc": "v.抓住,攫住,掌握 n.离合器",
         "phonetic": [
-            "['sɪɡə'rɛt]"
+            "[klʌtʃ]",
+            "[klʌtʃ]"
         ],
-        "wordGroup": [],
+        "wordGroup": [
+            "in the clutch [口语]在关键时刻",
+            "electromagnetic clutch 电磁离合器",
+            "clutch at 抓住",
+            "friction clutch 摩擦离合器",
+            "automobile clutch 汽车离合器",
+            "clutch disc 离合器片；离合圆盘",
+            "clutch pedal 离合器踏板；离合皮板",
+            "clutch cover 离合器盖",
+            "overrunning clutch 单向离合器；超速离合器",
+            "clutch plate 离合器片，从动盘",
+            "safety clutch 过载离合器，安全离合器",
+            "automatic clutch 自动离合器",
+            "clutch brake 离合器制动器；离合脾；离合器煞车",
+            "clutch assembly 离合器总成",
+            "clutch housing 离合器壳",
+            "clutch disk 离合器"
+        ],
         "example": [
-            "I could hardly see her through the haze of cigaret smoke. 在香烟的烟雾弥漫中，我简直看不见她。 ",
-            "The busboy who alerted patrons of the fire at the Hills Super Club said that cigaret butts dumped into soiled tablelinen may have caused the fatal blaze. 向客人惊呼希尔斯高级俱乐部起火了的餐厅侍者说，这场损失惨重的大火很可能是由于把香烟蒂到在弄脏了的桌布里引起的。 ",
-            "RA 7171 plows back annually 15 percent of cigaret excise tax revenues collected by the National Government to the virginia leaf producing provinces of Ilocos Sur, Ilocos Norte, La Union and Abra. RA 7171把国家政府每年征收的卷烟消费税，每年向弗吉尼亚烟叶生产省南伊洛克斯省、北伊洛克斯省、拉乌尼翁和埃尔阿布拉再投资15%。 "
+            "Why do we clutch at this baggage,even when were desperate to move on? 为什么有人仍然抓住行李不放，即使我们不顾一切的向前看。 ",
+            "Many bird species will raise a second brood, but kingfishers, averaging six or seven eggs per clutch, often raise a third. 许多鸟类会孵化两窝小鸟，但是翠鸟经常会生第三窝，而它们的每一窝都平均有六七个蛋。 ",
+            "Offering women more opportunity to earn a living could, Goldman reckons, push up income per head by 20% more than previous predictions in a clutch of emerging economies over the next two decades. 高盛估计，在未来的20年，一系列新兴的经济环境将给女人们提供更多的工作机会，这可以让人均收入水平大幅增加，大致超过预计的20%。 "
         ]
     }
 }
