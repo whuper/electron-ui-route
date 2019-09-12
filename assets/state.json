@@ -1,39 +1,35 @@
 {
-    "page": 70,
+    "page": 83,
     "selectedWord": {
-        "id": 693,
-        "wordname": "cement",
-        "desc": "n.水泥;胶泥,胶接剂 v.胶合;巩固,加强",
+        "id": 830,
+        "wordname": "clutch",
+        "desc": "v.抓住,攫住,掌握 n.离合器",
         "phonetic": [
-            "[sɪ'ment]",
-            "[sə'mɛnt]"
+            "[klʌtʃ]",
+            "[klʌtʃ]"
         ],
         "wordGroup": [
-            "in cement [美国口语]坚定不移的，不妥协的",
-            "cement concrete 水泥混凝土",
-            "cement industry 水泥工业",
-            "portland cement 波特兰水泥，硅酸盐水泥，普通水泥",
-            "cement mortar 水泥砂浆；水泥灰浆",
-            "cement plant 水泥厂；油漆厂",
-            "cement slurry [建]水泥渣",
-            "cement paste 水泥浆",
-            "cement clinker 水泥熟料；水泥熔渣；水泥烧块",
-            "bulk cement 散装水泥",
-            "cement kiln 水泥窑",
-            "slag cement 矿渣水泥；熔渣水泥",
-            "bone cement 骨水泥；骨接合剂",
-            "cement content 水泥含量；洋灰含量",
-            "plastic cement [化]塑料粘结剂",
-            "water cement ratio [化]水灰比",
-            "cement mill 水泥厂；水泥磨机",
-            "ordinary portland cement 普通硅酸盐水泥",
-            "fiber cement n. 纤维水泥",
-            "silicate cement 硅粘固粉；硅酸盐胶"
+            "in the clutch [口语]在关键时刻",
+            "electromagnetic clutch 电磁离合器",
+            "clutch at 抓住",
+            "friction clutch 摩擦离合器",
+            "automobile clutch 汽车离合器",
+            "clutch disc 离合器片；离合圆盘",
+            "clutch pedal 离合器踏板；离合皮板",
+            "clutch cover 离合器盖",
+            "overrunning clutch 单向离合器；超速离合器",
+            "clutch plate 离合器片，从动盘",
+            "safety clutch 过载离合器，安全离合器",
+            "automatic clutch 自动离合器",
+            "clutch brake 离合器制动器；离合脾；离合器煞车",
+            "clutch assembly 离合器总成",
+            "clutch housing 离合器壳",
+            "clutch disk 离合器"
         ],
         "example": [
-            "Our object is to further cement trade relations. 我们的目标是进一步巩固贸易关系。 《21世纪大英汉词典》",
-            "The mixed cement has been hoisted up the building. 拌好的水泥灰浆已吊到建筑物顶上了。 ",
-            "Harry was coated in sand and cement,but we picked him up and dusted him down. 哈里满身全是沙子和水泥，我们把他扶起来，给他掸掸干净。 《21世纪大英汉词典》"
+            "Why do we clutch at this baggage,even when were desperate to move on? 为什么有人仍然抓住行李不放，即使我们不顾一切的向前看。 ",
+            "Many bird species will raise a second brood, but kingfishers, averaging six or seven eggs per clutch, often raise a third. 许多鸟类会孵化两窝小鸟，但是翠鸟经常会生第三窝，而它们的每一窝都平均有六七个蛋。 ",
+            "Offering women more opportunity to earn a living could, Goldman reckons, push up income per head by 20% more than previous predictions in a clutch of emerging economies over the next two decades. 高盛估计，在未来的20年，一系列新兴的经济环境将给女人们提供更多的工作机会，这可以让人均收入水平大幅增加，大致超过预计的20%。 "
         ]
     }
 }

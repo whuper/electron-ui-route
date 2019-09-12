@@ -202,6 +202,8 @@
 
   WordsService.getWordsList($scope.query).then(function(json){
   $scope.wordResult = json;
+  console.log(' $scope.wordResult',$scope.wordResult);
+  
 
   //console.log('##',$scope.$parent.shell);
   
@@ -218,6 +220,8 @@
 		  $scope.wordResult = json;
 	 });
   };
+
+  $scope.vegetables = ['Corn' ,'Onions' ,'Kale' ,'Arugula' ,'Peas', 'Zucchini'];
 
   $scope.currentHistory = [];
 
