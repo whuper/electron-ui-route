@@ -1,28 +1,39 @@
 {
-    "page": 60,
+    "page": 70,
     "selectedWord": {
-        "id": 6,
-        "wordname": "abnormal",
-        "desc": "a.反常的,不正常的,不规则的",
+        "id": 693,
+        "wordname": "cement",
+        "desc": "n.水泥;胶泥,胶接剂 v.胶合;巩固,加强",
         "phonetic": [
-            "[æb'nɔːml]",
-            "[æbˈnɔːrml]"
+            "[sɪ'ment]",
+            "[sə'mɛnt]"
         ],
         "wordGroup": [
-            "abnormal phenomena 异常现象",
-            "abnormal behavior 异常行为；变态行为",
-            "abnormal condition 异常情况",
-            "abnormal psychology 变态心理学",
-            "abnormal sound 不正常声音；杂音",
-            "abnormal return 异常返回",
-            "abnormal situation 异常情况",
-            "abnormal distribution [化]非正态分布",
-            "abnormal menstruation 月经失调"
+            "in cement [美国口语]坚定不移的，不妥协的",
+            "cement concrete 水泥混凝土",
+            "cement industry 水泥工业",
+            "portland cement 波特兰水泥，硅酸盐水泥，普通水泥",
+            "cement mortar 水泥砂浆；水泥灰浆",
+            "cement plant 水泥厂；油漆厂",
+            "cement slurry [建]水泥渣",
+            "cement paste 水泥浆",
+            "cement clinker 水泥熟料；水泥熔渣；水泥烧块",
+            "bulk cement 散装水泥",
+            "cement kiln 水泥窑",
+            "slag cement 矿渣水泥；熔渣水泥",
+            "bone cement 骨水泥；骨接合剂",
+            "cement content 水泥含量；洋灰含量",
+            "plastic cement [化]塑料粘结剂",
+            "water cement ratio [化]水灰比",
+            "cement mill 水泥厂；水泥磨机",
+            "ordinary portland cement 普通硅酸盐水泥",
+            "fiber cement n. 纤维水泥",
+            "silicate cement 硅粘固粉；硅酸盐胶"
         ],
         "example": [
-            "That is simply abnormal. 那简直是反常的。 ",
-            "The machinist pressed his ear to the instrument in order to listen and tell where the abnormal sound came from. 机械师把耳朵紧贴在仪器上想听出和找出反常的声音出自何处。 《21世纪大英汉词典》",
-            "They have one abnormal gene from that parent and one normal gene from the other parent. 他们具有来自父母一方的一个异常基因和来自父母另一方的一个正常基因。 "
+            "Our object is to further cement trade relations. 我们的目标是进一步巩固贸易关系。 《21世纪大英汉词典》",
+            "The mixed cement has been hoisted up the building. 拌好的水泥灰浆已吊到建筑物顶上了。 ",
+            "Harry was coated in sand and cement,but we picked him up and dusted him down. 哈里满身全是沙子和水泥，我们把他扶起来，给他掸掸干净。 《21世纪大英汉词典》"
         ]
     }
 }
